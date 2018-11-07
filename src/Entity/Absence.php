@@ -289,5 +289,19 @@ class Absence
         return $this;
     }
 
+    public function setUpdateFields($username)
+    {
+        $this->setAbsDatechangement(new \DateTime(date('Y-m-d H:i:s')));
+        $this->setAbsAuteurchangement($username);
+
+        if($this->getAbsDatecreation() == null)
+        {
+            $this->setAbsDatecreation(new \DateTime(date('Y-m-d H:i:s')));
+        }
+        if($this->getAbsAuteurcreation() == null)
+        {
+            $this->setAbsAuteurcreation($username);
+        }
+    }
 
 }

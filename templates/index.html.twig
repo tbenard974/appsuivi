@@ -1,0 +1,20 @@
+{#  L'échappement de données (output escaping) est automatique avec Symfony / Twig 
+    Il n'est pas nécessaire d'écrite  {{ value|escape }} 
+    http://symfony.com/doc/current/templating.html#output-escaping
+#}
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+	{% if app.user != null %}
+        <p> Pour faire une demande d'absence
+        <input type="button" onclick="location.href='/absence/demande';" value="Faire une demande d'absence" />
+	{% endif %}
+	
+	{% if app.user == null %}
+		<a href="/login" class="btn btn-info"> You need to login >></a>
+	{% endif %}
+{% endblock %}

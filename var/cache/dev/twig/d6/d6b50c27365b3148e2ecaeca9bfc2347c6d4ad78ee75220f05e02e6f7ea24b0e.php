@@ -76,8 +76,8 @@ class __TwigTemplate_4ddaf73752fff48efbf8a9362b0b954028b35db5f63c5ac5f56c04932c8
         echo "\t";
         if ((twig_get_attribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new Twig_Error_Runtime('Variable "app" does not exist.', 12, $this->source); })()), "user", array()) != null)) {
             // line 13
-            echo "        <p> Pour faire une demande d'absence
-        <input type=\"button\" onclick=\"location.href='/absence/demande';\" value=\"Faire une demande d'absence\" />
+            echo "        <p> Pour ajouter un évènement à votre calendrier
+        <input type=\"button\" onclick=\"location.href='/evenement/ajouter';\" value=\"Ajouter un évènement\" />
 \t";
         }
         // line 16
@@ -126,8 +126,8 @@ class __TwigTemplate_4ddaf73752fff48efbf8a9362b0b954028b35db5f63c5ac5f56c04932c8
 
 {% block body %}
 \t{% if app.user != null %}
-        <p> Pour faire une demande d'absence
-        <input type=\"button\" onclick=\"location.href='/absence/demande';\" value=\"Faire une demande d'absence\" />
+        <p> Pour ajouter un évènement à votre calendrier
+        <input type=\"button\" onclick=\"location.href='/evenement/ajouter';\" value=\"Ajouter un évènement\" />
 \t{% endif %}
 \t
 \t{% if app.user == null %}

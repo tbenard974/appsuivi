@@ -78,6 +78,8 @@ class srcDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
                     '/' => array(array('_route' => 'index', '_controller' => 'App\\Controller\\DefaultController::index'), null, null, null),
                     '/absence/demande' => array(array('_route' => 'demandeAbsence', '_controller' => 'App\\Controller\\AbsenceController::demande'), null, null, null),
                     '/register' => array(array('_route' => 'register', '_controller' => 'App\\Controller\\RegistrationController::registerAction'), null, null, null),
+                    '/evenement/ajouter' => array(array('_route' => 'ajouterEvenement', '_controller' => 'App\\Controller\\EvenementController::ajouter'), null, null, null),
+                    '/logout' => array(array('_route' => 'logout'), null, null, null),
                 );
 
                 if (!isset($routes[$pathinfo])) {

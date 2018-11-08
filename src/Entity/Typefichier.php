@@ -25,9 +25,9 @@ class Typefichier
     /**
      * @var string
      *
-     * @ORM\Column(name="typfic_name", type="string", length=50, nullable=false)
+     * @ORM\Column(name="typfic_nom", type="string", length=50, nullable=false)
      */
-    private $typficName;
+    private $typficNom;
 
     /**
      * @var string|null
@@ -69,14 +69,14 @@ class Typefichier
         return $this->typficId;
     }
 
-    public function getTypficName(): ?string
+    public function getTypficNom(): ?string
     {
-        return $this->typficName;
+        return $this->typficNom;
     }
 
-    public function setTypficName(string $typficName): self
+    public function setTypficNom(string $typficNom): self
     {
-        $this->typficName = $typficName;
+        $this->typficNom = $typficNom;
 
         return $this;
     }

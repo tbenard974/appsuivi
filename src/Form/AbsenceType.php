@@ -23,7 +23,7 @@ class AbsenceType extends AbstractType
         $builder
             ->add('absFkmotifabsence', EntityType::class, array(
                 'class' => Motifabsence::class,
-                'choice_label' => 'motabsName',
+                'choice_label' => 'motabsNom',
                 // used to render a select box, check boxes or radios
                 'multiple' => false,
                 'expanded' => false,
@@ -44,7 +44,7 @@ class AbsenceType extends AbstractType
         if (empty($absence)) {
             return;
         }
-        if ($absence->getMotabsName() == 'Compétition') {
+        if ($absence->getMotabsNom() == 'Compétition') {
             $form
                 ->add('fichier', FileType::class, array(
                     'mapped' => false,

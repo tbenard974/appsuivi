@@ -37,6 +37,8 @@ class srcDevDebugProjectContainerUrlGenerator extends Symfony\Component\Routing\
         'demandeAbsence' => array(array(), array('_controller' => 'App\\Controller\\AbsenceController::demande'), array(), array(array('text', '/absence/demande')), array(), array()),
         'login' => array(array(), array('_controller' => 'App\\Controller\\SecurityController::loginAction'), array(), array(array('text', '/login')), array(), array()),
         'register' => array(array(), array('_controller' => 'App\\Controller\\RegistrationController::registerAction'), array(), array(array('text', '/register')), array(), array()),
+        'ajouterEvenement' => array(array(), array('_controller' => 'App\\Controller\\EvenementController::ajouter'), array(), array(array('text', '/evenement/ajouter')), array(), array()),
+        'logout' => array(array(), array(), array(), array(array('text', '/logout')), array(), array()),
     );
         }
     }

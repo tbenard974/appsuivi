@@ -34,7 +34,7 @@ class AbsenceController extends Controller
             $absence = $form->getData();
             $entityManager = $this->getDoctrine()->getManager();
 
-            if ($absence->getAbsFkmotifabsence()->getMotabsName()=='Compétition') {
+            if ($absence->getAbsFkmotifabsence()->getMotabsNom()=='Compétition') {
 
                 $typeFichier = $this->getDoctrine()->getRepository(Typefichier::class)->findOneByTypficName('Convocation'); #findOneByTypficName devra être changé par findOneByTypficNom lorsque la base sera recréée
                 $fichierTransmis = $form->get('fichier')->getData();

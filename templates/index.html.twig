@@ -10,8 +10,8 @@
 
 {% block body %}
 	{% if app.user != null %}
-        <p> Pour faire une demande d'absence
-        <input type="button" onclick="location.href='/absence/demande';" value="Faire une demande d'absence" />
+        <p> Pour ajouter un évènement à votre calendrier
+        <input type="button" onclick="location.href='/evenement/ajouter';" value="Ajouter un évènement" />
 	{% endif %}
 	
 	{% if app.user == null %}

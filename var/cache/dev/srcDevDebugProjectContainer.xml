@@ -384,6 +384,9 @@
     <service id="App\Controller\DefaultController" class="App\Controller\DefaultController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
     </service>
+    <service id="App\Controller\EvenementController" class="App\Controller\EvenementController" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+    </service>
     <service id="App\Controller\RegistrationController" class="App\Controller\RegistrationController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
     </service>
@@ -395,6 +398,9 @@
       </call>
     </service>
     <service id="App\Form\AbsenceType" class="App\Form\AbsenceType" public="false" autowire="true" autoconfigure="true">
+      <tag name="form.type"/>
+    </service>
+    <service id="App\Form\EvenementType" class="App\Form\EvenementType" public="false" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
     </service>
     <service id="App\Form\FichierType" class="App\Form\FichierType" public="false" autowire="true" autoconfigure="true">
@@ -667,6 +673,7 @@
       </argument>
       <argument type="collection">
         <argument>App\Form\AbsenceType</argument>
+        <argument>App\Form\EvenementType</argument>
         <argument>App\Form\FichierType</argument>
         <argument>App\Form\UsersType</argument>
         <argument>Symfony\Component\Form\Extension\Core\Type\FormType</argument>
@@ -895,7 +902,7 @@
       <argument type="service" id="form.resolved_type_factory"/>
     </service>
     <service id="form.extension" class="Symfony\Component\Form\Extension\DependencyInjection\DependencyInjectionExtension" public="false">
-      <argument type="service" id=".service_locator.C8xMLZg"/>
+      <argument type="service" id=".service_locator.p9YmHQ2"/>
       <argument type="collection">
         <argument key="Symfony\Component\Form\Extension\Core\Type\FormType" type="iterator">
           <argument type="service" id="form.type_extension.form.http_foundation"/>
@@ -1923,14 +1930,6 @@
       </call>
       <call method="addListener">
         <argument>kernel.request</argument>
-        <argument type="collection">
-          <argument type="service" id="debug.debug_handlers_listener"/>
-          <argument>configure</argument>
-        </argument>
-        <argument>2048</argument>
-      </call>
-      <call method="addListener">
-        <argument>console.command</argument>
         <argument type="collection">
           <argument type="service" id="debug.debug_handlers_listener"/>
           <argument>configure</argument>
@@ -4232,6 +4231,8 @@
     <service id=".abstract.instanceof.App\Controller\AbsenceController" class="App\Controller\AbsenceController" public="false" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\Controller.0.App\Controller\DefaultController" class="App\Controller\DefaultController" public="false" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\DefaultController" class="App\Controller\DefaultController" public="false" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\Controller.0.App\Controller\EvenementController" class="App\Controller\EvenementController" public="false" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\EvenementController" class="App\Controller\EvenementController" public="false" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\Controller.0.App\Controller\RegistrationController" class="App\Controller\RegistrationController" public="false" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\RegistrationController" class="App\Controller\RegistrationController" public="false" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\DependencyInjection\ServiceSubscriberInterface.0.App\Controller\SecurityController" class="App\Controller\SecurityController" public="false" autowire="true" abstract="true"/>
@@ -4239,6 +4240,8 @@
     <service id=".abstract.instanceof.App\Controller\SecurityController" class="App\Controller\SecurityController" public="false" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\AbsenceType" class="App\Form\AbsenceType" public="false" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\AbsenceType" class="App\Form\AbsenceType" public="false" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\EvenementType" class="App\Form\EvenementType" public="false" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Form\EvenementType" class="App\Form\EvenementType" public="false" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\FichierType" class="App\Form\FichierType" public="false" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\FichierType" class="App\Form\FichierType" public="false" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\UsersType" class="App\Form\UsersType" public="false" autowire="true" abstract="true"/>
@@ -4396,18 +4399,26 @@
         <argument key="logger" type="service" id="monolog.logger"/>
       </argument>
     </service>
+    <service id=".service_locator.dOJ.0GD" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="logger" type="service" id="monolog.logger"/>
+      </argument>
+    </service>
     <service id=".service_locator.ypl2DZZ" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="authenticationUtils" type="service" id="security.authentication_utils"/>
       </argument>
     </service>
-    <service id=".service_locator.FndQuu." class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.kpS8J6q" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\AbsenceController::demande" type="service" id=".service_locator.5xT3nu_"/>
+        <argument key="App\Controller\EvenementController::ajouter" type="service" id=".service_locator.dOJ.0GD"/>
         <argument key="App\Controller\SecurityController::login" type="service" id=".service_locator.ypl2DZZ"/>
         <argument key="App\Controller\AbsenceController:demande" type="service" id=".service_locator.5xT3nu_"/>
+        <argument key="App\Controller\EvenementController:ajouter" type="service" id=".service_locator.dOJ.0GD"/>
         <argument key="App\Controller\SecurityController:login" type="service" id=".service_locator.ypl2DZZ"/>
       </argument>
     </service>
@@ -4468,10 +4479,11 @@
       <argument type="service" id="debug.argument_resolver.variadic.inner"/>
       <argument type="service" id="debug.stopwatch"/>
     </service>
-    <service id=".service_locator.C8xMLZg" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.p9YmHQ2" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Form\AbsenceType" type="service" id="App\Form\AbsenceType"/>
+        <argument key="App\Form\EvenementType" type="service" id="App\Form\EvenementType"/>
         <argument key="App\Form\FichierType" type="service" id="App\Form\FichierType"/>
         <argument key="App\Form\UsersType" type="service" id="App\Form\UsersType"/>
         <argument key="Symfony\Bridge\Doctrine\Form\Type\EntityType" type="service" id="form.type.entity"/>
@@ -4650,7 +4662,7 @@
       <argument type="service" id="security.token_storage"/>
     </service>
     <service id="debug.argument_resolver.service.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver" public="false">
-      <argument type="service" id=".service_locator.FndQuu."/>
+      <argument type="service" id=".service_locator.kpS8J6q"/>
     </service>
     <service id="debug.argument_resolver.default.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver" public="false"/>
     <service id="debug.argument_resolver.variadic.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver" public="false"/>
@@ -5048,7 +5060,7 @@
     <service id="Twig\Environment" alias="twig" public="false"/>
     <service id="logger" alias="monolog.logger"/>
     <service id="Psr\Log\LoggerInterface" alias="monolog.logger" public="false"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.FndQuu."/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.kpS8J6q"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem" public="false"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id=".service_locator.AoifO_3" alias=".2_ServiceLocator~Qr_1mhj" public="false"/>

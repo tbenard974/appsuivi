@@ -73,22 +73,80 @@ class __TwigTemplate_4ddaf73752fff48efbf8a9362b0b954028b35db5f63c5ac5f56c04932c8
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->enter($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "body"));
 
         // line 12
-        echo "\t";
-        if ((twig_get_attribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new Twig_Error_Runtime('Variable "app" does not exist.', 12, $this->source); })()), "user", array()) != null)) {
+        echo "    ";
+        if ((twig_get_attribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new Twig_Error_Runtime('Variable "app" does not exist.', 12, $this->source); })()), "user", array()) == null)) {
             // line 13
-            echo "        <p> Pour ajouter un évènement à votre calendrier
-        <input type=\"button\" onclick=\"location.href='/evenement/ajouter';\" value=\"Ajouter un évènement\" />
-\t";
-        }
-        // line 16
-        echo "\t
-\t";
-        // line 17
-        if ((twig_get_attribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new Twig_Error_Runtime('Variable "app" does not exist.', 17, $this->source); })()), "user", array()) == null)) {
-            // line 18
             echo "\t\t<a href=\"/login\" class=\"btn btn-info\"> You need to login >></a>
 \t";
         }
+        // line 15
+        echo "
+\t";
+        // line 16
+        if ((twig_get_attribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new Twig_Error_Runtime('Variable "app" does not exist.', 16, $this->source); })()), "user", array()) != null)) {
+            // line 17
+            echo "        Utilisateur courant : ";
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new Twig_Error_Runtime('Variable "app" does not exist.', 17, $this->source); })()), "user", array()), "username", array()), "html", null, true);
+            echo " <input type=\"button\" onclick=\"location.href='/logout';\" value=\"Déconnexion\" />
+        <p> Pour ajouter un évènement à votre calendrier
+        <input type=\"button\" onclick=\"location.href='/evenement/ajouter';\" value=\"Ajouter un évènement\" />
+        <br/>
+        ";
+            // line 21
+            if (((isset($context["allAbsence"]) || array_key_exists("allAbsence", $context) ? $context["allAbsence"] : (function () { throw new Twig_Error_Runtime('Variable "allAbsence" does not exist.', 21, $this->source); })()) == null)) {
+                // line 22
+                echo "            <p> Aucun évènement de prévu </p>
+        ";
+            }
+            // line 24
+            echo "        ";
+            if (((isset($context["allAbsence"]) || array_key_exists("allAbsence", $context) ? $context["allAbsence"] : (function () { throw new Twig_Error_Runtime('Variable "allAbsence" does not exist.', 24, $this->source); })()) != null)) {
+                // line 25
+                echo "        <table>
+                <tr>
+                    <th>Nom</th>
+                    <th>Date début</th>
+                    <th>Date fin</th>
+                </tr>
+
+                ";
+                // line 32
+                $context['_parent'] = $context;
+                $context['_seq'] = twig_ensure_traversable((isset($context["allAbsence"]) || array_key_exists("allAbsence", $context) ? $context["allAbsence"] : (function () { throw new Twig_Error_Runtime('Variable "allAbsence" does not exist.', 32, $this->source); })()));
+                foreach ($context['_seq'] as $context["_key"] => $context["absence"]) {
+                    // line 33
+                    echo "                    <tr>
+                        <td>";
+                    // line 34
+                    echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["absence"], "absNom", array()), "html", null, true);
+                    echo "</td>
+                        <td>";
+                    // line 35
+                    echo twig_escape_filter($this->env, twig_date_format_filter($this->env, twig_get_attribute($this->env, $this->source, $context["absence"], "absDatedebut", array()), "d/m/Y"), "html", null, true);
+                    echo "</td>
+                        <td>";
+                    // line 36
+                    echo twig_escape_filter($this->env, twig_date_format_filter($this->env, twig_get_attribute($this->env, $this->source, $context["absence"], "absDatefin", array()), "d/m/Y"), "html", null, true);
+                    echo "</td>
+                    </tr>
+                ";
+                }
+                $_parent = $context['_parent'];
+                unset($context['_seq'], $context['_iterated'], $context['_key'], $context['absence'], $context['_parent'], $context['loop']);
+                $context = array_intersect_key($context, $_parent) + $_parent;
+                // line 39
+                echo "            </table>
+        ";
+            }
+            // line 41
+            echo "
+
+\t";
+        }
+        // line 44
+        echo "\t
+\t
+";
         
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->leave($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof);
 
@@ -109,7 +167,7 @@ class __TwigTemplate_4ddaf73752fff48efbf8a9362b0b954028b35db5f63c5ac5f56c04932c8
 
     public function getDebugInfo()
     {
-        return array (  89 => 18,  87 => 17,  84 => 16,  79 => 13,  76 => 12,  67 => 11,  54 => 8,  45 => 7,  15 => 5,);
+        return array (  147 => 44,  142 => 41,  138 => 39,  129 => 36,  125 => 35,  121 => 34,  118 => 33,  114 => 32,  105 => 25,  102 => 24,  98 => 22,  96 => 21,  88 => 17,  86 => 16,  83 => 15,  79 => 13,  76 => 12,  67 => 11,  54 => 8,  45 => 7,  15 => 5,);
     }
 
     public function getSourceContext()
@@ -125,14 +183,40 @@ class __TwigTemplate_4ddaf73752fff48efbf8a9362b0b954028b35db5f63c5ac5f56c04932c8
 {% endblock %}
 
 {% block body %}
-\t{% if app.user != null %}
-        <p> Pour ajouter un évènement à votre calendrier
-        <input type=\"button\" onclick=\"location.href='/evenement/ajouter';\" value=\"Ajouter un évènement\" />
-\t{% endif %}
-\t
-\t{% if app.user == null %}
+    {% if app.user == null %}
 \t\t<a href=\"/login\" class=\"btn btn-info\"> You need to login >></a>
 \t{% endif %}
+
+\t{% if app.user != null %}
+        Utilisateur courant : {{ app.user.username }} <input type=\"button\" onclick=\"location.href='/logout';\" value=\"Déconnexion\" />
+        <p> Pour ajouter un évènement à votre calendrier
+        <input type=\"button\" onclick=\"location.href='/evenement/ajouter';\" value=\"Ajouter un évènement\" />
+        <br/>
+        {% if allAbsence == null %}
+            <p> Aucun évènement de prévu </p>
+        {% endif %}
+        {% if allAbsence != null %}
+        <table>
+                <tr>
+                    <th>Nom</th>
+                    <th>Date début</th>
+                    <th>Date fin</th>
+                </tr>
+
+                {% for absence in allAbsence %}
+                    <tr>
+                        <td>{{ absence.absNom }}</td>
+                        <td>{{ absence.absDatedebut|date(\"d/m/Y\") }}</td>
+                        <td>{{ absence.absDatefin|date(\"d/m/Y\") }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        {% endif %}
+
+
+\t{% endif %}
+\t
+\t
 {% endblock %}", "index.html.twig", "/home/vml/app_project2/appsuivi/templates/index.html.twig");
     }
 }

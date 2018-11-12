@@ -20,8 +20,11 @@ class DefaultController extends Controller
     public function index(Request $request)
     {   
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
-		$allAbsence = $this->get('manage.evenement')->visualiserAll($this);
-        //$allAbsence = $this->getDoctrine()->getRepository(Absence::class)->findByAbsFkutilisateur($utilisateur);
+        $user_email = $this->getUser()->getEmail();
+        $utilisateur = $this->getDoctrine()->getRepository(Utilisateur::class)->findOneByUtiEmail($user_email);
+        
+		//$allAbsence = $this->get('manage.evenement')->visualiserAll($this);
+        $allAbsence = $this->getDoctrine()->getRepository(Absence::class)->findByAbsFkutilisateur($utilisateur);
             
         return $this->render('index.html.twig', array(
             'allAbsence' => $allAbsence,

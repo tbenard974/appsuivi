@@ -135,7 +135,7 @@ class EvenementController extends Controller
         ));
     }
 
-    public function visualiserAll(Request $request)
+    /*public function visualiserAll(Request $request)
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $user_email = $this->getUser()->getEmail();
@@ -147,7 +147,7 @@ class EvenementController extends Controller
             'allAbsence' => $allAbsence,
             'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
         ));
-    }
+    }*/
 
     /**
      * @Route("/evenement/afficher", name="afficherEvenement")
@@ -158,7 +158,7 @@ class EvenementController extends Controller
             'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
         ]);
     }
-	}
+	
 	
 	// public function visualiserAll()
     // {

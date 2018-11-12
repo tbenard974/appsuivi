@@ -25,9 +25,9 @@ class Niveaulisteministerielle
     /**
      * @var string
      *
-     * @ORM\Column(name="nivlismin_nom", type="string", length=50, nullable=false)
+     * @ORM\Column(name="nivlismin_name", type="string", length=50, nullable=false)
      */
-    private $nivlisminNom;
+    private $nivlisminName;
 
     /**
      * @var string|null
@@ -69,14 +69,14 @@ class Niveaulisteministerielle
         return $this->nivlisminId;
     }
 
-    public function getNivlisminNom(): ?string
+    public function getNivlisminName(): ?string
     {
-        return $this->nivlisminNom;
+        return $this->nivlisminName;
     }
 
-    public function setNivlisminNom(string $nivlisminNom): self
+    public function setNivlisminName(string $nivlisminName): self
     {
-        $this->nivlisminNom = $nivlisminNom;
+        $this->nivlisminName = $nivlisminName;
 
         return $this;
     }

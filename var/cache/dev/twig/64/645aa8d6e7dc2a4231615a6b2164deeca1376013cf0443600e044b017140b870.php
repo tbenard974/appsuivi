@@ -393,6 +393,6 @@ class __TwigTemplate_89f244f778bf8de839d49517fed0293e3210ba21ffe10faf5520c17adba
         </div>
     {% endif %}
 {% endblock %}
-", "@WebProfiler/Collector/twig.html.twig", "/home/vml/app_project2/appsuivi/vendor/symfony/web-profiler-bundle/Resources/views/Collector/twig.html.twig");
+", "@WebProfiler/Collector/twig.html.twig", "/home/desara/Bureau/pils/appsuivi/vendor/symfony/web-profiler-bundle/Resources/views/Collector/twig.html.twig");
     }
 }

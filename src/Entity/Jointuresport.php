@@ -3,12 +3,11 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use App\Entity\Sport;
 
 /**
  * Jointuresport
  *
- * @ORM\Table(name="jointuresport", indexes={@ORM\Index(name="IDX_333FDFF4A084C20D", columns={"joispo_fk_idcategorie"}), @ORM\Index(name="IDX_333FDFF4D81254FE", columns={"joispo_fk_idepreuve"}), @ORM\Index(name="IDX_333FDFF4499E27CB", columns={"joispo_fk_idsport"})})
+ * @ORM\Table(name="jointuresport", indexes={@ORM\Index(name="IDX_333FDFF49C8747F0", columns={"joispo_fk_idniveaucompetition"}), @ORM\Index(name="IDX_333FDFF491ED467B", columns={"joispo_fk_idnomcompetition"}), @ORM\Index(name="IDX_333FDFF4499E27CB", columns={"joispo_fk_idsport"})})
  * @ORM\Entity
  */
 class Jointuresport
@@ -52,24 +51,24 @@ class Jointuresport
     private $joispoDatechangement;
 
     /**
-     * @var \Categorie
+     * @var \Niveaucompetition
      *
-     * @ORM\ManyToOne(targetEntity="Categorie")
+     * @ORM\ManyToOne(targetEntity="Niveaucompetition")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="joispo_fk_idcategorie", referencedColumnName="cat_id")
+     *   @ORM\JoinColumn(name="joispo_fk_idniveaucompetition", referencedColumnName="nivcom_id")
      * })
      */
-    private $joispoFkcategorie;
+    private $joispoFkniveaucompetition;
 
     /**
-     * @var \Epreuve
+     * @var \Nomcompetition
      *
-     * @ORM\ManyToOne(targetEntity="Epreuve")
+     * @ORM\ManyToOne(targetEntity="Nomcompetition")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="joispo_fk_idepreuve", referencedColumnName="epr_id")
+     *   @ORM\JoinColumn(name="joispo_fk_idnomcompetition", referencedColumnName="nomcom_id")
      * })
      */
-    private $joispoFkepreuve;
+    private $joispoFknomcompetition;
 
     /**
      * @var \Sport
@@ -134,26 +133,26 @@ class Jointuresport
         return $this;
     }
 
-    public function getJoispoFkcategorie(): ?Categorie
+    public function getJoispoFkniveaucompetition(): ?Niveaucompetition
     {
-        return $this->joispoFkcategorie;
+        return $this->joispoFkniveaucompetition;
     }
 
-    public function setJoispoFkcategorie(?Categorie $joispoFkcategorie): self
+    public function setJoispoFkniveaucompetition(?Niveaucompetition $joispoFkniveaucompetition): self
     {
-        $this->joispoFkcategorie = $joispoFkcategorie;
+        $this->joispoFkniveaucompetition = $joispoFkniveaucompetition;
 
         return $this;
     }
 
-    public function getJoispoFkepreuve(): ?Epreuve
+    public function getJoispoFknomcompetition(): ?Nomcompetition
     {
-        return $this->joispoFkepreuve;
+        return $this->joispoFknomcompetition;
     }
 
-    public function setJoispoFkepreuve(?Epreuve $joispoFkepreuve): self
+    public function setJoispoFknomcompetition(?Nomcompetition $joispoFknomcompetition): self
     {
-        $this->joispoFkepreuve = $joispoFkepreuve;
+        $this->joispoFknomcompetition = $joispoFknomcompetition;
 
         return $this;
     }
@@ -169,19 +168,6 @@ class Jointuresport
 
         return $this;
     }
-	
-	public function setUpdateFields($username)
-    {
-        $this->setJoispoDatechangement(new \DateTime(date('Y-m-d H:i:s')));
-        $this->setJoispoAuteurchangement($username);
 
-        if($this->getJoispoDatecreation() == null)
-        {
-            $this->setJoispoDatecreation(new \DateTime(date('Y-m-d H:i:s')));
-        }
-        if($this->getJoispoAuteurcreation() == null)
-        {
-            $this->setJoispoAuteurcreation($username);
-        }
-    }
+
 }

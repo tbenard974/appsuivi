@@ -173,6 +173,6 @@ class __TwigTemplate_4478d7c0701442cc4dc664232a8af24935825bf296ee686e9d5f0a3a1e6
         </div>
     </div>
 </div>
-", "@Twig/Exception/traces.html.twig", "/home/vml/app_project2/appsuivi/vendor/symfony/twig-bundle/Resources/views/Exception/traces.html.twig");
+", "@Twig/Exception/traces.html.twig", "/home/desara/Bureau/pils/appsuivi/vendor/symfony/twig-bundle/Resources/views/Exception/traces.html.twig");
     }
 }

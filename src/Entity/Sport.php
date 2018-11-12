@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Sport
  *
- * @ORM\Table(name="sport")
+ * @ORM\Table(name="sport", indexes={@ORM\Index(name="IDX_1A85EFD21B02A3C1", columns={"spo_fk_idtypesport"})})
  * @ORM\Entity
  */
 class Sport
@@ -25,9 +25,9 @@ class Sport
     /**
      * @var string
      *
-     * @ORM\Column(name="spo_nom", type="string", length=50, nullable=false)
+     * @ORM\Column(name="spo_name", type="string", length=50, nullable=false)
      */
-    private $spoNom;
+    private $spoName;
 
     /**
      * @var string|null
@@ -64,19 +64,29 @@ class Sport
      */
     private $spoDatechangement;
 
+    /**
+     * @var \Typesport
+     *
+     * @ORM\ManyToOne(targetEntity="Typesport")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="spo_fk_idtypesport", referencedColumnName="typspo_id")
+     * })
+     */
+    private $spoFktypesport;
+
     public function getSpoId(): ?int
     {
         return $this->spoId;
     }
 
-    public function getSpoNom(): ?string
+    public function getSpoName(): ?string
     {
-        return $this->spoNom;
+        return $this->spoName;
     }
 
-    public function setSpoNom(string $spoNom): self
+    public function setSpoName(string $spoName): self
     {
-        $this->spoNom = $spoNom;
+        $this->spoName = $spoName;
 
         return $this;
     }
@@ -137,6 +147,18 @@ class Sport
     public function setSpoDatechangement(\DateTimeInterface $spoDatechangement): self
     {
         $this->spoDatechangement = $spoDatechangement;
+
+        return $this;
+    }
+
+    public function getSpoFktypesport(): ?Typesport
+    {
+        return $this->spoFktypesport;
+    }
+
+    public function setSpoFktypesport(?Typesport $spoFktypesport): self
+    {
+        $this->spoFktypesport = $spoFktypesport;
 
         return $this;
     }

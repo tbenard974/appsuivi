@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Utilisateur
  *
- * @ORM\Table(name="utilisateur", indexes={@ORM\Index(name="IDX_1D1C63B36620B6C4", columns={"uti_fk_iddepartement"}), @ORM\Index(name="IDX_1D1C63B38604A225", columns={"uti_fk_idniveaulisteministerielle"}), @ORM\Index(name="IDX_1D1C63B344A21B17", columns={"uti_fk_idsport"})})
+ * @ORM\Table(name="utilisateur", indexes={@ORM\Index(name="IDX_1D1C63B36620B6C4", columns={"uti_fk_iddepartement"}), @ORM\Index(name="IDX_1D1C63B38604A225", columns={"uti_fk_idniveaulisteministerielle"}), @ORM\Index(name="IDX_1D1C63B3AE644112", columns={"uti_fk_idrole"}), @ORM\Index(name="IDX_1D1C63B344A21B17", columns={"uti_fk_idsport"})})
  * @ORM\Entity
  */
 class Utilisateur
@@ -90,6 +90,16 @@ class Utilisateur
      * })
      */
     private $utiFkniveaulisteministerielle;
+
+    /**
+     * @var \Role
+     *
+     * @ORM\ManyToOne(targetEntity="Role")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="uti_fk_idrole", referencedColumnName="rol_id")
+     * })
+     */
+    private $utiFkrole;
 
     /**
      * @var \Sport
@@ -210,6 +220,18 @@ class Utilisateur
     public function setUtiFkniveaulisteministerielle(?Niveaulisteministerielle $utiFkniveaulisteministerielle): self
     {
         $this->utiFkniveaulisteministerielle = $utiFkniveaulisteministerielle;
+
+        return $this;
+    }
+
+    public function getUtiFkrole(): ?Role
+    {
+        return $this->utiFkrole;
+    }
+
+    public function setUtiFkrole(?Role $utiFkrole): self
+    {
+        $this->utiFkrole = $utiFkrole;
 
         return $this;
     }

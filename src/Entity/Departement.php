@@ -25,9 +25,9 @@ class Departement
     /**
      * @var string
      *
-     * @ORM\Column(name="dep_nom", type="string", length=50, nullable=false)
+     * @ORM\Column(name="dep_name", type="string", length=50, nullable=false)
      */
-    private $depNom;
+    private $depName;
 
     /**
      * @var string|null
@@ -69,14 +69,14 @@ class Departement
         return $this->depId;
     }
 
-    public function getDepNom(): ?string
+    public function getDepName(): ?string
     {
-        return $this->depNom;
+        return $this->depName;
     }
 
-    public function setDepNom(string $depNom): self
+    public function setDepName(string $depName): self
     {
-        $this->depNom = $depNom;
+        $this->depName = $depName;
 
         return $this;
     }

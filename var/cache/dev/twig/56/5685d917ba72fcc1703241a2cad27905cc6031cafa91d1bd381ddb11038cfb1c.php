@@ -465,6 +465,6 @@ class __TwigTemplate_c16605718a6f4ae1826cdedd7e0cee2e120fd91eaaae7892378bcc4c216
         {% endfor %}
     </table>
 {% endmacro %}
-", "@WebProfiler/Collector/events.html.twig", "/home/vml/app_project2/appsuivi/vendor/symfony/web-profiler-bundle/Resources/views/Collector/events.html.twig");
+", "@WebProfiler/Collector/events.html.twig", "/home/desara/Bureau/pils/appsuivi/vendor/symfony/web-profiler-bundle/Resources/views/Collector/events.html.twig");
     }
 }

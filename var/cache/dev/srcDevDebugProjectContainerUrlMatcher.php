@@ -70,6 +70,7 @@ class srcDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
                 break;
             default:
                 $routes = array(
+                    '/calendrier/affichage' => array(array('_route' => 'Planning', '_controller' => 'App\\Controller\\PlanningController::affichage'), null, null, null),
                     '/_profiler/' => array(array('_route' => '_profiler_home', '_controller' => 'web_profiler.controller.profiler::homeAction'), null, null, null),
                     '/_profiler/search' => array(array('_route' => '_profiler_search', '_controller' => 'web_profiler.controller.profiler::searchAction'), null, null, null),
                     '/_profiler/search_bar' => array(array('_route' => '_profiler_search_bar', '_controller' => 'web_profiler.controller.profiler::searchBarAction'), null, null, null),
@@ -78,8 +79,6 @@ class srcDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
                     '/' => array(array('_route' => 'index', '_controller' => 'App\\Controller\\DefaultController::index'), null, null, null),
                     '/absence/demande' => array(array('_route' => 'demandeAbsence', '_controller' => 'App\\Controller\\AbsenceController::demande'), null, null, null),
                     '/register' => array(array('_route' => 'register', '_controller' => 'App\\Controller\\RegistrationController::registerAction'), null, null, null),
-                    '/evenement/ajouter' => array(array('_route' => 'ajouterEvenement', '_controller' => 'App\\Controller\\EvenementController::ajouter'), null, null, null),
-                    '/logout' => array(array('_route' => 'logout'), null, null, null),
                 );
 
                 if (!isset($routes[$pathinfo])) {

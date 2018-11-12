@@ -13,11 +13,3 @@ login:
 register:
     path: /register
     controller: App\Controller\RegistrationController::registerAction
-
-ajouterEvenement:
-    path: /evenement/ajouter
-    controller: App\Controller\EvenementController::ajouter
-    
-
-logout:
-    path: /logout

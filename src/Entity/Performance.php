@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Performance
  *
- * @ORM\Table(name="performance", indexes={@ORM\Index(name="IDX_82D796816FE9093E", columns={"per_fk_idechellecompetition"}), @ORM\Index(name="IDX_82D7968141C19AA6", columns={"per_fk_idjointuresport"}), @ORM\Index(name="IDX_82D79681ADCBBD4A", columns={"per_fk_idlocalisationcompetition"}), @ORM\Index(name="IDX_82D796818312E2F7", columns={"per_fk_idresultat"}), @ORM\Index(name="IDX_82D796814579F2DB", columns={"per_fk_idtypecompetition"}), @ORM\Index(name="IDX_82D796818614CA2F", columns={"per_fk_idutilisateur"})})
+ * @ORM\Table(name="performance", indexes={@ORM\Index(name="IDX_82D796813985B1AD", columns={"per_fk_idclassement"}), @ORM\Index(name="IDX_82D7968141C19AA6", columns={"per_fk_idjointuresport"}), @ORM\Index(name="IDX_82D796818614CA2F", columns={"per_fk_idutilisateur"})})
  * @ORM\Entity
  */
 class Performance
@@ -35,20 +35,6 @@ class Performance
      * @ORM\Column(name="per_datefin", type="datetime", nullable=false)
      */
     private $perDatefin;
-
-    /**
-     * @var string|null
-     *
-     * @ORM\Column(name="per_lieu", type="string", length=200, nullable=true)
-     */
-    private $perLieu;
-
-    /**
-     * @var bool
-     *
-     * @ORM\Column(name="per_importance", type="boolean", nullable=false)
-     */
-    private $perImportance;
 
     /**
      * @var string|null
@@ -86,14 +72,14 @@ class Performance
     private $perDatechangement;
 
     /**
-     * @var \Echellecompetition
+     * @var \Classement
      *
-     * @ORM\ManyToOne(targetEntity="Echellecompetition")
+     * @ORM\ManyToOne(targetEntity="Classement")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="per_fk_idechellecompetition", referencedColumnName="echcom_id")
+     *   @ORM\JoinColumn(name="per_fk_idclassement", referencedColumnName="cla_id")
      * })
      */
-    private $perFkechellecompetition;
+    private $perFkclassement;
 
     /**
      * @var \Jointuresport
@@ -104,36 +90,6 @@ class Performance
      * })
      */
     private $perFkjointuresport;
-
-    /**
-     * @var \Localisationcompetition
-     *
-     * @ORM\ManyToOne(targetEntity="Localisationcompetition")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="per_fk_idlocalisationcompetition", referencedColumnName="loccom_id")
-     * })
-     */
-    private $perFklocalisationcompetition;
-
-    /**
-     * @var \Resultat
-     *
-     * @ORM\ManyToOne(targetEntity="Resultat")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="per_fk_idresultat", referencedColumnName="res_id")
-     * })
-     */
-    private $perFkresultat;
-
-    /**
-     * @var \Typecompetition
-     *
-     * @ORM\ManyToOne(targetEntity="Typecompetition")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="per_fk_idtypecompetition", referencedColumnName="typcom_id")
-     * })
-     */
-    private $perFktypecompetition;
 
     /**
      * @var \Utilisateur
@@ -170,30 +126,6 @@ class Performance
     public function setPerDatefin(\DateTimeInterface $perDatefin): self
     {
         $this->perDatefin = $perDatefin;
-
-        return $this;
-    }
-
-    public function getPerLieu(): ?string
-    {
-        return $this->perLieu;
-    }
-
-    public function setPerLieu(?string $perLieu): self
-    {
-        $this->perLieu = $perLieu;
-
-        return $this;
-    }
-
-    public function getPerImportance(): ?bool
-    {
-        return $this->perImportance;
-    }
-
-    public function setPerImportance(bool $perImportance): self
-    {
-        $this->perImportance = $perImportance;
 
         return $this;
     }
@@ -258,14 +190,14 @@ class Performance
         return $this;
     }
 
-    public function getPerFkechellecompetition(): ?Echellecompetition
+    public function getPerFkclassement(): ?Classement
     {
-        return $this->perFkechellecompetition;
+        return $this->perFkclassement;
     }
 
-    public function setPerFkechellecompetition(?Echellecompetition $perFkechellecompetition): self
+    public function setPerFkclassement(?Classement $perFkclassement): self
     {
-        $this->perFkechellecompetition = $perFkechellecompetition;
+        $this->perFkclassement = $perFkclassement;
 
         return $this;
     }
@@ -282,42 +214,6 @@ class Performance
         return $this;
     }
 
-    public function getPerFklocalisationcompetition(): ?Localisationcompetition
-    {
-        return $this->perFklocalisationcompetition;
-    }
-
-    public function setPerFklocalisationcompetition(?Localisationcompetition $perFklocalisationcompetition): self
-    {
-        $this->perFklocalisationcompetition = $perFklocalisationcompetition;
-
-        return $this;
-    }
-
-    public function getPerFkresultat(): ?Resultat
-    {
-        return $this->perFkresultat;
-    }
-
-    public function setPerFkresultat(?Resultat $perFkresultat): self
-    {
-        $this->perFkresultat = $perFkresultat;
-
-        return $this;
-    }
-
-    public function getPerFktypecompetition(): ?Typecompetition
-    {
-        return $this->perFktypecompetition;
-    }
-
-    public function setPerFktypecompetition(?Typecompetition $perFktypecompetition): self
-    {
-        $this->perFktypecompetition = $perFktypecompetition;
-
-        return $this;
-    }
-
     public function getPerFkutilisateur(): ?Utilisateur
     {
         return $this->perFkutilisateur;
@@ -330,18 +226,5 @@ class Performance
         return $this;
     }
 
-	public function setUpdateFields($username)
-    {
-        $this->setPerDatechangement(new \DateTime(date('Y-m-d H:i:s')));
-        $this->setPerAuteurchangement($username);
 
-        if($this->getPerDatecreation() == null)
-        {
-            $this->setPerDatecreation(new \DateTime(date('Y-m-d H:i:s')));
-        }
-        if($this->getPerAuteurcreation() == null)
-        {
-            $this->setPerAuteurcreation($username);
-        }
-    }
 }

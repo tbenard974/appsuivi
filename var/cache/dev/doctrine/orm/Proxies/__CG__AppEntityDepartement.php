@@ -64,10 +64,10 @@ class Departement extends \App\Entity\Departement implements \Doctrine\ORM\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return ['__isInitialized__', '' . "\0" . 'App\\Entity\\Departement' . "\0" . 'depId', '' . "\0" . 'App\\Entity\\Departement' . "\0" . 'depNom', '' . "\0" . 'App\\Entity\\Departement' . "\0" . 'depDescription', '' . "\0" . 'App\\Entity\\Departement' . "\0" . 'depAuteurcreation', '' . "\0" . 'App\\Entity\\Departement' . "\0" . 'depDatecreation', '' . "\0" . 'App\\Entity\\Departement' . "\0" . 'depAuteurchangement', '' . "\0" . 'App\\Entity\\Departement' . "\0" . 'depDatechangement'];
+            return ['__isInitialized__', '' . "\0" . 'App\\Entity\\Departement' . "\0" . 'depId', '' . "\0" . 'App\\Entity\\Departement' . "\0" . 'depName', '' . "\0" . 'App\\Entity\\Departement' . "\0" . 'depDescription', '' . "\0" . 'App\\Entity\\Departement' . "\0" . 'depAuteurcreation', '' . "\0" . 'App\\Entity\\Departement' . "\0" . 'depDatecreation', '' . "\0" . 'App\\Entity\\Departement' . "\0" . 'depAuteurchangement', '' . "\0" . 'App\\Entity\\Departement' . "\0" . 'depDatechangement'];
         }
 
-        return ['__isInitialized__', '' . "\0" . 'App\\Entity\\Departement' . "\0" . 'depId', '' . "\0" . 'App\\Entity\\Departement' . "\0" . 'depNom', '' . "\0" . 'App\\Entity\\Departement' . "\0" . 'depDescription', '' . "\0" . 'App\\Entity\\Departement' . "\0" . 'depAuteurcreation', '' . "\0" . 'App\\Entity\\Departement' . "\0" . 'depDatecreation', '' . "\0" . 'App\\Entity\\Departement' . "\0" . 'depAuteurchangement', '' . "\0" . 'App\\Entity\\Departement' . "\0" . 'depDatechangement'];
+        return ['__isInitialized__', '' . "\0" . 'App\\Entity\\Departement' . "\0" . 'depId', '' . "\0" . 'App\\Entity\\Departement' . "\0" . 'depName', '' . "\0" . 'App\\Entity\\Departement' . "\0" . 'depDescription', '' . "\0" . 'App\\Entity\\Departement' . "\0" . 'depAuteurcreation', '' . "\0" . 'App\\Entity\\Departement' . "\0" . 'depDatecreation', '' . "\0" . 'App\\Entity\\Departement' . "\0" . 'depAuteurchangement', '' . "\0" . 'App\\Entity\\Departement' . "\0" . 'depDatechangement'];
     }
 
     /**
@@ -191,23 +191,23 @@ class Departement extends \App\Entity\Departement implements \Doctrine\ORM\Proxy
     /**
      * {@inheritDoc}
      */
-    public function getDepNom(): ?string
+    public function getDepName(): ?string
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getDepNom', []);
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getDepName', []);
 
-        return parent::getDepNom();
+        return parent::getDepName();
     }
 
     /**
      * {@inheritDoc}
      */
-    public function setDepNom(string $depNom): \App\Entity\Departement
+    public function setDepName(string $depName): \App\Entity\Departement
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setDepNom', [$depNom]);
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setDepName', [$depName]);
 
-        return parent::setDepNom($depNom);
+        return parent::setDepName($depName);
     }
 
     /**

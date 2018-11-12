@@ -25,9 +25,9 @@ class Motifabsence
     /**
      * @var string
      *
-     * @ORM\Column(name="motabs_nom", type="string", length=50, nullable=false)
+     * @ORM\Column(name="motabs_name", type="string", length=50, nullable=false)
      */
-    private $motabsNom;
+    private $motabsName;
 
     /**
      * @var string|null
@@ -69,14 +69,14 @@ class Motifabsence
         return $this->motabsId;
     }
 
-    public function getMotabsNom(): ?string
+    public function getMotabsName(): ?string
     {
-        return $this->motabsNom;
+        return $this->motabsName;
     }
 
-    public function setMotabsNom(string $motabsNom): self
+    public function setMotabsName(string $motabsName): self
     {
-        $this->motabsNom = $motabsNom;
+        $this->motabsName = $motabsName;
 
         return $this;
     }

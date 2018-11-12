@@ -73,22 +73,40 @@ class __TwigTemplate_4ddaf73752fff48efbf8a9362b0b954028b35db5f63c5ac5f56c04932c8
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->enter($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "body"));
 
         // line 12
-        echo "\t";
-        if ((twig_get_attribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new Twig_Error_Runtime('Variable "app" does not exist.', 12, $this->source); })()), "user", array()) != null)) {
-            // line 13
-            echo "        <p> Pour ajouter un évènement à votre calendrier
-        <input type=\"button\" onclick=\"location.href='/evenement/ajouter';\" value=\"Ajouter un évènement\" />
+        echo "    ";
+        $this->displayParentBlock("body", $context, $blocks);
+        echo "
+\t";
+        // line 13
+        if ((twig_get_attribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new Twig_Error_Runtime('Variable "app" does not exist.', 13, $this->source); })()), "user", array()) != null)) {
+            // line 14
+            echo "        <div id=\"sidebar-collapse\" class=\"col-sm-3 col-lg-2 sidebar\">
+            <form role=\"search\">
+                <div class=\"form-group\">
+                    <input type=\"text\" class=\"form-control\" placeholder=\"Search\">
+                </div>
+            </form>
+            <ul class=\"nav menu\">
+                <li class=\"active\"><a href=\"/";
+            // line 21
+            echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("index");
+            echo "\"><svg class=\"glyph stroked dashboard-dial\"><use xlink:href=\"#stroked-dashboard-dial\"></use></svg> Accueil</a></li>
+                <li ><a href=\"/calendrier/affichage\"><svg class=\"glyph stroked calendar\"><use xlink:href=\"#stroked-calendar\"></use></svg> Mon Planning</a></li>
+                <input type=\"button\" onclick=\"location.href='/absence/demande';\" value=\"Faire une demande d'absence\" />
+
+
+                <li role=\"presentation\" class=\"divider\"></li>
+            </ul>
+
+        </div><!--/.sidebar-->
+
+
 \t";
         }
-        // line 16
+        // line 33
         echo "\t
-\t";
-        // line 17
-        if ((twig_get_attribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new Twig_Error_Runtime('Variable "app" does not exist.', 17, $this->source); })()), "user", array()) == null)) {
-            // line 18
-            echo "\t\t<a href=\"/login\" class=\"btn btn-info\"> You need to login >></a>
-\t";
-        }
+
+";
         
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->leave($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof);
 
@@ -109,7 +127,7 @@ class __TwigTemplate_4ddaf73752fff48efbf8a9362b0b954028b35db5f63c5ac5f56c04932c8
 
     public function getDebugInfo()
     {
-        return array (  89 => 18,  87 => 17,  84 => 16,  79 => 13,  76 => 12,  67 => 11,  54 => 8,  45 => 7,  15 => 5,);
+        return array (  107 => 33,  92 => 21,  83 => 14,  81 => 13,  76 => 12,  67 => 11,  54 => 8,  45 => 7,  15 => 5,);
     }
 
     public function getSourceContext()
@@ -125,14 +143,29 @@ class __TwigTemplate_4ddaf73752fff48efbf8a9362b0b954028b35db5f63c5ac5f56c04932c8
 {% endblock %}
 
 {% block body %}
+    {{ parent() }}
 \t{% if app.user != null %}
-        <p> Pour ajouter un évènement à votre calendrier
-        <input type=\"button\" onclick=\"location.href='/evenement/ajouter';\" value=\"Ajouter un évènement\" />
+        <div id=\"sidebar-collapse\" class=\"col-sm-3 col-lg-2 sidebar\">
+            <form role=\"search\">
+                <div class=\"form-group\">
+                    <input type=\"text\" class=\"form-control\" placeholder=\"Search\">
+                </div>
+            </form>
+            <ul class=\"nav menu\">
+                <li class=\"active\"><a href=\"/{{ path('index') }}\"><svg class=\"glyph stroked dashboard-dial\"><use xlink:href=\"#stroked-dashboard-dial\"></use></svg> Accueil</a></li>
+                <li ><a href=\"/calendrier/affichage\"><svg class=\"glyph stroked calendar\"><use xlink:href=\"#stroked-calendar\"></use></svg> Mon Planning</a></li>
+                <input type=\"button\" onclick=\"location.href='/absence/demande';\" value=\"Faire une demande d'absence\" />
+
+
+                <li role=\"presentation\" class=\"divider\"></li>
+            </ul>
+
+        </div><!--/.sidebar-->
+
+
 \t{% endif %}
 \t
-\t{% if app.user == null %}
-\t\t<a href=\"/login\" class=\"btn btn-info\"> You need to login >></a>
-\t{% endif %}
-{% endblock %}", "index.html.twig", "/home/vml/app_project2/appsuivi/templates/index.html.twig");
+
+{% endblock %}", "index.html.twig", "/home/desara/Bureau/pils/appsuivi/templates/index.html.twig");
     }
 }

@@ -190,6 +190,6 @@ class __TwigTemplate_c03a266a2fd4e98b04c193b5d17019dc8513185329bd73b663204cf49c6
         })|raw }}
     </div>
 {% endif %}
-", "@Twig/Exception/trace.html.twig", "/home/vml/app_project2/appsuivi/vendor/symfony/twig-bundle/Resources/views/Exception/trace.html.twig");
+", "@Twig/Exception/trace.html.twig", "/home/desara/Bureau/pils/appsuivi/vendor/symfony/twig-bundle/Resources/views/Exception/trace.html.twig");
     }
 }

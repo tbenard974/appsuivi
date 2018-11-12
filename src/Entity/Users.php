@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -8,10 +7,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
- * Users
- *
- * @ORM\Table(name="users", uniqueConstraints={@ORM\UniqueConstraint(name="uniq_1483a5e9e7927c74", columns={"email"})})
  * @ORM\Entity
+ * @UniqueEntity(fields="email", message="This email address is already in use")
  */
 class Users implements UserInterface
 {

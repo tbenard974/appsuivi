@@ -1,3 +1,23 @@
-#index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
+index:
+    path: /
+    controller: App\Controller\DefaultController::index
+
+demandeAbsence:
+    path: /absence/demande
+    controller: App\Controller\AbsenceController::demande
+
+login:
+    path: /login
+    controller: App\Controller\SecurityController::loginAction
+
+register:
+    path: /register
+    controller: App\Controller\RegistrationController::registerAction
+
+ajouterEvenement:
+    path: /evenement/ajouter
+    controller: App\Controller\EvenementController::ajouter
+    
+
+logout:
+    path: /logout

@@ -25,9 +25,9 @@ class Categorie
     /**
      * @var string
      *
-     * @ORM\Column(name="cat_name", type="string", length=200, nullable=false)
+     * @ORM\Column(name="cat_nom", type="string", length=200, nullable=false)
      */
-    private $catName;
+    private $catNom;
 
     /**
      * @var string|null
@@ -69,14 +69,14 @@ class Categorie
         return $this->catId;
     }
 
-    public function getCatName(): ?string
+    public function getCatNom(): ?string
     {
-        return $this->catName;
+        return $this->catNom;
     }
 
-    public function setCatName(string $catName): self
+    public function setCatNom(string $catNom): self
     {
-        $this->catName = $catName;
+        $this->catNom = $catNom;
 
         return $this;
     }

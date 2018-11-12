@@ -25,9 +25,9 @@ class Epreuve
     /**
      * @var string
      *
-     * @ORM\Column(name="epr_name", type="string", length=50, nullable=false)
+     * @ORM\Column(name="epr_nom", type="string", length=50, nullable=false)
      */
-    private $eprName;
+    private $eprNom;
 
     /**
      * @var string|null
@@ -69,14 +69,14 @@ class Epreuve
         return $this->eprId;
     }
 
-    public function getEprName(): ?string
+    public function getEprNom(): ?string
     {
-        return $this->eprName;
+        return $this->eprNom;
     }
 
-    public function setEprName(string $eprName): self
+    public function setEprNom(string $eprNom): self
     {
-        $this->eprName = $eprName;
+        $this->eprNom = $eprNom;
 
         return $this;
     }

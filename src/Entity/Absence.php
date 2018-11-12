@@ -79,6 +79,20 @@ class Absence
     private $absDatechangement;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="abs_nom", type="string", length=200, nullable=false)
+     */
+    private $absNom;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="abs_rappel", type="string", length=50, nullable=true)
+     */
+    private $absRappel;
+
+    /**
      * @var \Fichier
      *
      * @ORM\ManyToOne(targetEntity="Fichier")
@@ -229,6 +243,30 @@ class Absence
         return $this;
     }
 
+    public function getAbsNom(): ?string
+    {
+        return $this->absNom;
+    }
+
+    public function setAbsNom(string $absNom): self
+    {
+        $this->absNom = $absNom;
+
+        return $this;
+    }
+
+    public function getAbsRappel(): ?string
+    {
+        return $this->absRappel;
+    }
+
+    public function setAbsRappel(?string $absRappel): self
+    {
+        $this->absRappel = $absRappel;
+
+        return $this;
+    }
+
     public function getAbsFkfichier(): ?Fichier
     {
         return $this->absFkfichier;
@@ -287,6 +325,21 @@ class Absence
         $this->absFkutilisateur = $absFkutilisateur;
 
         return $this;
+    }
+	
+	public function setUpdateFields($username)
+    {
+        $this->setAbsDatechangement(new \DateTime(date('Y-m-d H:i:s')));
+        $this->setAbsAuteurchangement($username);
+
+        if($this->getAbsDatecreation() == null)
+        {
+            $this->setAbsDatecreation(new \DateTime(date('Y-m-d H:i:s')));
+        }
+        if($this->getAbsAuteurcreation() == null)
+        {
+            $this->setAbsAuteurcreation($username);
+        }
     }
 
 

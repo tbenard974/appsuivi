@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    {% if app.user == null %}
+		<a href="/login" class="btn btn-info"> You need to login >></a>
+	{% endif %}
+
+    {% if app.user != null %}
+        Utilisateur courant : {{ app.user.username }} <input type="button" onclick="location.href='/logout';" value="Déconnexion" />
+        <br/>
+        {% if allPerf == null %}
+            <p> Aucun évènement de prévu </p>
+        {% endif %}
+        {% if allPerf != null %}
+        <table>
+                <tr>
+                    <th>Type compétition</th>
+                    <th>Echelle compétition</th>
+                    <th>Localisation compétition</th>
+                    <th>Epreuve</th>
+                    <th>Catégorie</th>
+                    <th>Importance</th>
+                    <th>Date début</th>
+                    <th>Date fin</th>
+                    <th>Lieu</th>
+                    <th>Résultat</th>
+                    <th>Ressenti</th>
+                </tr>
+
+                {% for performance in allPerf %}
+                    <tr>
+                        <td>{{ performance.perFktypecompetition.typcomNom }}</td>
+                        <td>{{ performance.perFkechellecompetition.echcomNom }}</td>
+                        <td>{{ performance.perFklocalisationcompetition.loccomNom }}</td>
+                        <td>{{ performance.perFkjointuresport.joispoFkepreuve.eprNom }}</td>
+                        <td>{{ performance.perFkjointuresport.joispoFkcategorie.catNom }}</td>
+                        <td>{% if performance.perImportance == 1 %}
+                                {{ "Forte" }}
+                            {% else %}
+                                {{ "Basse" }}
+                            {% endif %}
+                        </td>
+                        <td>{{ performance.perDatedebut|date("d/m/Y") }}</td>
+                        <td>{{ performance.perDatefin|date("d/m/Y") }}</td>
+                        <td>{{ performance.perLieu }}</td>
+                        <td>{{ performance.perFkresultat.resNom }}</td>
+                        <td>{{ performance.perRessenti }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        {% endif %}
+        <p> Pour créér une performance
+        <input type="button" onclick="location.href='/performance';" value="Créer une performance" />
+        <br/>
+    {% endif %} 
+
+{% endblock %}
+

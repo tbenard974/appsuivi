@@ -62,6 +62,12 @@ class srcDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
         }
 
         switch ($pathinfo) {
+            case '/evenement/ajouter':
+                // ajouterWeb
+                return array('_route' => 'ajouterWeb', '_controller' => 'App\\Controller\\EvenementController::ajouter');
+                // ajouterEvenement
+                return array('_route' => 'ajouterEvenement', '_controller' => 'App\\Controller\\EvenementController::ajouterWeb');
+                break;
             case '/login':
                 // app_login
                 return array('_route' => 'app_login', '_controller' => 'App\\Controller\\SecurityController::login');
@@ -76,9 +82,9 @@ class srcDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
                     '/_profiler/phpinfo' => array(array('_route' => '_profiler_phpinfo', '_controller' => 'web_profiler.controller.profiler::phpinfoAction'), null, null, null),
                     '/_profiler/open' => array(array('_route' => '_profiler_open_file', '_controller' => 'web_profiler.controller.profiler::openAction'), null, null, null),
                     '/' => array(array('_route' => 'index', '_controller' => 'App\\Controller\\DefaultController::index'), null, null, null),
+                    '/mobile' => array(array('_route' => 'indexMobile', '_controller' => 'App\\Controller\\DefaultController::indexMobile'), null, null, null),
                     '/absence/demande' => array(array('_route' => 'demandeAbsence', '_controller' => 'App\\Controller\\AbsenceController::demande'), null, null, null),
                     '/register' => array(array('_route' => 'register', '_controller' => 'App\\Controller\\RegistrationController::registerAction'), null, null, null),
-                    '/evenement/ajouter' => array(array('_route' => 'ajouterEvenement', '_controller' => 'App\\Controller\\EvenementController::ajouter'), null, null, null),
                     '/logout' => array(array('_route' => 'logout'), null, null, null),
                 );
 

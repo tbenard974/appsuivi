@@ -19,10 +19,10 @@ use App\Entity\Typefichier;
 
 class EvenementController extends Controller
 {
-    /**
-     * @Route("/evenement/ajouter", name="ajouterEvenement")
+	/**
+     * @Route("/evenement/ajouter", name="ajouterWeb")
      */
-    public function ajouter(Request $request, LoggerInterface $logger)
+    public function ajouter(Request $request)
     {
 		$this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 		
@@ -30,7 +30,6 @@ class EvenementController extends Controller
 		$user_email = $this->getUser()->getEmail();
         $utilisateur = $this->getDoctrine()->getRepository(Utilisateur::class)->findOneByUtiEmail($user_email); #devra être l'utilisateur courant lorsque mécanisme d'authentification
         
-		#$logger->info($status->getStaabsId());
         $form = $this->createForm(EvenementType::class, $absence);
         $form->handleRequest($request);
 
@@ -87,30 +86,27 @@ class EvenementController extends Controller
     
             // ... perform some action, such as saving the task to the database
             // for example, if Task is a Doctrine entity, save it!
-            $entityManager->persist($absence);
+			$absence->setAbsFkperformance($performance);
+			$entityManager->persist($absence);
             $entityManager->flush();
     
             return $this->redirectToRoute('index');
         }
 
+		//return $form;
         #return $this->render('index.html.twig');
         return $this->render('evenement/ajouter.html.twig', array(
             'form' => $form->createView(),
         ));
-    }
-	
-	public function visualiserAll(Request $request)
-    {
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
-        $user_email = $this->getUser()->getEmail();
-        $utilisateur = $this->getDoctrine()->getRepository(Utilisateur::class)->findOneByUtiEmail($user_email);
-		//select abs_id from absence where abs_fk_idutilisateur=(select uti_id from utilisateur where uti_email='dev@dev.fr');
-		$allAbsence = $this->getDoctrine()->getRepository(Utilisateur::class)->findByAbsFkutilisateur($utilisateur);
-            
-            return $this->render('index.html.twig', array(
-                'allAbsence' => $allAbsence,
-                'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
-        ));
 	}
+	
+	// public function visualiserAll()
+    // {
+	// 	$em = $this->container->get('doctrine')->getManager();
+	// 	$user_email = $em->getUser()->getEmail();
+    //     $utilisateur = $em->getDoctrine()->getRepository(Utilisateur::class)->findOneByUtiEmail($user_email);
+	// 	$allAbsence = $this->getDoctrine()->getRepository(Absence::class)->findByAbsFkutilisateur($utilisateur);
+    //     return $allAbsence;
+	// }
 	
 }

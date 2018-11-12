@@ -166,19 +166,5 @@ class Fichier
         return $this;
     }
 
-    public function setUpdateFields($username)
-    {
-        $this->setFicDatechangement(new \DateTime(date('Y-m-d H:i:s')));
-        $this->setFicAuteurchangement($username);
-
-        if($this->getFicDatecreation() == null)
-        {
-            $this->setFicDatecreation(new \DateTime(date('Y-m-d H:i:s')));
-        }
-        if($this->getFicAuteurcreation() == null)
-        {
-            $this->setFicAuteurcreation($username);
-        }
-    }
 
 }

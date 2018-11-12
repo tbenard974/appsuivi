@@ -19,7 +19,7 @@
             </form>
             <ul class="nav menu">
                 <li class="active"><a href="/{{ path('index') }}"><svg class="glyph stroked dashboard-dial"><use xlink:href="#stroked-dashboard-dial"></use></svg> Accueil</a></li>
-                <li ><a href=""><svg class="glyph stroked calendar"><use xlink:href="#stroked-calendar"></use></svg> Mon Planning</a></li>
+                <li ><a href="/evenement/afficher"><svg class="glyph stroked calendar"><use xlink:href="#stroked-calendar"></use></svg> Mon Planning</a></li>
                 <input type="button" onclick="location.href='/absence/demande';" value="Faire une demande d'absence" />
 
 
@@ -27,6 +27,8 @@
             </ul>
 
         </div><!--/.sidebar-->
+
+
 
 
 	{% endif %}

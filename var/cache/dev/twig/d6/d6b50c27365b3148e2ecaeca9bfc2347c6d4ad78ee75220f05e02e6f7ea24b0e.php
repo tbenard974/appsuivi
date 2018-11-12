@@ -91,7 +91,7 @@ class __TwigTemplate_4ddaf73752fff48efbf8a9362b0b954028b35db5f63c5ac5f56c04932c8
             // line 21
             echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("index");
             echo "\"><svg class=\"glyph stroked dashboard-dial\"><use xlink:href=\"#stroked-dashboard-dial\"></use></svg> Accueil</a></li>
-                <li ><a href=\"/calendrier/affichage\"><svg class=\"glyph stroked calendar\"><use xlink:href=\"#stroked-calendar\"></use></svg> Mon Planning</a></li>
+                <li ><a href=\"/evenement/afficher\"><svg class=\"glyph stroked calendar\"><use xlink:href=\"#stroked-calendar\"></use></svg> Mon Planning</a></li>
                 <input type=\"button\" onclick=\"location.href='/absence/demande';\" value=\"Faire une demande d'absence\" />
 
 
@@ -101,9 +101,11 @@ class __TwigTemplate_4ddaf73752fff48efbf8a9362b0b954028b35db5f63c5ac5f56c04932c8
         </div><!--/.sidebar-->
 
 
+
+
 \t";
         }
-        // line 33
+        // line 35
         echo "\t
 
 ";
@@ -127,7 +129,7 @@ class __TwigTemplate_4ddaf73752fff48efbf8a9362b0b954028b35db5f63c5ac5f56c04932c8
 
     public function getDebugInfo()
     {
-        return array (  107 => 33,  92 => 21,  83 => 14,  81 => 13,  76 => 12,  67 => 11,  54 => 8,  45 => 7,  15 => 5,);
+        return array (  109 => 35,  92 => 21,  83 => 14,  81 => 13,  76 => 12,  67 => 11,  54 => 8,  45 => 7,  15 => 5,);
     }
 
     public function getSourceContext()
@@ -153,7 +155,7 @@ class __TwigTemplate_4ddaf73752fff48efbf8a9362b0b954028b35db5f63c5ac5f56c04932c8
             </form>
             <ul class=\"nav menu\">
                 <li class=\"active\"><a href=\"/{{ path('index') }}\"><svg class=\"glyph stroked dashboard-dial\"><use xlink:href=\"#stroked-dashboard-dial\"></use></svg> Accueil</a></li>
-                <li ><a href=\"/calendrier/affichage\"><svg class=\"glyph stroked calendar\"><use xlink:href=\"#stroked-calendar\"></use></svg> Mon Planning</a></li>
+                <li ><a href=\"/evenement/afficher\"><svg class=\"glyph stroked calendar\"><use xlink:href=\"#stroked-calendar\"></use></svg> Mon Planning</a></li>
                 <input type=\"button\" onclick=\"location.href='/absence/demande';\" value=\"Faire une demande d'absence\" />
 
 
@@ -161,6 +163,8 @@ class __TwigTemplate_4ddaf73752fff48efbf8a9362b0b954028b35db5f63c5ac5f56c04932c8
             </ul>
 
         </div><!--/.sidebar-->
+
+
 
 
 \t{% endif %}

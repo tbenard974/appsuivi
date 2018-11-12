@@ -64,10 +64,10 @@ class Sport extends \App\Entity\Sport implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return ['__isInitialized__', '' . "\0" . 'App\\Entity\\Sport' . "\0" . 'spoId', '' . "\0" . 'App\\Entity\\Sport' . "\0" . 'spoName', '' . "\0" . 'App\\Entity\\Sport' . "\0" . 'spoDescription', '' . "\0" . 'App\\Entity\\Sport' . "\0" . 'spoAuteurcreation', '' . "\0" . 'App\\Entity\\Sport' . "\0" . 'spoDatecreation', '' . "\0" . 'App\\Entity\\Sport' . "\0" . 'spoAuteurchangement', '' . "\0" . 'App\\Entity\\Sport' . "\0" . 'spoDatechangement', '' . "\0" . 'App\\Entity\\Sport' . "\0" . 'spoFktypesport'];
+            return ['__isInitialized__', '' . "\0" . 'App\\Entity\\Sport' . "\0" . 'spoId', '' . "\0" . 'App\\Entity\\Sport' . "\0" . 'spoNom', '' . "\0" . 'App\\Entity\\Sport' . "\0" . 'spoDescription', '' . "\0" . 'App\\Entity\\Sport' . "\0" . 'spoAuteurcreation', '' . "\0" . 'App\\Entity\\Sport' . "\0" . 'spoDatecreation', '' . "\0" . 'App\\Entity\\Sport' . "\0" . 'spoAuteurchangement', '' . "\0" . 'App\\Entity\\Sport' . "\0" . 'spoDatechangement'];
         }
 
-        return ['__isInitialized__', '' . "\0" . 'App\\Entity\\Sport' . "\0" . 'spoId', '' . "\0" . 'App\\Entity\\Sport' . "\0" . 'spoName', '' . "\0" . 'App\\Entity\\Sport' . "\0" . 'spoDescription', '' . "\0" . 'App\\Entity\\Sport' . "\0" . 'spoAuteurcreation', '' . "\0" . 'App\\Entity\\Sport' . "\0" . 'spoDatecreation', '' . "\0" . 'App\\Entity\\Sport' . "\0" . 'spoAuteurchangement', '' . "\0" . 'App\\Entity\\Sport' . "\0" . 'spoDatechangement', '' . "\0" . 'App\\Entity\\Sport' . "\0" . 'spoFktypesport'];
+        return ['__isInitialized__', '' . "\0" . 'App\\Entity\\Sport' . "\0" . 'spoId', '' . "\0" . 'App\\Entity\\Sport' . "\0" . 'spoNom', '' . "\0" . 'App\\Entity\\Sport' . "\0" . 'spoDescription', '' . "\0" . 'App\\Entity\\Sport' . "\0" . 'spoAuteurcreation', '' . "\0" . 'App\\Entity\\Sport' . "\0" . 'spoDatecreation', '' . "\0" . 'App\\Entity\\Sport' . "\0" . 'spoAuteurchangement', '' . "\0" . 'App\\Entity\\Sport' . "\0" . 'spoDatechangement'];
     }
 
     /**
@@ -191,23 +191,23 @@ class Sport extends \App\Entity\Sport implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
-    public function getSpoName(): ?string
+    public function getSpoNom(): ?string
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getSpoName', []);
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getSpoNom', []);
 
-        return parent::getSpoName();
+        return parent::getSpoNom();
     }
 
     /**
      * {@inheritDoc}
      */
-    public function setSpoName(string $spoName): \App\Entity\Sport
+    public function setSpoNom(string $spoNom): \App\Entity\Sport
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setSpoName', [$spoName]);
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setSpoNom', [$spoNom]);
 
-        return parent::setSpoName($spoName);
+        return parent::setSpoNom($spoNom);
     }
 
     /**
@@ -318,28 +318,6 @@ class Sport extends \App\Entity\Sport implements \Doctrine\ORM\Proxy\Proxy
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setSpoDatechangement', [$spoDatechangement]);
 
         return parent::setSpoDatechangement($spoDatechangement);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getSpoFktypesport(): ?\App\Entity\Typesport
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getSpoFktypesport', []);
-
-        return parent::getSpoFktypesport();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setSpoFktypesport(?\App\Entity\Typesport $spoFktypesport): \App\Entity\Sport
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setSpoFktypesport', [$spoFktypesport]);
-
-        return parent::setSpoFktypesport($spoFktypesport);
     }
 
 }

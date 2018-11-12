@@ -20,7 +20,8 @@ class srcDevDebugProjectContainerUrlGenerator extends Symfony\Component\Routing\
         $this->defaultLocale = $defaultLocale;
         if (null === self::$declaredRoutes) {
             self::$declaredRoutes = array(
-        'Planning' => array(array(), array('_controller' => 'App\\Controller\\PlanningController::affichage'), array(), array(array('text', '/calendrier/affichage')), array(), array()),
+        'ajouterEvenement' => array(array(), array('_controller' => 'App\\Controller\\EvenementController::ajouter'), array(), array(array('text', '/evenement/ajouter')), array(), array()),
+        'afficherEvenement' => array(array(), array('_controller' => 'App\\Controller\\EvenementController::afficher'), array(), array(array('text', '/evenement/afficher')), array(), array()),
         'app_login' => array(array(), array('_controller' => 'App\\Controller\\SecurityController::login'), array(), array(array('text', '/login')), array(), array()),
         '_twig_error_test' => array(array('code', '_format'), array('_controller' => 'twig.controller.preview_error::previewErrorPageAction', '_format' => 'html'), array('code' => '\\d+'), array(array('variable', '.', '[^/]++', '_format'), array('variable', '/', '\\d+', 'code'), array('text', '/_error')), array(), array()),
         '_wdt' => array(array('token'), array('_controller' => 'web_profiler.controller.profiler::toolbarAction'), array(), array(array('variable', '/', '[^/]++', 'token'), array('text', '/_wdt')), array(), array()),

@@ -64,10 +64,10 @@ class Niveaulisteministerielle extends \App\Entity\Niveaulisteministerielle impl
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return ['__isInitialized__', '' . "\0" . 'App\\Entity\\Niveaulisteministerielle' . "\0" . 'nivlisminId', '' . "\0" . 'App\\Entity\\Niveaulisteministerielle' . "\0" . 'nivlisminName', '' . "\0" . 'App\\Entity\\Niveaulisteministerielle' . "\0" . 'nivlisminDescription', '' . "\0" . 'App\\Entity\\Niveaulisteministerielle' . "\0" . 'nivlisminAuteurcreation', '' . "\0" . 'App\\Entity\\Niveaulisteministerielle' . "\0" . 'nivlisminDatecreation', '' . "\0" . 'App\\Entity\\Niveaulisteministerielle' . "\0" . 'nivlisminAuteurchangement', '' . "\0" . 'App\\Entity\\Niveaulisteministerielle' . "\0" . 'nivlisminDatechangement'];
+            return ['__isInitialized__', '' . "\0" . 'App\\Entity\\Niveaulisteministerielle' . "\0" . 'nivlisminId', '' . "\0" . 'App\\Entity\\Niveaulisteministerielle' . "\0" . 'nivlisminNom', '' . "\0" . 'App\\Entity\\Niveaulisteministerielle' . "\0" . 'nivlisminDescription', '' . "\0" . 'App\\Entity\\Niveaulisteministerielle' . "\0" . 'nivlisminAuteurcreation', '' . "\0" . 'App\\Entity\\Niveaulisteministerielle' . "\0" . 'nivlisminDatecreation', '' . "\0" . 'App\\Entity\\Niveaulisteministerielle' . "\0" . 'nivlisminAuteurchangement', '' . "\0" . 'App\\Entity\\Niveaulisteministerielle' . "\0" . 'nivlisminDatechangement'];
         }
 
-        return ['__isInitialized__', '' . "\0" . 'App\\Entity\\Niveaulisteministerielle' . "\0" . 'nivlisminId', '' . "\0" . 'App\\Entity\\Niveaulisteministerielle' . "\0" . 'nivlisminName', '' . "\0" . 'App\\Entity\\Niveaulisteministerielle' . "\0" . 'nivlisminDescription', '' . "\0" . 'App\\Entity\\Niveaulisteministerielle' . "\0" . 'nivlisminAuteurcreation', '' . "\0" . 'App\\Entity\\Niveaulisteministerielle' . "\0" . 'nivlisminDatecreation', '' . "\0" . 'App\\Entity\\Niveaulisteministerielle' . "\0" . 'nivlisminAuteurchangement', '' . "\0" . 'App\\Entity\\Niveaulisteministerielle' . "\0" . 'nivlisminDatechangement'];
+        return ['__isInitialized__', '' . "\0" . 'App\\Entity\\Niveaulisteministerielle' . "\0" . 'nivlisminId', '' . "\0" . 'App\\Entity\\Niveaulisteministerielle' . "\0" . 'nivlisminNom', '' . "\0" . 'App\\Entity\\Niveaulisteministerielle' . "\0" . 'nivlisminDescription', '' . "\0" . 'App\\Entity\\Niveaulisteministerielle' . "\0" . 'nivlisminAuteurcreation', '' . "\0" . 'App\\Entity\\Niveaulisteministerielle' . "\0" . 'nivlisminDatecreation', '' . "\0" . 'App\\Entity\\Niveaulisteministerielle' . "\0" . 'nivlisminAuteurchangement', '' . "\0" . 'App\\Entity\\Niveaulisteministerielle' . "\0" . 'nivlisminDatechangement'];
     }
 
     /**
@@ -191,23 +191,23 @@ class Niveaulisteministerielle extends \App\Entity\Niveaulisteministerielle impl
     /**
      * {@inheritDoc}
      */
-    public function getNivlisminName(): ?string
+    public function getNivlisminNom(): ?string
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getNivlisminName', []);
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getNivlisminNom', []);
 
-        return parent::getNivlisminName();
+        return parent::getNivlisminNom();
     }
 
     /**
      * {@inheritDoc}
      */
-    public function setNivlisminName(string $nivlisminName): \App\Entity\Niveaulisteministerielle
+    public function setNivlisminNom(string $nivlisminNom): \App\Entity\Niveaulisteministerielle
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setNivlisminName', [$nivlisminName]);
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setNivlisminNom', [$nivlisminNom]);
 
-        return parent::setNivlisminName($nivlisminName);
+        return parent::setNivlisminNom($nivlisminNom);
     }
 
     /**

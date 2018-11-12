@@ -18,6 +18,13 @@
         <p> Pour ajouter un évènement à votre calendrier
         <input type="button" onclick="location.href='/evenement/ajouter';" value="Ajouter un évènement" />
         <br/>
+        <p> Pour visualiser vos performances
+        <input type="button" onclick="location.href='/visu/perf';" value="Visualiser" />
+        <br/>
+        <p> Pour créer une performance
+        <input type="button" onclick="location.href='/performance';" value="Créer" />
+        <br/>
+
         {% if allAbsence == null %}
             <p> Aucun évènement de prévu </p>
         {% endif %}

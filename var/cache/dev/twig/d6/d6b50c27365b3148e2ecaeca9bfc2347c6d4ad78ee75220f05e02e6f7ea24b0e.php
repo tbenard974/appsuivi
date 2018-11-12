@@ -91,17 +91,24 @@ class __TwigTemplate_4ddaf73752fff48efbf8a9362b0b954028b35db5f63c5ac5f56c04932c8
         <p> Pour ajouter un évènement à votre calendrier
         <input type=\"button\" onclick=\"location.href='/evenement/ajouter';\" value=\"Ajouter un évènement\" />
         <br/>
+        <p> Pour visualiser vos performances
+        <input type=\"button\" onclick=\"location.href='/visu/perf';\" value=\"Visualiser\" />
+        <br/>
+        <p> Pour créer une performance
+        <input type=\"button\" onclick=\"location.href='/performance';\" value=\"Créer\" />
+        <br/>
+
         ";
-            // line 21
-            if (((isset($context["allAbsence"]) || array_key_exists("allAbsence", $context) ? $context["allAbsence"] : (function () { throw new Twig_Error_Runtime('Variable "allAbsence" does not exist.', 21, $this->source); })()) == null)) {
-                // line 22
+            // line 28
+            if (((isset($context["allAbsence"]) || array_key_exists("allAbsence", $context) ? $context["allAbsence"] : (function () { throw new Twig_Error_Runtime('Variable "allAbsence" does not exist.', 28, $this->source); })()) == null)) {
+                // line 29
                 echo "            <p> Aucun évènement de prévu </p>
         ";
             }
-            // line 24
+            // line 31
             echo "        ";
-            if (((isset($context["allAbsence"]) || array_key_exists("allAbsence", $context) ? $context["allAbsence"] : (function () { throw new Twig_Error_Runtime('Variable "allAbsence" does not exist.', 24, $this->source); })()) != null)) {
-                // line 25
+            if (((isset($context["allAbsence"]) || array_key_exists("allAbsence", $context) ? $context["allAbsence"] : (function () { throw new Twig_Error_Runtime('Variable "allAbsence" does not exist.', 31, $this->source); })()) != null)) {
+                // line 32
                 echo "        <table>
                 <tr>
                     <th>Nom</th>
@@ -110,22 +117,22 @@ class __TwigTemplate_4ddaf73752fff48efbf8a9362b0b954028b35db5f63c5ac5f56c04932c8
                 </tr>
 
                 ";
-                // line 32
+                // line 39
                 $context['_parent'] = $context;
-                $context['_seq'] = twig_ensure_traversable((isset($context["allAbsence"]) || array_key_exists("allAbsence", $context) ? $context["allAbsence"] : (function () { throw new Twig_Error_Runtime('Variable "allAbsence" does not exist.', 32, $this->source); })()));
+                $context['_seq'] = twig_ensure_traversable((isset($context["allAbsence"]) || array_key_exists("allAbsence", $context) ? $context["allAbsence"] : (function () { throw new Twig_Error_Runtime('Variable "allAbsence" does not exist.', 39, $this->source); })()));
                 foreach ($context['_seq'] as $context["_key"] => $context["absence"]) {
-                    // line 33
+                    // line 40
                     echo "                    <tr>
                         <td>";
-                    // line 34
+                    // line 41
                     echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["absence"], "absNom", array()), "html", null, true);
                     echo "</td>
                         <td>";
-                    // line 35
+                    // line 42
                     echo twig_escape_filter($this->env, twig_date_format_filter($this->env, twig_get_attribute($this->env, $this->source, $context["absence"], "absDatedebut", array()), "d/m/Y"), "html", null, true);
                     echo "</td>
                         <td>";
-                    // line 36
+                    // line 43
                     echo twig_escape_filter($this->env, twig_date_format_filter($this->env, twig_get_attribute($this->env, $this->source, $context["absence"], "absDatefin", array()), "d/m/Y"), "html", null, true);
                     echo "</td>
                     </tr>
@@ -134,16 +141,16 @@ class __TwigTemplate_4ddaf73752fff48efbf8a9362b0b954028b35db5f63c5ac5f56c04932c8
                 $_parent = $context['_parent'];
                 unset($context['_seq'], $context['_iterated'], $context['_key'], $context['absence'], $context['_parent'], $context['loop']);
                 $context = array_intersect_key($context, $_parent) + $_parent;
-                // line 39
+                // line 46
                 echo "            </table>
         ";
             }
-            // line 41
+            // line 48
             echo "
 
 \t";
         }
-        // line 44
+        // line 51
         echo "\t
 \t
 ";
@@ -167,7 +174,7 @@ class __TwigTemplate_4ddaf73752fff48efbf8a9362b0b954028b35db5f63c5ac5f56c04932c8
 
     public function getDebugInfo()
     {
-        return array (  147 => 44,  142 => 41,  138 => 39,  129 => 36,  125 => 35,  121 => 34,  118 => 33,  114 => 32,  105 => 25,  102 => 24,  98 => 22,  96 => 21,  88 => 17,  86 => 16,  83 => 15,  79 => 13,  76 => 12,  67 => 11,  54 => 8,  45 => 7,  15 => 5,);
+        return array (  154 => 51,  149 => 48,  145 => 46,  136 => 43,  132 => 42,  128 => 41,  125 => 40,  121 => 39,  112 => 32,  109 => 31,  105 => 29,  103 => 28,  88 => 17,  86 => 16,  83 => 15,  79 => 13,  76 => 12,  67 => 11,  54 => 8,  45 => 7,  15 => 5,);
     }
 
     public function getSourceContext()
@@ -192,6 +199,13 @@ class __TwigTemplate_4ddaf73752fff48efbf8a9362b0b954028b35db5f63c5ac5f56c04932c8
         <p> Pour ajouter un évènement à votre calendrier
         <input type=\"button\" onclick=\"location.href='/evenement/ajouter';\" value=\"Ajouter un évènement\" />
         <br/>
+        <p> Pour visualiser vos performances
+        <input type=\"button\" onclick=\"location.href='/visu/perf';\" value=\"Visualiser\" />
+        <br/>
+        <p> Pour créer une performance
+        <input type=\"button\" onclick=\"location.href='/performance';\" value=\"Créer\" />
+        <br/>
+
         {% if allAbsence == null %}
             <p> Aucun évènement de prévu </p>
         {% endif %}

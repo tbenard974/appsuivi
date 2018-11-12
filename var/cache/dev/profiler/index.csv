@@ -92,3 +92,11 @@ c4ef06,127.0.0.1,GET,http://localhost:8000/,1542030349,,200
 022705,127.0.0.1,GET,http://localhost:8000/evenement/ajouter,1542030391,,200
 56efd5,127.0.0.1,POST,http://localhost:8000/evenement/ajouter,1542030398,,200
 41598d,127.0.0.1,GET,http://localhost:8000/,1542030421,,200
+177eb9,127.0.0.1,GET,http://localhost:8000/,1542039739,,200
+8c44ad,127.0.0.1,GET,http://localhost:8000/performance,1542039759,,200
+de5369,127.0.0.1,GET,http://localhost:8000/visu/perf,1542039765,,200
+289043,127.0.0.1,GET,http://localhost:8000/,1542039768,,200
+7fc4c9,127.0.0.1,GET,http://localhost:8000/evenement/ajouter,1542039770,,200
+436ad2,127.0.0.1,GET,http://localhost:8000/,1542039781,,200
+80c52d,127.0.0.1,GET,http://localhost:8000/,1542039876,,200
+d463fb,127.0.0.1,GET,http://localhost:8000/,1542039890,,200

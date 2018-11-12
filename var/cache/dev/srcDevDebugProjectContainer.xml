@@ -387,6 +387,13 @@
     <service id="App\Controller\EvenementController" class="App\Controller\EvenementController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
     </service>
+    <service id="App\Controller\PerformanceController" class="App\Controller\PerformanceController" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+      <tag name="container.service_subscriber"/>
+      <call method="setContainer">
+        <argument type="service" id=".service_locator.ychIlgF.App\Controller\PerformanceController"/>
+      </call>
+    </service>
     <service id="App\Controller\RegistrationController" class="App\Controller\RegistrationController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
     </service>
@@ -397,6 +404,9 @@
         <argument type="service" id=".service_locator.ychIlgF.App\Controller\SecurityController"/>
       </call>
     </service>
+    <service id="App\Controller\VisuPerfController" class="App\Controller\VisuPerfController" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+    </service>
     <service id="App\Form\AbsenceType" class="App\Form\AbsenceType" public="false" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
     </service>
@@ -404,6 +414,9 @@
       <tag name="form.type"/>
     </service>
     <service id="App\Form\FichierType" class="App\Form\FichierType" public="false" autowire="true" autoconfigure="true">
+      <tag name="form.type"/>
+    </service>
+    <service id="App\Form\PerformanceType" class="App\Form\PerformanceType" public="false" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
     </service>
     <service id="App\Form\UsersType" class="App\Form\UsersType" public="false" autowire="true" autoconfigure="true">
@@ -675,6 +688,7 @@
         <argument>App\Form\AbsenceType</argument>
         <argument>App\Form\EvenementType</argument>
         <argument>App\Form\FichierType</argument>
+        <argument>App\Form\PerformanceType</argument>
         <argument>App\Form\UsersType</argument>
         <argument>Symfony\Component\Form\Extension\Core\Type\FormType</argument>
         <argument>Symfony\Component\Form\Extension\Core\Type\ChoiceType</argument>
@@ -902,7 +916,7 @@
       <argument type="service" id="form.resolved_type_factory"/>
     </service>
     <service id="form.extension" class="Symfony\Component\Form\Extension\DependencyInjection\DependencyInjectionExtension" public="false">
-      <argument type="service" id=".service_locator.p9YmHQ2"/>
+      <argument type="service" id=".service_locator.S4kQ5ra"/>
       <argument type="collection">
         <argument key="Symfony\Component\Form\Extension\Core\Type\FormType" type="iterator">
           <argument type="service" id="form.type_extension.form.http_foundation"/>
@@ -4241,17 +4255,24 @@
     <service id=".abstract.instanceof.App\Controller\DefaultController" class="App\Controller\DefaultController" public="false" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\Controller.0.App\Controller\EvenementController" class="App\Controller\EvenementController" public="false" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\EvenementController" class="App\Controller\EvenementController" public="false" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Component\DependencyInjection\ServiceSubscriberInterface.0.App\Controller\PerformanceController" class="App\Controller\PerformanceController" public="false" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\PerformanceController" class="App\Controller\PerformanceController" public="false" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\PerformanceController" class="App\Controller\PerformanceController" public="false" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\Controller.0.App\Controller\RegistrationController" class="App\Controller\RegistrationController" public="false" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\RegistrationController" class="App\Controller\RegistrationController" public="false" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\DependencyInjection\ServiceSubscriberInterface.0.App\Controller\SecurityController" class="App\Controller\SecurityController" public="false" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\SecurityController" class="App\Controller\SecurityController" public="false" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\SecurityController" class="App\Controller\SecurityController" public="false" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\Controller.0.App\Controller\VisuPerfController" class="App\Controller\VisuPerfController" public="false" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\VisuPerfController" class="App\Controller\VisuPerfController" public="false" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\AbsenceType" class="App\Form\AbsenceType" public="false" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\AbsenceType" class="App\Form\AbsenceType" public="false" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\EvenementType" class="App\Form\EvenementType" public="false" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\EvenementType" class="App\Form\EvenementType" public="false" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\FichierType" class="App\Form\FichierType" public="false" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\FichierType" class="App\Form\FichierType" public="false" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\PerformanceType" class="App\Form\PerformanceType" public="false" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Form\PerformanceType" class="App\Form\PerformanceType" public="false" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\UsersType" class="App\Form\UsersType" public="false" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\UsersType" class="App\Form\UsersType" public="false" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\UserRepository" class="App\Repository\UserRepository" public="false" autowire="true" abstract="true"/>
@@ -4487,12 +4508,13 @@
       <argument type="service" id="debug.argument_resolver.variadic.inner"/>
       <argument type="service" id="debug.stopwatch"/>
     </service>
-    <service id=".service_locator.p9YmHQ2" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.S4kQ5ra" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Form\AbsenceType" type="service" id="App\Form\AbsenceType"/>
         <argument key="App\Form\EvenementType" type="service" id="App\Form\EvenementType"/>
         <argument key="App\Form\FichierType" type="service" id="App\Form\FichierType"/>
+        <argument key="App\Form\PerformanceType" type="service" id="App\Form\PerformanceType"/>
         <argument key="App\Form\UsersType" type="service" id="App\Form\UsersType"/>
         <argument key="Symfony\Bridge\Doctrine\Form\Type\EntityType" type="service" id="form.type.entity"/>
         <argument key="Symfony\Component\Form\Extension\Core\Type\ChoiceType" type="service" id="form.type.choice"/>
@@ -4690,6 +4712,11 @@
         <argument key="session" type="service" id="session" on-invalid="ignore"/>
         <argument key="twig" type="service" id="twig" on-invalid="ignore"/>
       </argument>
+    </service>
+    <service id=".service_locator.ychIlgF.App\Controller\PerformanceController" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <argument>App\Controller\PerformanceController</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.ychIlgF" method="withContext"/>
     </service>
     <service id=".service_locator.ychIlgF.App\Controller\SecurityController" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <argument>App\Controller\SecurityController</argument>

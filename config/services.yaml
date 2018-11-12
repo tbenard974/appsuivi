@@ -36,3 +36,7 @@ services:
             
     app.login_form_authenticator:
         class: App\Security\LoginFormAuthenticator
+
+    manage.evenement:
+        class: App\Controller\EvenementController
+        arguments: ["@service_container"]

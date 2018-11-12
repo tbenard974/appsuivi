@@ -2,6 +2,10 @@ index:
     path: /
     controller: App\Controller\DefaultController::index
 
+indexMobile:
+    path: /mobile
+    controller: App\Controller\DefaultController::indexMobile
+
 demandeAbsence:
     path: /absence/demande
     controller: App\Controller\AbsenceController::demande
@@ -16,8 +20,9 @@ register:
 
 ajouterEvenement:
     path: /evenement/ajouter
-    controller: App\Controller\EvenementController::ajouter
+    controller: App\Controller\EvenementController::ajouterWeb
     
 
 logout:
     path: /logout
+

@@ -59,7 +59,7 @@ class EvenementController extends Controller
 				$sport = $utilisateur->getUtiFksport();
 				$epreuve = $form->get('epreuve')->getData();
 				$categorie = $form->get('categorie')->getData();
-				
+			
 				$jointureSport = $this->getDoctrine()->getRepository(Jointuresport::class)->findOneBy(array('joispoFksport'=> $sport, 'joispoFkepreuve'=> $epreuve, 'joispoFkcategorie'=> $categorie));
 				
 				if ($jointureSport == null) {
@@ -112,5 +112,4 @@ class EvenementController extends Controller
                 'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
         ));
 	}
-	
 }

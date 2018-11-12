@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    {% if app.user == null %}
+		<a href="/login" class="btn btn-info"> You need to login >></a>
+	{% endif %}
+
+    <p> Pour visualiser vos performances
+    <input type="button" onclick="location.href='/visu/perf';" value="Visualiser" />
+    <br/>
+
+    <p>Remontée de performance</p>
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <input type="submit" class="btn" value="Enregistrer" />
+    {{ form_end(form) }} 
+
+{% endblock %}
+

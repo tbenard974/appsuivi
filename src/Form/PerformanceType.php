@@ -19,8 +19,6 @@ use App\Entity\Localisationcompetition;
 use App\Entity\Resultat;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
-
-
 class PerformanceType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)

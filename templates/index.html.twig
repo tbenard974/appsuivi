@@ -18,8 +18,9 @@
                 </div>
             </form>
             <ul class="nav menu">
-                <li class="active"><a href="/{{ path('index') }}"><svg class="glyph stroked dashboard-dial"><use xlink:href="#stroked-dashboard-dial"></use></svg> Accueil</a></li>
-                <li ><a href="/evenement/afficher"><svg class="glyph stroked calendar"><use xlink:href="#stroked-calendar"></use></svg> Mon Planning</a></li>
+                <li class="active"><a href="/"><svg class="glyph stroked dashboard-dial"><use xlink:href="#stroked-dashboard-dial"></use></svg> Accueil</a></li>
+                <li ><a href="/evenement/afficher"><svg class="glyph stroked calendar"><use xlink:href="#stroked-calendar"></use></svg> Mon Planning</a>
+                <li ><a href="/visu/perf"><svg class="glyph stroked notepad"><use xlink:href="#stroked-notepad"></use></svg> Mes performances</a></li>
                 <li role="presentation" class="divider"></li>
             </ul>
 
@@ -51,7 +52,7 @@
             {% if allAbsence != null %}
 
 
-                    <div class="row">
+                <div class="row">
                     <div>
                      <div class="panel panel-default">
                         <div class="panel-heading">Mes évenements</div>
@@ -76,10 +77,7 @@
                      </div>
                     </div>
                 </div><!--/.row-->
-
             {% endif %}
-
-
         </div>
 
 	{% endif %}

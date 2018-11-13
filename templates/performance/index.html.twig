@@ -5,19 +5,54 @@
 {% endblock %}
 
 {% block body %}
+    {{ parent() }}
+
+    {% if app.user != null %}
+        <div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
+            <form role="search">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Search">
+                </div>
+            </form>
+            <ul class="nav menu">
+                <li><a href="/"><svg class="glyph stroked dashboard-dial"><use xlink:href="#stroked-dashboard-dial"></use></svg> Accueil</a></li>
+                <li ><a href="/evenement/afficher"><svg class="glyph stroked calendar"><use xlink:href="#stroked-calendar"></use></svg> Mon Planning</a></li>
+                <li class="active"><a href="/visu/perf"><svg class="glyph stroked notepad"><use xlink:href="#stroked-notepad"></use></svg> Mes performances</a></li>
+                <li role="presentation" class="divider"></li>
+            </ul>
+
+        </div><!--/.sidebar-->
+    {% endif %}
+
     {% if app.user == null %}
-		<a href="/login" class="btn btn-info"> You need to login >></a>
-	{% endif %}
+        <a href="/login" class="btn btn-info"> You need to login >></a>
+    {% endif %}
 
-    <p> Pour visualiser vos performances
-    <input type="button" onclick="location.href='/visu/perf';" value="Visualiser" />
-    <br/>
+    {% if app.user != null %}
+        <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+            <div class="row">
+                <ol class="breadcrumb">
+                    <li><a href="/"><svg class="glyph stroked home"><use xlink:href="#stroked-home"></use></svg></a></li>
+                    <li class="active">Ajout performances</li>
+                </ol>
+            </div >
+            <div class="row">
 
-    <p>Remontée de performance</p>
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <input type="submit" class="btn" value="Enregistrer" />
-    {{ form_end(form) }} 
+                <div class="panel panel-default">
+                    <div class="panel-heading">Ajouter une nouvelle performance</div>
+                    <div class="panel-body">
+                        {{ form_start(form) }}
+                        <div class="form_group">
+                            <div >
+                                {{ form_widget(form) }}
+                            </div>
+                        </div>
+                        <input type="submit" class="btn" value="Enregistrer" />
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+    {% endif %}
 
 {% endblock %}
 

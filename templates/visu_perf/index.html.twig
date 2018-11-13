@@ -5,57 +5,106 @@
 {% endblock %}
 
 {% block body %}
+ {{ parent() }}
     {% if app.user == null %}
 		<a href="/login" class="btn btn-info"> You need to login >></a>
 	{% endif %}
 
     {% if app.user != null %}
-        Utilisateur courant : {{ app.user.username }} <input type="button" onclick="location.href='/logout';" value="Déconnexion" />
-        <br/>
-        {% if allPerf == null %}
-            <p> Aucun évènement de prévu </p>
-        {% endif %}
-        {% if allPerf != null %}
-        <table>
-                <tr>
-                    <th>Type compétition</th>
-                    <th>Echelle compétition</th>
-                    <th>Localisation compétition</th>
-                    <th>Epreuve</th>
-                    <th>Catégorie</th>
-                    <th>Importance</th>
-                    <th>Date début</th>
-                    <th>Date fin</th>
-                    <th>Lieu</th>
-                    <th>Résultat</th>
-                    <th>Ressenti</th>
-                </tr>
+        <div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
+            <form role="search">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Search">
+                </div>
+            </form>
+            <ul class="nav menu">
+                <li ><a href="/"><svg class="glyph stroked dashboard-dial"><use xlink:href="#stroked-dashboard-dial"></use></svg> Accueil</a></li>
+                <li ><a href="/evenement/afficher"><svg class="glyph stroked calendar"><use xlink:href="#stroked-calendar"></use></svg> Mon Planning</a>
+                <li class="active"><a href="/visu/perf"><svg class="glyph stroked notepad"><use xlink:href="#stroked-notepad"></use></svg> Mes performances</a></li>
+                <li role="presentation" class="divider"></li>
+            </ul>
+        </div><!--/.sidebar-->
+        <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+            <div class="row">
+                <ol class="breadcrumb">
+                    <li><a href="/"><svg class="glyph stroked home"><use xlink:href="#stroked-home"></use></svg></a></li>
+                    <li class="active">Mes Performances</li>
+                </ol>
+             </div>
 
-                {% for performance in allPerf %}
-                    <tr>
-                        <td>{{ performance.perFktypecompetition.typcomNom }}</td>
-                        <td>{{ performance.perFkechellecompetition.echcomNom }}</td>
-                        <td>{{ performance.perFklocalisationcompetition.loccomNom }}</td>
-                        <td>{{ performance.perFkjointuresport.joispoFkepreuve.eprNom }}</td>
-                        <td>{{ performance.perFkjointuresport.joispoFkcategorie.catNom }}</td>
-                        <td>{% if performance.perImportance == 1 %}
-                                {{ "Forte" }}
-                            {% else %}
-                                {{ "Basse" }}
-                            {% endif %}
-                        </td>
-                        <td>{{ performance.perDatedebut|date("d/m/Y") }}</td>
-                        <td>{{ performance.perDatefin|date("d/m/Y") }}</td>
-                        <td>{{ performance.perLieu }}</td>
-                        <td>{{ performance.perFkresultat.resNom }}</td>
-                        <td>{{ performance.perRessenti }}</td>
-                    </tr>
-                {% endfor %}
-            </table>
-        {% endif %}
-        <p> Pour créér une performance
-        <input type="button" onclick="location.href='/performance';" value="Créer une performance" />
-        <br/>
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">Gestion des performances</h1>
+                </div>
+            </div><!--/.row-->
+             <div class="row">
+                <div class="col-xs-8 col-md-6 col-lg-3">
+                    <div class="panel panel-blue panel-widget ">
+                        <div class="row no-padding">
+                            <div class="col-sm-3 col-lg-5 widget-left">
+                                <a href="/performance"><svg class="glyph stroked plus sign" style="color: floralwhite;"><use xlink:href="#stroked-plus-sign"/></svg></a>
+                            </div>
+                            <div class="col-sm-9 col-lg-7 widget-right">
+                                <div class="large">Ajouter une performance</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+             </div>
+
+
+            {% if allPerf == null %}
+                <p> Aucun évènement de prévu </p>
+            {% endif %}
+            {% if allPerf != null %}
+                <div class="row">
+                    <div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Mes performances</div>
+                            <div class="table-responsive">
+                                <table class="table" data-toggle="table"   data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="toolbar1" data-pagination="true" data-sort-name="name" data-sort-order="desc">
+                                    <thead>
+                                        <tr>
+                                            <th>Type compétition</th>
+                                            <th>Echelle compétition</th>
+                                            <th>Localisation compétition</th>
+                                            <th>Epreuve</th>
+                                            <th>Catégorie</th>
+                                            <th>Importance</th>
+                                            <th>Date début</th>
+                                            <th>Date fin</th>
+                                            <th>Lieu</th>
+                                            <th>Résultat</th>
+                                            <th>Ressenti</th>
+                                         </tr>
+                                        {% for performance in allPerf %}
+                                            <tr>
+                                            <td>{{ performance.perFktypecompetition.typcomNom }}</td>
+                                            <td>{{ performance.perFkechellecompetition.echcomNom }}</td>
+                                            <td>{{ performance.perFklocalisationcompetition.loccomNom }}</td>
+                                            <td>{{ performance.perFkjointuresport.joispoFkepreuve.eprNom }}</td>
+                                            <td>{{ performance.perFkjointuresport.joispoFkcategorie.catNom }}</td>
+                                            <td>{% if performance.perImportance == 1 %}
+                                                    {{ "Forte" }}
+                                                {% else %}
+                                                    {{ "Basse" }}
+                                                {% endif %}
+                                            </td>
+                                            <td>{{ performance.perDatedebut|date("d/m/Y") }}</td>
+                                            <td>{{ performance.perDatefin|date("d/m/Y") }}</td>
+                                            <td>{{ performance.perLieu }}</td>
+
+                                            <td>{{ performance.perRessenti }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div><!--/.row-->
+            {% endif  %}
+        </div>
     {% endif %} 
 
 {% endblock %}

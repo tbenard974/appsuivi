@@ -20,9 +20,6 @@
             <ul class="nav menu">
                 <li class="active"><a href="/{{ path('index') }}"><svg class="glyph stroked dashboard-dial"><use xlink:href="#stroked-dashboard-dial"></use></svg> Accueil</a></li>
                 <li ><a href="/evenement/afficher"><svg class="glyph stroked calendar"><use xlink:href="#stroked-calendar"></use></svg> Mon Planning</a></li>
-                <input type="button" onclick="location.href='/absence/demande';" value="Faire une demande d'absence" />
-
-
                 <li role="presentation" class="divider"></li>
             </ul>
 
@@ -33,38 +30,57 @@
 	{% endif %}
 
 	{% if app.user != null %}
-        Utilisateur courant : {{ app.user.username }} <input type="button" onclick="location.href='/logout';" value="Déconnexion" />
-        <p> Pour ajouter un évènement à votre calendrier
-        <input type="button" onclick="location.href='/evenement/ajouter';" value="Ajouter un évènement" />
-        <br/>
-        <p> Pour visualiser vos performances
-        <input type="button" onclick="location.href='/visu/perf';" value="Visualiser" />
-        <br/>
-        <p> Pour créer une performance
-        <input type="button" onclick="location.href='/performance';" value="Créer" />
-        <br/>
+        <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+            <div class="row">
+                <ol class="breadcrumb">
+                    <li><a href="/"><svg class="glyph stroked home"><use xlink:href="#stroked-home"></use></svg></a></li>
+                 </ol>
+            </div>
 
-        {% if allAbsence == null %}
-            <p> Aucun évènement de prévu </p>
-        {% endif %}
-        {% if allAbsence != null %}
-        <table>
-                <tr>
-                    <th>Nom</th>
-                    <th>Date début</th>
-                    <th>Date fin</th>
-                </tr>
 
-                {% for absence in allAbsence %}
-                    <tr>
-                        <td>{{ absence.absNom }}</td>
-                        <td>{{ absence.absDatedebut|date("d/m/Y") }}</td>
-                        <td>{{ absence.absDatefin|date("d/m/Y") }}</td>
-                    </tr>
-                {% endfor %}
-            </table>
-        {% endif %}
 
+            <ul class="nav nav-pills">
+                <li><a href="/evenement/ajouter">Ajouter un évènement</a></li>
+                <li><a href="/visu/perf">Visualiser vos performances</a></li>
+                <li><a href="/performance">Créer une performance</a></li>
+            </ul>
+
+             {% if allAbsence == null %}
+                <p> Aucun évènement de prévu </p>
+            {% endif %}
+            {% if allAbsence != null %}
+
+
+                    <div class="row">
+                    <div>
+                     <div class="panel panel-default">
+                        <div class="panel-heading">Mes évenements</div>
+                        <div class="table-responsive">
+                            <table class="table" data-toggle="table"   data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="toolbar1" data-pagination="true" data-sort-name="name" data-sort-order="desc">
+                                <thead>
+                                <tr>
+                                    <th data-field="name" data-checkbox="true" >Nom</th>
+                                    <th data-field="data-date-format" data-sortable="true">Date début</th>
+                                    <th data-field="data-date-format"  data-sortable="true">Date fin</th>
+                                </tr>
+                                {% for absence in allAbsence %}
+                                    <tr>
+                                        <td>{{ absence.absNom }}</td>
+                                        <td>{{ absence.absDatedebut|date("d/m/Y") }}</td>
+                                        <td>{{ absence.absDatefin|date("d/m/Y") }}</td>
+                                    </tr>
+                                {% endfor %}
+                                </thead>
+                            </table>
+                        </div>
+                     </div>
+                    </div>
+                </div><!--/.row-->
+
+            {% endif %}
+
+
+        </div>
 
 	{% endif %}
 {% endblock %}

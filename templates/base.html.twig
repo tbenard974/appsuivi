@@ -33,17 +33,16 @@
 					<span class="icon-bar"></span>
 				</button>
 				<a class="navbar-brand" href="#"><span>Application de suivi des sportifs de haut niveau</span></a>
-                {% if app.user == null %}
 
-
+				{% if app.user == null %}
 				<ul class="user-menu">
 					<li><a href="/login"><svg class="glyph stroked male-user"><use xlink:href="#stroked-male-user"></use></svg> Login </a></li>
-
 				</ul>
                 {% endif %}
+
                 {% if app.user != null %}
 				<ul class="user-menu">
-					<li><a href="/login"><svg class="glyph stroked male-user"><use xlink:href="#stroked-male-user"></use></svg> Logout</a></li>
+					<li><a href="/logout"><svg class="glyph stroked male-user"><use xlink:href="#stroked-male-user"> Utilisateur courant : {{ app.user.username }}</use></svg> Logout</a></li>
 
 				</ul>
                 {% endif %}

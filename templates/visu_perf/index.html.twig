@@ -79,22 +79,22 @@
                                          </tr>
                                         {% for performance in allPerf %}
                                             <tr>
-                                            <td>{{ performance.perFktypecompetition.typcomNom }}</td>
-                                            <td>{{ performance.perFkechellecompetition.echcomNom }}</td>
-                                            <td>{{ performance.perFklocalisationcompetition.loccomNom }}</td>
-                                            <td>{{ performance.perFkjointuresport.joispoFkepreuve.eprNom }}</td>
-                                            <td>{{ performance.perFkjointuresport.joispoFkcategorie.catNom }}</td>
-                                            <td>{% if performance.perImportance == 1 %}
-                                                    {{ "Forte" }}
-                                                {% else %}
-                                                    {{ "Basse" }}
-                                                {% endif %}
-                                            </td>
-                                            <td>{{ performance.perDatedebut|date("d/m/Y") }}</td>
-                                            <td>{{ performance.perDatefin|date("d/m/Y") }}</td>
-                                            <td>{{ performance.perLieu }}</td>
-
-                                            <td>{{ performance.perRessenti }}</td>
+                                                <td>{{ performance.perFktypecompetition.typcomNom }}</td>
+                                                <td>{{ performance.perFkechellecompetition.echcomNom }}</td>
+                                                <td>{{ performance.perFklocalisationcompetition.loccomNom }}</td>
+                                                <td>{{ performance.perFkjointuresport.joispoFkepreuve.eprNom }}</td>
+                                                <td>{{ performance.perFkjointuresport.joispoFkcategorie.catNom }}</td>
+                                                <td>{% if performance.perImportance == 1 %}
+                                                        {{ "Forte" }}
+                                                    {% else %}
+                                                        {{ "Basse" }}
+                                                    {% endif %}
+                                                </td>
+                                                <td>{{ performance.perDatedebut|date("d/m/Y") }}</td>
+                                                <td>{{ performance.perDatefin|date("d/m/Y") }}</td>
+                                                <td>{{ performance.perLieu }}</td>
+                                                <td>{{ performance.perFkresultat.resNom }}</td>
+                                                <td>{{ performance.perRessenti }}</td>
                                         </tr>
                                     {% endfor %}
                                     </thead>

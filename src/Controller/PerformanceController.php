@@ -82,4 +82,23 @@ class PerformanceController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+    /**
+     * @Route("/performance/visualisation", name="visualiserPerformance")
+     */
+
+    public function perfvisu(Request $request)
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        //$this->denyAccessUnlessGranted('ROLE_Admin');
+        $user_email = $this->getUser()->getEmail();
+        $utilisateur = $this->getDoctrine()->getRepository(Utilisateur::class)->findOneByUtiEmail($user_email);
+		//select abs_id from absence where abs_fk_idutilisateur=(select uti_id from utilisateur where uti_email='dev@dev.fr');
+		$allPerformance = $this->getDoctrine()->getRepository(Performance::class)->findByPerFkutilisateur($utilisateur);
+            
+            return $this->render('visu_perf/index.html.twig', array(
+                'allPerf' => $allPerformance,
+                'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
+        ));
+    }
 }

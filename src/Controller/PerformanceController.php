@@ -84,7 +84,7 @@ class PerformanceController extends AbstractController
     }
 
     /**
-     * @Route("performance/visualisation", name="visualiserPerformance")
+     * @Route("/performance/visualisation", name="visualiserPerformance")
      */
 
     public function perfvisu(Request $request)

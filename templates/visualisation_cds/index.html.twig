@@ -20,8 +20,8 @@
             <ul class="nav menu">
                 <li ><a href="/"><svg class="glyph stroked dashboard-dial"><use xlink:href="#stroked-dashboard-dial"></use></svg> Accueil</a></li>
                 <li ><a href="/evenement/afficher"><svg class="glyph stroked calendar"><use xlink:href="#stroked-calendar"></use></svg> Mon Planning</a>
-                <li class="active"><a href="/performance/visualisation"><svg class="glyph stroked notepad"><use xlink:href="#stroked-notepad"></use></svg> Mes performances</a></li>
-                <li ><a href="/performance/visualisation/cds"><svg class="glyph stroked notepad"><use xlink:href="#stroked-notepad"></use></svg> Toutes les performances</a></li>
+                <li ><a href="/performance/visualisation"><svg class="glyph stroked notepad"><use xlink:href="#stroked-notepad"></use></svg> Mes performances</a></li>
+                <li class="active"><a href="/performance/visualisation/cds"><svg class="glyph stroked notepad"><use xlink:href="#stroked-notepad"></use></svg> Toutes les performances</a></li>
                 <li role="presentation" class="divider"></li>
             </ul>
         </div><!--/.sidebar-->
@@ -35,23 +35,10 @@
 
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Gestion des performances</h1>
+                    <h1 class="page-header">Toutes les performances</h1>
                 </div>
             </div><!--/.row-->
-             <div class="row">
-                <div class="col-xs-8 col-md-6 col-lg-3">
-                    <div class="panel panel-blue panel-widget ">
-                        <div class="row no-padding">
-                            <div class="col-sm-3 col-lg-5 widget-left">
-                                <a href="/performance"><svg class="glyph stroked plus sign" style="color: floralwhite;"><use xlink:href="#stroked-plus-sign"/></svg></a>
-                            </div>
-                            <div class="col-sm-9 col-lg-7 widget-right">
-                                <div class="large">Ajouter une performance</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-             </div>
+             
 
 
             {% if allPerf == null %}
@@ -66,6 +53,8 @@
                                 <table class="table" data-toggle="table"   data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="toolbar1" data-pagination="true" data-sort-name="name" data-sort-order="desc">
                                     <thead>
                                         <tr>
+                                            <th>Nom</th>
+                                            <th>Prénom</th>
                                             <th>Type compétition</th>
                                             <th>Echelle compétition</th>
                                             <th>Localisation compétition</th>
@@ -80,6 +69,8 @@
                                          </tr>
                                         {% for performance in allPerf %}
                                             <tr>
+                                                <td>{{ performance.perFkutilisateur.utiNom }}</td>
+                                                <td>{{ performance.perFkutilisateur.utiPrenom }}</td>
                                                 <td>{{ performance.perFktypecompetition.typcomNom }}</td>
                                                 <td>{{ performance.perFkechellecompetition.echcomNom }}</td>
                                                 <td>{{ performance.perFklocalisationcompetition.loccomNom }}</td>

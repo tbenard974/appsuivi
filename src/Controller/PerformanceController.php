@@ -84,12 +84,13 @@ class PerformanceController extends AbstractController
     }
 
     /**
-     * @Route("/performance/visualisation", name="visualiserPerformance")
+     * @Route("performance/visualisation", name="visualiserPerformance")
      */
 
     public function perfvisu(Request $request)
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        //$this->denyAccessUnlessGranted('ROLE_Admin');
         $user_email = $this->getUser()->getEmail();
         $utilisateur = $this->getDoctrine()->getRepository(Utilisateur::class)->findOneByUtiEmail($user_email);
 		//select abs_id from absence where abs_fk_idutilisateur=(select uti_id from utilisateur where uti_email='dev@dev.fr');

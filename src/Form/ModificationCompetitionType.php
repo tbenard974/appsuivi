@@ -1,5 +1,5 @@
 <?php 
-// src/Form/EvenementType.php
+// src/Form/ModificationCompetitionType.php
 namespace App\Form;
 
 use Symfony\Component\Form\FormEvent;
@@ -22,7 +22,7 @@ use App\Entity\Epreuve;
 use App\Entity\Categorie;
 use Symfony\Component\Validator\Constraints as Assert;
 
-class EvenementType extends AbstractType
+class ModificationCompetitionType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -54,24 +54,7 @@ class EvenementType extends AbstractType
 				'label' => 'Souhaitez-vous un rappel ?',
             ))
             ->add('absCommentaire', TextType::class, array('label' => 'Notes'))
-            ;
-        // if($options['absence'] != null){
-        //     $form->add('absCommentaire2', TextType::class, array('label' => 'Notes2', 'mapped' => false,))
-        //     ;
-        //}
-        $builder->get('absFkmotifabsence')->addEventListener(FormEvents::SUBMIT, [$this, 'addEvenement']);
-    }
-    
-    public function addEvenement(FormEvent $event) {
-        $absence = $event->getData();
-        $form = $event->getForm()->getParent();
-
-        if (empty($absence)) {
-            return;
-        }
-        if ($absence->getMotabsNom() == 'Compétition') {
-            $form
-                ->add('typeCompetition', EntityType::class, array(
+            ->add('typeCompetition', EntityType::class, array(
                     'class' =>Typecompetition::class,
                     'choice_label' => 'typcomNom',
                     // used to render a select box, check boxes or radios
@@ -126,7 +109,6 @@ class EvenementType extends AbstractType
 					'label' => 'Importance de la compétition',
                     'mapped' => false,
 				));
-        }
     }
 
     public function configureOptions(OptionsResolver $resolver)

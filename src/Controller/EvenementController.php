@@ -11,30 +11,55 @@ use App\Entity\Statusabsence;
 use App\Entity\Motifabsence;
 use App\Entity\Utilisateur;
 use App\Entity\Performance;
-//use App\Entity\Sport;
 use App\Entity\Jointuresport;
 use Psr\Log\LoggerInterface;
 use App\Form\EvenementType;
+use App\Form\ModificationCompetitionType;
 use App\Entity\Typefichier;
 
 class EvenementController extends Controller
 {
-	/**
-     * @Route("/evenement/ajouter", name="ajouterWeb")
+     /**
+     *
+     * @Route("/evenement/{idEvenement}", name="actionEvenement")
+     * 
      */
-    public function ajouter(Request $request)
+    public function action(Request $request, $idEvenement, LoggerInterface $logger)
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
-
-        $absence = new Absence();
+        
         $user_email = $this->getUser()->getEmail();
         $utilisateur = $this->getDoctrine()->getRepository(Utilisateur::class)->findOneByUtiEmail($user_email); #devra être l'utilisateur courant lorsque mécanisme d'authentification
-
-        $form = $this->createForm(EvenementType::class, $absence);
+   
+        if ($idEvenement == 'nouveau') {
+            $absence = new Absence();
+            $form = $this->createForm(EvenementType::class, $absence);
+        }
+        else {
+            if(self::findIfUserGotRightsOnEvent($utilisateur, $idEvenement) == null)
+            {
+                return $this->redirectToRoute('index');
+            }
+            $absence = $this->getDoctrine()->getRepository(\App\Entity\Absence::class)->findOneByAbsId($idEvenement);
+            $motifAbsence = $absence->getAbsFkmotifabsence();
+            if($motifAbsence->getMotabsNom()=='Compétition'){
+                $performance = $absence->getAbsFkperformance();
+                $form = $this->createForm(ModificationCompetitionType::class, $absence);
+                $form->get('typeCompetition')->setData($performance->getPerFktypecompetition());
+                $form->get('echelleCompetition')->setData($performance->getPerFkechellecompetition());
+                $form->get('localisationCompetition')->setData($performance->getPerFklocalisationcompetition());
+                $form->get('epreuve')->setData($performance->getPerFkjointuresport()->getJoispoFkepreuve());
+                $form->get('categorie')->setData($performance->getPerFkjointuresport()->getJoispoFkcategorie());
+                $form->get('importance')->setData($performance->getPerImportance());
+            }
+            else {
+                $form = $this->createForm(EvenementType::class, $absence);
+            }
+        }
+        //$form = $this->createForm(EvenementType::class, $absence);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $absence = $form->getData();
             $entityManager = $this->getDoctrine()->getManager();
 
@@ -44,8 +69,13 @@ class EvenementController extends Controller
                 $localisationCompetition = $form->get('localisationCompetition')->getData();
                 $importance = $form->get('importance')->getData();
 
-                $performance = new Performance();
-                $performance->setPerFkutilisateur($utilisateur);
+                if ($idEvenement == 'nouveau') {
+                    $performance = new Performance();
+                    $performance->setPerFkutilisateur($utilisateur);
+                }
+                else {
+                    $performance = $absence->getAbsFkperformance();
+                }
                 $performance->setPerFktypecompetition($typeCompetition);
                 $performance->setPerFkechellecompetition($echelleCompetition);
                 $performance->setPerFklocalisationcompetition($localisationCompetition);
@@ -74,62 +104,19 @@ class EvenementController extends Controller
                 $entityManager->persist($performance);
 
                 $absence->setAbsNom('Compét - '.$typeCompetition->getTypcomNom().' '.$localisationCompetition->getLoccomNom());
-				$typeCompetition = $form->get('typeCompetition')->getData();
-				$echelleCompetition = $form->get('echelleCompetition')->getData();
-				$localisationCompetition = $form->get('localisationCompetition')->getData();
-				$importance = $form->get('importance')->getData();
-				
-				$performance = new Performance();
-				$performance->setPerFkutilisateur($utilisateur);
-				$performance->setPerFktypecompetition($typeCompetition);
-				$performance->setPerFkechellecompetition($echelleCompetition);
-				$performance->setPerFklocalisationcompetition($localisationCompetition);
-				$performance->setPerDatedebut($absence->getAbsDatedebut());
-				$performance->setPerDatefin($absence->getAbsDatefin());
-				$performance->setPerLieu($absence->getAbsLieu());
-				$performance->setPerImportance($importance);
-				$performance->setUpdateFields($utilisateur->getUtiEmail());
-				
-				$sport = $utilisateur->getUtiFksport();
-				$epreuve = $form->get('epreuve')->getData();
-				$categorie = $form->get('categorie')->getData();
-			
-				$jointureSport = $this->getDoctrine()->getRepository(Jointuresport::class)->findOneBy(array('joispoFksport'=> $sport, 'joispoFkepreuve'=> $epreuve, 'joispoFkcategorie'=> $categorie));
-				
-				if ($jointureSport == null) {
-					$jointureSport = new Jointuresport();
-					$jointureSport->setJoispoFksport($sport);
-					$jointureSport->setJoispoFkepreuve($epreuve);
-					$jointureSport->setJoispoFkcategorie($categorie);
-					$jointureSport->setUpdateFields($utilisateur->getUtiEmail());
-					$entityManager->persist($jointureSport);
-				}
-				$performance->setPerFkjointuresport($jointureSport);
-				
-				$entityManager->persist($performance);
-				
-				$absence->setAbsNom('Compét - '.$typeCompetition->getTypcomNom().' '.$localisationCompetition->getLoccomNom());
-
+                $absence->setAbsFkperformance($performance);
             }
             else {
                 $absence->setAbsNom($absence->getAbsFkmotifabsence()->getMotabsNom().' - '.$absence->getAbsLieu());
-
             }
-            //$absence->setAbsFkstatusabsence($status);
             $absence->setAbsFkutilisateur($utilisateur);
             $absence->setUpdateFields($utilisateur->getUtiEmail());
-
-            // ... perform some action, such as saving the task to the database
-            // for example, if Task is a Doctrine entity, save it!
-			$absence->setAbsFkperformance($performance);
-			$entityManager->persist($absence);
+            $entityManager->persist($absence);
             $entityManager->flush();
 
             return $this->redirectToRoute('index');
         }
 
-		//return $form;
-        #return $this->render('index.html.twig');
         return $this->render('evenement/ajouter.html.twig', array(
             'form' => $form->createView(),
         ));
@@ -158,14 +145,11 @@ class EvenementController extends Controller
             'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
         ]);
     }
-	
-	
-	// public function visualiserAll()
-    // {
-	// 	$em = $this->container->get('doctrine')->getManager();
-	// 	$user_email = $em->getUser()->getEmail();
-    //     $utilisateur = $em->getDoctrine()->getRepository(Utilisateur::class)->findOneByUtiEmail($user_email);
-	// 	$allAbsence = $this->getDoctrine()->getRepository(Absence::class)->findByAbsFkutilisateur($utilisateur);
-    //     return $allAbsence;
-	// }
+
+    public function findIfUserGotRightsOnEvent(Utilisateur $utilisateur, $idEvenement)
+    {
+        $rights = $this->getDoctrine()->getRepository(Absence::class)->findOneBy(array('absFkutilisateur' => $utilisateur, 'absId' => $idEvenement));
+    
+        return $rights;
+    }
 }

@@ -93,7 +93,12 @@
                                                 <td>{{ performance.perDatedebut|date("d/m/Y") }}</td>
                                                 <td>{{ performance.perDatefin|date("d/m/Y") }}</td>
                                                 <td>{{ performance.perLieu }}</td>
-                                                <td>{{ performance.perFkresultat.resNom }}</td>
+                                                <td>
+                                                {% if performance.perFkresultat == null %}
+                                                    {{ "Non renseigné" }}
+                                                {% else %}
+                                                    {{ performance.perFkresultat.resNom }}
+                                                {% endif %}</td>
                                                 <td>{{ performance.perRessenti }}</td>
                                         </tr>
                                     {% endfor %}

@@ -19,9 +19,9 @@
             </form>
             <ul class="nav menu">
                 <li class="active"><a href="/"><svg class="glyph stroked dashboard-dial"><use xlink:href="#stroked-dashboard-dial"></use></svg> Accueil</a></li>
-                <li ><a href="/evenement/afficher"><svg class="glyph stroked calendar"><use xlink:href="#stroked-calendar"></use></svg> Mon Planning</a>
-                <li ><a href="/performance/visualisation"><svg class="glyph stroked notepad"><use xlink:href="#stroked-notepad"></use></svg> Mes performances</a></li>
-                <li ><a href="/performance/visualisation/cds"><svg class="glyph stroked notepad"><use xlink:href="#stroked-notepad"></use></svg> Toutes les performances</a></li>
+                <li ><a href="/visualisation/evenement"><svg class="glyph stroked calendar"><use xlink:href="#stroked-calendar"></use></svg> Mon Planning</a>
+                <li ><a href="/visualisation/performance"><svg class="glyph stroked notepad"><use xlink:href="#stroked-notepad"></use></svg> Mes performances</a></li>
+                <li ><a href="/visualisation/performance/cds"><svg class="glyph stroked notepad"><use xlink:href="#stroked-notepad"></use></svg> Toutes les performances</a></li>
                 <li role="presentation" class="divider"></li>
             </ul>
 
@@ -42,14 +42,9 @@
 
 
             <ul class="nav nav-pills">
-
-                <li><a href="/evenement/ajouter">Ajouter un évènement</a></li>
-                <li><a href="/performance/visualisation">Visualiser vos performances</a></li>
-
                 <li><a href="/evenement/nouveau">Ajouter un évènement</a></li>
-                <li><a href="/visu/perf">Visualiser vos performances</a></li>
-
-                <li><a href="/performance">Créer une performance</a></li>
+                <li><a href="/visualisation/performance">Visualiser vos performances</a></li>
+                <li><a href="/performance/nouveau">Créer une performance</a></li>
             </ul>
 
              {% if allAbsence == null %}
@@ -69,14 +64,14 @@
                                     <th data-field="name" data-checkbox="true">Nom</th>
                                     <th data-field="data-date-format" data-sortable="true">Date début</th>
                                     <th data-field="data-date-format"  data-sortable="true">Date fin</th>
-                                    <th data-field="name"  data-sortable="true">Modifier</th>
+                                    <th data-field="name"  data-sortable="true"></th>
                                 </tr>
                                 {% for absence in allAbsence %}
                                     <tr>
                                         <td>{{ absence.absNom }}</td>
                                         <td>{{ absence.absDatedebut|date("d/m/Y") }}</td>
                                         <td>{{ absence.absDatefin|date("d/m/Y") }}</td>
-                                        <td><input type="button" onclick="location.href='/evenement/{{ absence.absId }}';" value="Modifier" /></td>
+                                        <td><input type="button" onclick="location.href='/evenement/{{ absence.absId }}';" value="Modifier" /><input type="button" onclick="location.href='/supprimer/evenement/{{ absence.absId }}';" value="Supprimer" /></td>
                                     </tr>
                                 {% endfor %}
                                 </thead>

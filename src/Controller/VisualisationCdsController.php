@@ -11,10 +11,10 @@ use App\Entity\Performance;
 class VisualisationCdsController extends AbstractController
 {   
     /**
-     * @Route("/performance/visualisation/cds", name="visualiserPerformanceCds")
+     * @Route("/visualisation/performance/cds", name="visualiserPerformanceCds")
      */
 
-    public function perfvisucds(Request $request)
+    public function visualiserPerformanceCds(Request $request)
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $this->denyAccessUnlessGranted('ROLE_Admin');

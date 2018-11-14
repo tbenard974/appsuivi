@@ -24,6 +24,10 @@ class PerformanceType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('perDatedebut', DateType::class, array('widget' => 'choice'))
+            ->add('perDatedebut', DateType::class, array('widget' => 'choice'))
+            ->add('perDatefin', DateType::class, array('widget' => 'choice'))
+            ->add('perLieu', TextType::class, array('label' => 'Lieu'))
             ->add('typeCompetition', EntityType::class, array(
                 'class' =>Typecompetition::class,
                 'choice_label' => 'typcomNom',
@@ -69,21 +73,16 @@ class PerformanceType extends AbstractType
                 'label' => 'Categorie',
                 'mapped' => false,
             ))
-            ->add('importance', ChoiceType::class, array(
+            ->add('perImportance', ChoiceType::class, array(
                 'choices'  => array(
                     'Importante' => true,
                     'Normale' => false,
                 ),
                 'preferred_choices' => array(false),
                 'label' => 'Importance de la compétition',
-                'mapped' => false,
             ))
-            ->add('perDatedebut', DateType::class, array('widget' => 'choice'))
-            ->add('perDatedebut', DateType::class, array('widget' => 'choice'))
-            ->add('perDatefin', DateType::class, array('widget' => 'choice'))
-            ->add('perLieu', TextType::class, array('label' => 'Lieu'))
             ->add('resultat', EntityType::class, array(
-                'class' =>Resultat::class,
+                'class' => Resultat::class,
                 'choice_label' => 'resNom',
                 // used to render a select box, check boxes or radios
                 'multiple' => false,

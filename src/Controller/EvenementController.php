@@ -137,13 +137,33 @@ class EvenementController extends Controller
     }*/
 
     /**
-     * @Route("/evenement/afficher", name="afficherEvenement")
+     * @Route("/visualisation/evenement", name="visualisationEvenement")
      */
-    public function afficher(Request $request)
+    public function visualisationEvenement(Request $request)
     {
         return $this->render('/evenement/afficher.html.twig', [
             'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
         ]);
+    }
+
+    /**
+     * @Route("/supprimer/evenement/{idEvenement}", name="supprimerEvenement")
+     */
+    public function supprimerEvenement(Request $request, $idEvenement)
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        
+        $user_email = $this->getUser()->getEmail();
+        $utilisateur = $this->getDoctrine()->getRepository(Utilisateur::class)->findOneByUtiEmail($user_email); #devra être l'utilisateur courant lorsque mécanisme d'authentification
+        if(self::findIfUserGotRightsOnEvent($utilisateur, $idEvenement) == null)
+        {
+            return $this->redirectToRoute('index');
+        }
+        $absence = $this->getDoctrine()->getRepository(\App\Entity\Absence::class)->findOneByAbsId($idEvenement);
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($absence);
+        $entityManager->flush();
+        return $this->redirectToRoute('index');
     }
 
     public function findIfUserGotRightsOnEvent(Utilisateur $utilisateur, $idEvenement)

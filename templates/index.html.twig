@@ -42,8 +42,13 @@
 
 
             <ul class="nav nav-pills">
+
                 <li><a href="/evenement/ajouter">Ajouter un évènement</a></li>
                 <li><a href="/performance/visualisation">Visualiser vos performances</a></li>
+
+                <li><a href="/evenement/nouveau">Ajouter un évènement</a></li>
+                <li><a href="/visu/perf">Visualiser vos performances</a></li>
+
                 <li><a href="/performance">Créer une performance</a></li>
             </ul>
 
@@ -61,15 +66,17 @@
                             <table class="table" data-toggle="table"   data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="toolbar1" data-pagination="true" data-sort-name="name" data-sort-order="desc">
                                 <thead>
                                 <tr>
-                                    <th data-field="name" data-checkbox="true" >Nom</th>
+                                    <th data-field="name" data-checkbox="true">Nom</th>
                                     <th data-field="data-date-format" data-sortable="true">Date début</th>
                                     <th data-field="data-date-format"  data-sortable="true">Date fin</th>
+                                    <th data-field="name"  data-sortable="true">Modifier</th>
                                 </tr>
                                 {% for absence in allAbsence %}
                                     <tr>
                                         <td>{{ absence.absNom }}</td>
                                         <td>{{ absence.absDatedebut|date("d/m/Y") }}</td>
                                         <td>{{ absence.absDatefin|date("d/m/Y") }}</td>
+                                        <td><input type="button" onclick="location.href='/evenement/{{ absence.absId }}';" value="Modifier" /></td>
                                     </tr>
                                 {% endfor %}
                                 </thead>

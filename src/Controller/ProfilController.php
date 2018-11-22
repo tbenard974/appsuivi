@@ -11,11 +11,28 @@ use Symfony\Component\HttpFoundation\Request;
 class ProfilController extends AbstractController
 {
     /**
+     * @Route("/profil/{idUtilisateur}", name="profilusercds")
+     */
+    
+    public function profilusercds($idUtilisateur)
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        //$user_email = $this->getUser()->getEmail();
+        $utilisateur = $this->getDoctrine()->getRepository(\App\Entity\Utilisateur::class)->findOneByUtiId($idUtilisateur);
+        
+
+        return $this->render('profil/profilusercds.html.twig', [
+            'utilisateur' => $utilisateur,
+        ]);
+    }
+
+    /**
      * @Route("/profil", name="profil")
      */
     
-    public function index()
+    public function profil()
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $user_email = $this->getUser()->getEmail();
         $utilisateur = $this->getDoctrine()->getRepository(Utilisateur::class)->findOneByUtiEmail($user_email);
         
@@ -27,10 +44,11 @@ class ProfilController extends AbstractController
     }
 
     /**
-     * @Route("/profil/{idUtilisateur}", name="modifProfil")
+     * @Route("/profil/modif/{idUtilisateur}", name="modifProfil")
      */
     public function modif(Request $request, $idUtilisateur)
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $utilisateur = $this->getDoctrine()->getRepository(\App\Entity\Utilisateur::class)->findOneByUtiId($idUtilisateur);
         $form = $this->createForm(ProfilType::class, $utilisateur);
         $form->get('utiSport')->setData($utilisateur->getUtiFkSport());

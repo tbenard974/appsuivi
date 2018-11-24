@@ -44,30 +44,30 @@
         <br>
         <br>
         <tr>
-            <th>Catégorie</th>
+            <th>Catégorie <input type="button" onclick="location.href='/ajout/categorie';" value="Ajouter une categorie" /></th>
             <br>
             {% for categorie in allCategorie%}
-                <td>{{ categorie.catNom }}</td>
+                <td>{{ categorie.catNom }} <input type="button" onclick="location.href='/supprimer/categorie/{{ categorie.catId }}';" value="Supprimer" /> </td>
                 <br>
             {% endfor %}
         </tr>
         <br>
         <br>
         <tr>
-            <th>Sport</th>
+            <th>Sport <input type="button" onclick="location.href='/ajout/sport';" value="Ajouter un sport" /></th>
             <br>
             {% for sport in allSport %}
-                <td>{{ sport.spoNom }}</td>
+                <td>{{ sport.spoNom }} <input type="button" onclick="location.href='/supprimer/sport/{{ sport.spoId }}';" value="Supprimer" /></td>
                 <br>
             {% endfor %}
         </tr>
         <br>
         <br>
         <tr>
-            <th>Niveau liste ministerielle</th>
+            <th>Niveau liste ministerielle <input type="button" onclick="location.href='/ajout/niveauliste';" value="Ajouter un niveau de liste ministerrielle" /></th>
             <br>
             {% for niveaulisteministerielle in allNiveaulisteministerielle %}
-                <td>{{ niveaulisteministerielle.nivlisminNom }}</td>
+                <td>{{ niveaulisteministerielle.nivlisminNom }} <input type="button" onclick="location.href='/supprimer/niveauliste/{{ niveaulisteministerielle.nivlisminId }}';" value="Supprimer" /></td>
                 <br>
             {% endfor %}
         </tr>

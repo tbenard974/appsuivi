@@ -160,5 +160,20 @@ class Echellecompetition
         return $this;
     }
 
+    public function setUpdateFields($username)
+    {
+        $this->setEchcomDatechangement(new \DateTime(date('Y-m-d H:i:s')));
+        $this->setEchcomAuteurchangement($username);
+
+        if($this->getEchcomDatecreation() == null)
+        {
+            $this->setEchcomDatecreation(new \DateTime(date('Y-m-d H:i:s')));
+        }
+        if($this->getEchcomAuteurcreation() == null)
+        {
+            $this->setEchcomAuteurcreation($username);
+        }
+    }
+
 
 }

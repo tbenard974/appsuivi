@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+ {{ parent() }}
+    {% if app.user == null %}
+        <a href="/login" class="btn btn-info"> You need to login >></a>
+    {% endif %}
+
+    {% if app.user != null %}
+        <tr>
+            <th>Type compétition <input type="button" onclick="location.href='/ajout/typecompetition';" value="Ajouter un type" /></th>
+            <br>
+            {% for typecompetition in allTypecompetition %}
+            <tr>
+                <td>{{ typecompetition.typcomNom }} <input type="button" onclick="location.href='/supprimer/typecompetition/{{ typecompetition.typcomId }}';" value="Supprimer" /></td>
+                <br>
+            </tr>
+            {% endfor %}
+        </tr>
+        <br>
+        <br>
+        <tr>
+            <th>Echelle compétition <input type="button" onclick="location.href='/ajout/echellecompetition';" value="Ajouter une échelle" /></th>
+            <br>
+            {% for echellecompetition in allEchellecompetition %}
+                <td>{{ echellecompetition.echcomNom }} <input type="button" onclick="location.href='/supprimer/echellecompetition/{{ echellecompetition.echcomId }}';" value="Supprimer" /></td>
+                <br>
+            {% endfor %}
+        </tr>
+        <br>
+        <br>
+        <tr>
+            <th>Epreuve</th>
+            <br>
+            {% for epreuve in allEpreuve %}
+                <td>{{ epreuve.eprNom }}</td>
+                <br>
+            {% endfor %}
+        </tr>
+        <br>
+        <br>
+        <tr>
+            <th>Catégorie</th>
+            <br>
+            {% for categorie in allCategorie%}
+                <td>{{ categorie.catNom }}</td>
+                <br>
+            {% endfor %}
+        </tr>
+        <br>
+        <br>
+        <tr>
+            <th>Sport</th>
+            <br>
+            {% for sport in allSport %}
+                <td>{{ sport.spoNom }}</td>
+                <br>
+            {% endfor %}
+        </tr>
+        <br>
+        <br>
+        <tr>
+            <th>Niveau liste ministerielle</th>
+            <br>
+            {% for niveaulisteministerielle in allNiveaulisteministerielle %}
+                <td>{{ niveaulisteministerielle.nivlisminNom }}</td>
+                <br>
+            {% endfor %}
+        </tr>
+
+    {% endif %}
+
+
+{% endblock %}

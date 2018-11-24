@@ -34,10 +34,10 @@
         <br>
         <br>
         <tr>
-            <th>Epreuve</th>
+            <th>Epreuve <input type="button" onclick="location.href='/ajout/epreuve';" value="Ajouter une épreuve" /></th>
             <br>
             {% for epreuve in allEpreuve %}
-                <td>{{ epreuve.eprNom }}</td>
+                <td>{{ epreuve.eprNom }} <input type="button" onclick="location.href='/supprimer/epreuve/{{ epreuve.eprId }}';" value="Supprimer" /></td>
                 <br>
             {% endfor %}
         </tr>

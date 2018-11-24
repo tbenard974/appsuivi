@@ -141,5 +141,19 @@ class Epreuve
         return $this;
     }
 
+    public function setUpdateFields($username)
+    {
+        $this->setEprDatechangement(new \DateTime(date('Y-m-d H:i:s')));
+        $this->setEprAuteurchangement($username);
+
+        if($this->getEprDatecreation() == null)
+        {
+            $this->setEprDatecreation(new \DateTime(date('Y-m-d H:i:s')));
+        }
+        if($this->getEprAuteurcreation() == null)
+        {
+            $this->setEprAuteurcreation($username);
+        }
+    }
 
 }

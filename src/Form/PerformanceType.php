@@ -7,7 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -18,15 +18,23 @@ use App\Entity\Echellecompetition;
 use App\Entity\Localisationcompetition;
 use App\Entity\Resultat;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class PerformanceType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('perDatedebut', DateType::class, array('widget' => 'choice'))
-            ->add('perDatedebut', DateType::class, array('widget' => 'choice'))
-            ->add('perDatefin', DateType::class, array('widget' => 'choice'))
+            ->add('perDatedebut', DateTimeType::class, array(
+				'widget' => 'choice',
+				'data' => new \DateTime("now"),
+				'years' => range(date('Y')-1, date('Y')+5),
+			))
+            ->add('perDatefin', DateTimeType::class, array(
+				'widget' => 'choice',
+				'data' => new \DateTime("now"),
+				'years' => range(date('Y')-1, date('Y')+5),
+			))
             ->add('perLieu', TextType::class, array('label' => 'Lieu'))
             ->add('typeCompetition', EntityType::class, array(
                 'class' =>Typecompetition::class,
@@ -64,6 +72,11 @@ class PerformanceType extends AbstractType
                 'label' => 'Epreuve',
                 'mapped' => false,
             ))
+            ->add('autreEpreuve', TextType::class, array(
+                'label' => 'Mon épreuve n\'est pas dans la liste, je l\'ajoute',
+                'mapped' => false,
+                'required' => false,
+            ))
             ->add('categorie', EntityType::class, array(
                 'class' =>Categorie::class,
                 'choice_label' => 'catNom',
@@ -72,6 +85,11 @@ class PerformanceType extends AbstractType
                 'expanded' => false,
                 'label' => 'Categorie',
                 'mapped' => false,
+            ))
+            ->add('autreCategorie', TextType::class, array(
+                'label' => 'Ma catégorie n\'est pas dans la liste, je l\'ajoute',
+                'mapped' => false,
+                'required' => false,
             ))
             ->add('perImportance', ChoiceType::class, array(
                 'choices'  => array(
@@ -91,6 +109,40 @@ class PerformanceType extends AbstractType
                 'mapped' => false,
             ))
             ->add('perRessenti', TextType::class, array('label' => 'Ressenti'));
+
+            $builder->get('epreuve')->addEventListener(FormEvents::SUBMIT, [$this, 'requiredEpreuve']);
+			$builder->get('categorie')->addEventListener(FormEvents::SUBMIT, [$this, 'requiredCategorie']);
+    }
+
+    public function requiredEpreuve(FormEvent $event) {
+        $epreuve = $event->getData();
+        $form = $event->getForm()->getParent();
+
+        if (empty($epreuve)) {
+            return;
+        }
+        if ($epreuve->getEprNom() == 'Autre') {
+            $form
+            ->add('autreEpreuve', TextType::class, array(
+                'mapped' => false,
+                'constraints' => new Assert\NotBlank(array('message' => 'Veuillez indiquer votre épreuve')),
+            ));
+        }
+    }
+	public function requiredCategorie(FormEvent $event) {
+        $categorie = $event->getData();
+        $form = $event->getForm()->getParent();
+
+        if (empty($categorie)) {
+            return;
+        }
+        if ($categorie->getCatNom() == 'Autre') {
+            $form
+            ->add('autreCategorie', TextType::class, array(
+                'mapped' => false,
+                'constraints' => new Assert\NotBlank(array('message' => 'Veuillez indiquer votre catégorie')),
+            ));
+        }
     }
     
     public function configureOptions(OptionsResolver $resolver)

@@ -65,8 +65,12 @@ class EvenementController extends Controller
                 $form->get('typeCompetition')->setData($performance->getPerFktypecompetition());
                 $form->get('echelleCompetition')->setData($performance->getPerFkechellecompetition());
                 $form->get('localisationCompetition')->setData($performance->getPerFklocalisationcompetition());
-                $form->get('epreuve')->setData($performance->getPerFkjointuresport()->getJoispoFkepreuve());
-                $form->get('categorie')->setData($performance->getPerFkjointuresport()->getJoispoFkcategorie());
+                if ($filteredEpreuve != null) {
+                    $form->get('epreuve')->setData($performance->getPerFkjointuresport()->getJoispoFkepreuve());
+                }
+                if ($filteredCategorie != null) {
+                    $form->get('categorie')->setData($performance->getPerFkjointuresport()->getJoispoFkcategorie());
+                }
                 $form->get('importance')->setData($performance->getPerImportance());
             }
             else {

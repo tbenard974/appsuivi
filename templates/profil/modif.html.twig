@@ -6,21 +6,22 @@
 
 {% block body %}
     {{ parent() }}
-
-    {% if app.user == null %}
-		<a href="/login" class="btn btn-info"> You need to login >></a>
-	{% endif %}
-
     {% if app.user != null %}
-        {{ form_start(form) }}
-        <div class="form_group">
-            <div >
-                {{ form_widget(form) }}
+        <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+            <div class="row">
+                <ol class="breadcrumb">
+                    <li><a href="/"><svg class="glyph stroked home"><use xlink:href="#stroked-home"></use></svg></a></li>
+                </ol>
             </div>
+            {{ form_start(form) }}
+            <div class="form_group">
+                <div >
+                    {{ form_widget(form) }}
+                </div>
+            </div>
+            <input type="submit" class="btn" value="Enregistrer" />
+            {{ form_end(form) }}
         </div>
-        <input type="submit" class="btn" value="Enregistrer" />
-        {{ form_end(form) }}
-        
     {% endif %}
 
 

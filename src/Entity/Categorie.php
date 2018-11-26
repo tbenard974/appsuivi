@@ -141,7 +141,7 @@ class Categorie
         return $this;
     }
 
-	public function setUpdateFields($username)
+    public function setUpdateFields($username)
     {
         $this->setCatDatechangement(new \DateTime(date('Y-m-d H:i:s')));
         $this->setCatAuteurchangement($username);

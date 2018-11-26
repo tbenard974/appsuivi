@@ -27,6 +27,22 @@ class VisualisationCdsController extends AbstractController
                 'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
         ));
     }   
+
+    /**
+     * @Route("/visualisation/profil/cds", name="visualiserProfilCds")
+     */
+
+    public function visualiserProfilCds(Request $request)
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $this->denyAccessUnlessGranted('ROLE_Admin');
+		$allUtilisateur = $this->getDoctrine()->getRepository(Utilisateur::class)->findAll(); 
+            
+            return $this->render('visualisation_cds/profil.html.twig', array(
+                'allUtilisateur' => $allUtilisateur,
+                //'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
+        ));
+    }   
 }
 
     

@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+ {{ parent() }}
+    {% if app.user == null %}
+		<a href="/login" class="btn btn-info"> You need to login >></a>
+	{% endif %}
+
+    {% if app.user != null %}
+        {% if allUtilisateur == null %}
+            <p> Aucun utilisateur</p>
+        {% endif %}
+        {% if allUtilisateur != null %}
+            <tr>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Email</th>
+                <th>Département</th>
+                <th>Sport</th>
+            </tr>
+            <br>
+            {% for utilisateur in allUtilisateur %}
+                <tr>
+                    <a href="/profil/{{ utilisateur.utiId }}">
+                    <td>{{ utilisateur.utiNom }}</td>
+                    <td>{{ utilisateur.utiPrenom }}</td>
+                    <td>{{ utilisateur.utiEmail }}</td>
+                    <td>{{ utilisateur.utiFkdepartement.depNom }}</td>
+                    <td>{{ utilisateur.utiFksport.spoNom }}</td>
+                    </a>
+                </tr>
+                <br>
+            {% endfor %}
+        {% endif %}
+    {% endif %}
+
+{% endblock %}

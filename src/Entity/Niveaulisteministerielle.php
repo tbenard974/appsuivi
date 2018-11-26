@@ -141,5 +141,19 @@ class Niveaulisteministerielle
         return $this;
     }
 
+    public function setUpdateFields($username)
+    {
+        $this->setNivlisminDatechangement(new \DateTime(date('Y-m-d H:i:s')));
+        $this->setNivlisminAuteurchangement($username);
+
+        if($this->getNivlisminDatecreation() == null)
+        {
+            $this->setNivlisminDatecreation(new \DateTime(date('Y-m-d H:i:s')));
+        }
+        if($this->getNivlisminAuteurcreation() == null)
+        {
+            $this->setNivlisminAuteurcreation($username);
+        }
+    }
 
 }

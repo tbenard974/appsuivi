@@ -152,6 +152,24 @@ class PerformanceController extends AbstractController
     }
 
     /**
+     * @Route("/visualisation/performance/{idUtilisateur}", name="visualiserPerformanceUsercds")
+     */
+
+    public function visualiserPerformanceUsercds(Request $request, $idUtilisateur)
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        //$this->denyAccessUnlessGranted('ROLE_Admin');
+        $utilisateur = $this->getDoctrine()->getRepository(Utilisateur::class)->findOneByUtiId($idUtilisateur);
+		//select abs_id from absence where abs_fk_idutilisateur=(select uti_id from utilisateur where uti_email='dev@dev.fr');
+		$allPerformance = $this->getDoctrine()->getRepository(Performance::class)->findByPerFkutilisateur($utilisateur);
+            
+            return $this->render('visu_perf/index.html.twig', array(
+                'allPerf' => $allPerformance,
+                'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
+        ));
+    }
+
+    /**
      * @Route("/supprimer/performance/{idPerformance}", name="supprimerPerformance")
      */
     public function supprimerPerformance(Request $request, $idPerformance)

@@ -178,7 +178,70 @@
                 </div>
             </div>
         </div>
-
+        <tr>
+            <th>Type compétition <input type="button" onclick="location.href='/ajout/typecompetition';" value="Ajouter un type" /></th>
+            <br>
+            {% for typecompetition in allTypecompetition %}
+            <tr>
+                <td>{{ typecompetition.typcomNom }} <input type="button" onclick="location.href='/supprimer/typecompetition/{{ typecompetition.typcomId }}';" value="Supprimer" /></td>
+                <br>
+            </tr>
+            {% endfor %}
+        </tr>
+        <br>
+        <br>
+        <tr>
+            <th>Echelle compétition <input type="button" onclick="location.href='/ajout/echellecompetition';" value="Ajouter une échelle" /></th>
+            <br>
+            {% for echellecompetition in allEchellecompetition %}
+                <td>{{ echellecompetition.echcomNom }} <input type="button" onclick="location.href='/supprimer/echellecompetition/{{ echellecompetition.echcomId }}';" value="Supprimer" /></td>
+                <br>
+            {% endfor %}
+        </tr>
+        <br>
+        <br>
+        <tr>
+            <th>Epreuve <input type="button" onclick="location.href='/ajout/epreuve';" value="Ajouter une épreuve" /></th>
+            <br>
+            {% for epreuve in allEpreuve %}
+                {% if epreuve.joispoFkepreuve != null %}
+                    <td>{{ epreuve.joispoFkepreuve.eprNom }} </td> 
+                    <td>{{ epreuve.joispoFksport.spoNom}} </td>
+                    <td><input type="button" onclick="location.href='/supprimer/epreuve/{{ epreuve.joispoFkepreuve.eprId }}';" value="Supprimer" /></td>
+                    <br>
+                {% endif %}
+            {% endfor %}
+        </tr>
+        <br>
+        <br>
+        <tr>
+            <th>Catégorie <input type="button" onclick="location.href='/ajout/categorie';" value="Ajouter une categorie" /></th>
+            <br>
+            {% for categorie in allCategorie%}
+                <td>{{ categorie.catNom }} <input type="button" onclick="location.href='/supprimer/categorie/{{ categorie.catId }}';" value="Supprimer" /> </td>
+                <br>
+            {% endfor %}
+        </tr>
+        <br>
+        <br>
+        <tr>
+            <th>Sport <input type="button" onclick="location.href='/ajout/sport';" value="Ajouter un sport" /></th>
+            <br>
+            {% for sport in allSport %}
+                <td>{{ sport.spoNom }} <input type="button" onclick="location.href='/supprimer/sport/{{ sport.spoId }}';" value="Supprimer" /></td>
+                <br>
+            {% endfor %}
+        </tr>
+        <br>
+        <br>
+        <tr>
+            <th>Niveau liste ministerielle <input type="button" onclick="location.href='/ajout/niveauliste';" value="Ajouter un niveau de liste ministerrielle" /></th>
+            <br>
+            {% for niveaulisteministerielle in allNiveaulisteministerielle %}
+                <td>{{ niveaulisteministerielle.nivlisminNom }} <input type="button" onclick="location.href='/supprimer/niveauliste/{{ niveaulisteministerielle.nivlisminId }}';" value="Supprimer" /></td>
+                <br>
+            {% endfor %}
+        </tr>
 
     {% endif %}
 

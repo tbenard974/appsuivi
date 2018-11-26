@@ -23,11 +23,15 @@
                 <li ><a href="/visualisation/evenement"><svg class="glyph stroked calendar"><use xlink:href="#stroked-calendar"></use></svg> Mon Planning</a>
                 <li ><a href="/visualisation/performance"><svg class="glyph stroked notepad"><use xlink:href="#stroked-notepad"></use></svg> Mes performances</a></li>
                 <li ><a href="/visualisation/performance/cds"><svg class="glyph stroked notepad"><use xlink:href="#stroked-notepad"></use></svg> Toutes les performances</a></li>
-                <li ><a href="/administration"><svg class="glyph stroked notepad"><use xlink:href="#stroked-notepad"></use></svg> Administration </a></li>
                 <li role="presentation" class="divider"></li>
             </ul>
 
         </div><!--/.sidebar-->
     {% endif %}
+
+
+    {% block javascripts %}
+        {{ parent() }}
+    {% endblock %}
 
 {% endblock %}

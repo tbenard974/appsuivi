@@ -27,8 +27,18 @@ class EvenementType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('absDatedebut', DateType::class, array('widget' => 'choice'))
-            ->add('absDatefin', DateType::class, array('widget' => 'choice'))
+            ->add('absDatedebut', DateType::class, array('widget' => 'single_text',
+
+                // prevents rendering it as type="date", to avoid HTML5 date pickers
+                'html5' => false,
+
+                // adds a class that can be selected in JavaScript
+                'attr' => ['class' => 'js-datepicker'],))
+            ->add('absDatefin', DateType::class, array('widget' => 'single_text',
+                // prevents rendering it as type="date", to avoid HTML5 date pickers
+                'html5' => false,
+                // adds a class that can be selected in JavaScript
+                'attr' => ['class' => 'js-datepicker'],))
             ->add('absLieu', TextType::class, array('label' => 'Lieu'))
             ->add('absFkmotifabsence', EntityType::class, array(
                 'class' => Motifabsence::class,

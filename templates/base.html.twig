@@ -9,6 +9,13 @@
 <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
 <link href="{{ asset('css/datepicker.css') }}" rel="stylesheet">
 <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
+	<script src="{{ asset('js/jquery-1.11.1.min.js') }}"></script>
+	<script src="{{ asset('js/bootstrap.min.js') }}"></script>
+	<script src="{{ asset('js/chart.min.js') }}"></script>
+	<script src="{{ asset('js/chart-data.js') }}"></script>
+	<script src="{{ asset('js/easypiechart.js') }}"></script>
+	<script src="{{ asset('js/easypiechart-data.js') }}"></script>
+	<script src="{{ asset('js/bootstrap-datepicker.js') }}"></script>
 {% endblock %}
 <!--Icons-->
 
@@ -41,15 +48,21 @@
                 {% endif %}
 
                 {% if app.user != null %}
-					<ul class="user-menu">
-						<li class="dropdown pull-right">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown"><svg class="glyph stroked male-user"><use xlink:href="#stroked-male-user"></use></svg>  {{ app.user.username }} <span class="caret"></span></a>
-							<ul class="dropdown-menu" role="menu">
-								<li><a href="/profil"><svg class="glyph stroked male-user"><use xlink:href="#stroked-male-user"></use></svg> Mon Profil</a></li>
-								<li><a href="/logout"><svg class="glyph stroked cancel"><use xlink:href="#stroked-cancel"></use></svg> Logout</a></li>
+					<div class="dropdown-right">
+						<ul class="dropdown pull-right">
+							<ul class="user-menu">
+							<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown"><svg class="glyph stroked male-user"><use xlink:href="#stroked-male-user"></use></svg>  {{ app.user.username }} <b class="caret"></b></a>
+								<ul class="dropdown-menu">
+									<li><a href="/profil"><i class="icon-envelope"></i> Mon Profil</a></li>
+									<li class="divider"></li>
+									<li><a href="/logout"><i class="icon-off"></i> Logout</a></li>
+								</ul>
+							</li>
 							</ul>
-						</li>
-					</ul>
+						</ul>
+					</div>
+
+
                 {% endif %}
 			</div>
 							
@@ -83,6 +96,12 @@
 		$(window).on('resize', function () {
 		  if ($(window).width() <= 767) $('#sidebar-collapse').collapse('hide')
 		})
+
+	</script>
+	<script>
+		jQuery(document).ready(function() {
+		$('.js-datepicker').datepicker({format: 'yyyy-mm-dd'});
+		});
 	</script>
     {% endblock %}
 

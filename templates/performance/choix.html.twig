@@ -38,5 +38,12 @@
             </div>
     {% endif %}
 
+
+
+            {% block javascripts %}
+                {{ parent() }}
+            {% endblock %}
+
+
 {% endblock %}
 

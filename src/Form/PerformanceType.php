@@ -24,9 +24,27 @@ class PerformanceType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('perDatedebut', DateType::class, array('widget' => 'choice'))
-            ->add('perDatedebut', DateType::class, array('widget' => 'choice'))
-            ->add('perDatefin', DateType::class, array('widget' => 'choice'))
+            ->add('perDatedebut', DateType::class, array('widget' => 'single_text',
+
+                // prevents rendering it as type="date", to avoid HTML5 date pickers
+                'html5' => false,
+
+                // adds a class that can be selected in JavaScript
+                'attr' => ['class' => 'js-datepicker'],))
+            ->add('perDatedebut', DateType::class, array('widget' => 'single_text',
+
+                // prevents rendering it as type="date", to avoid HTML5 date pickers
+                'html5' => false,
+
+                // adds a class that can be selected in JavaScript
+                'attr' => ['class' => 'js-datepicker'],))
+            ->add('perDatefin', DateType::class, array('widget' => 'single_text',
+
+                // prevents rendering it as type="date", to avoid HTML5 date pickers
+                'html5' => false,
+
+                // adds a class that can be selected in JavaScript
+                'attr' => ['class' => 'js-datepicker'],))
             ->add('perLieu', TextType::class, array('label' => 'Lieu'))
             ->add('typeCompetition', EntityType::class, array(
                 'class' =>Typecompetition::class,

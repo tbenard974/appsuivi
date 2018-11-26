@@ -3,6 +3,7 @@
     {{ parent() }}
 {% endblock %}
 
+
 {% block body %}
     {{ parent() }}
     {% if app.user != null %}
@@ -17,7 +18,7 @@
 
 
 
-        <div class="row">
+
 
             <div class="panel panel-default">
                 <div class="panel-heading">Ajouter un nouveau evenement</div>
@@ -36,6 +37,11 @@
             </div>
         </div>
     {% endif %}
+
+
+        {% block javascripts %}
+        {{ parent () }}
+        {% endblock %}
 
         
 {% endblock %}

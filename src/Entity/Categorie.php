@@ -141,5 +141,18 @@ class Categorie
         return $this;
     }
 
+	public function setUpdateFields($username)
+    {
+        $this->setCatDatechangement(new \DateTime(date('Y-m-d H:i:s')));
+        $this->setCatAuteurchangement($username);
 
+        if($this->getCatDatecreation() == null)
+        {
+            $this->setCatDatecreation(new \DateTime(date('Y-m-d H:i:s')));
+        }
+        if($this->getCatAuteurcreation() == null)
+        {
+            $this->setCatAuteurcreation($username);
+        }
+    }
 }

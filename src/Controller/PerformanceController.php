@@ -6,10 +6,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Performance;
 use App\Entity\Utilisateur;
-use App\Entity\Sport;
+//use App\Entity\Sport;
 use App\Form\PerformanceType;
 use App\Entity\Jointuresport;
-use App\Entity\Typecompetition;
+use App\Entity\Epreuve;
+use App\Entity\Categorie;
 use Symfony\Component\HttpFoundation\Request;
 
 class PerformanceController extends AbstractController
@@ -22,26 +23,41 @@ class PerformanceController extends AbstractController
         $user_email = $this->getUser()->getEmail();
         $utilisateur = $this->getDoctrine()->getRepository(Utilisateur::class)->findOneByUtiEmail($user_email); #devra être l'utilisateur courant lorsque mécanisme d'authentification
         
+        // Récupération des catégories et des épreuves liés au sport de l'user pour affichage dans le form
+		$filteredJoispo = $this->getDoctrine()->getRepository(Jointuresport::class)->findBy(array('joispoFksport'=> $utilisateur->getUtiFksport()));
+		$filteredEpreuve = array();
+		$filteredCategorie = array();
+		foreach($filteredJoispo as $joispo)
+		{
+			if(!in_array($joispo->getJoispoFkepreuve(),$filteredEpreuve)){
+				$filteredEpreuve[] = $joispo->getJoispoFkepreuve();
+			}
+			if(!in_array($joispo->getJoispoFkcategorie(),$filteredCategorie)){
+				$filteredCategorie[] = $joispo->getJoispoFkcategorie();
+			}
+			//$logger->info($joispo->getJoispoFkepreuve()->getEprNom());
+		}
+        
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
         if ($idPerformance == 'nouveau') {
             $performance = new Performance();
-            $form = $this->createForm(PerformanceType::class, $performance);
+            $form = $this->createForm(PerformanceType::class, $performance, array('filteredEpreuve' => $filteredEpreuve, 'filteredCategorie' => $filteredCategorie));
         }
         else {
-            // if(self::findIfUserGotRightsOnEvent($utilisateur, $idEvenement) == null)
-            // {
-            //     return $this->redirectToRoute('index');
-            // }
             $performance = $this->getDoctrine()->getRepository(\App\Entity\Performance::class)->findOneByPerId($idPerformance);
-            $form = $this->createForm(PerformanceType::class, $performance);
+            $form = $this->createForm(PerformanceType::class, $performance, array('filteredEpreuve' => $filteredEpreuve, 'filteredCategorie' => $filteredCategorie));
             $form->get('typeCompetition')->setData($performance->getPerFktypecompetition());
             $form->get('echelleCompetition')->setData($performance->getPerFkechellecompetition());
             $form->get('localisationCompetition')->setData($performance->getPerFklocalisationcompetition());
-            $form->get('epreuve')->setData($performance->getPerFkjointuresport()->getJoispoFkepreuve());
-            $form->get('categorie')->setData($performance->getPerFkjointuresport()->getJoispoFkcategorie());
-            $form->get('importance')->setData($performance->getPerImportance());
+            if ($filteredEpreuve != null) {
+                $form->get('epreuve')->setData($performance->getPerFkjointuresport()->getJoispoFkepreuve());
+            }
+            if ($filteredCategorie != null) {
+                $form->get('categorie')->setData($performance->getPerFkjointuresport()->getJoispoFkcategorie());
+            }
             $form->get('resultat')->setData($performance->getPerFkresultat());
+            $form->get('perImportance')->setData($performance->getPerImportance());
 
         }
         $form->handleRequest($request);
@@ -61,13 +77,46 @@ class PerformanceController extends AbstractController
             $performance->setPerFklocalisationcompetition($localisationCompetition);
             $performance->setPerFkresultat($resultat);
             $performance->setUpdateFields($utilisateur->getUtiEmail());
-            
-            $sport = $utilisateur->getUtiFksport();
+
+			$sport = $utilisateur->getUtiFksport();
             $epreuve = $form->get('epreuve')->getData();
             $categorie = $form->get('categorie')->getData();
-
-            $jointureSport = $this->getDoctrine()->getRepository(Jointuresport::class)->findOneBy(array('joispoFksport'=> $sport, 'joispoFkepreuve'=> $epreuve, 'joispoFkcategorie'=> $categorie));
-				
+			
+            if ($form->get('autreEpreuve')->getData() != null){
+                $nomEpreuve = $form->get('autreEpreuve')->getData();
+                $nomEpreuve = strtolower($nomEpreuve);
+                $nomEpreuve = preg_replace('/[éèëê]+/', 'e', $nomEpreuve);
+				$nomEpreuve = strtoupper($nomEpreuve);
+				$findEpreuve = $this->getDoctrine()->getRepository(Epreuve::class)->findOneByEprNom($nomEpreuve);
+				if ( $findEpreuve == null){
+					$epreuve = new Epreuve();
+					$epreuve->setEprNom($nomEpreuve);
+					$epreuve->setUpdateFields($utilisateur->getUtiEmail());
+					$entityManager->persist($epreuve);
+				}
+				else {
+					$epreuve = $findEpreuve;
+				}
+            }
+			
+			if ($form->get('autreCategorie')->getData() != null){
+                $nomCategorie = $form->get('autreCategorie')->getData();
+                $nomCategorie = strtolower($nomCategorie);
+                $nomCategorie = preg_replace('/[éèëê]+/', 'e', $nomCategorie);
+				$nomCategorie = strtoupper($nomCategorie);
+				$findCategorie = $this->getDoctrine()->getRepository(Categorie::class)->findOneByCatNom($nomCategorie);
+				if ($findCategorie == null){
+					$categorie = new Categorie();
+					$categorie->setCatNom($nomCategorie);
+					$categorie->setUpdateFields($utilisateur->getUtiEmail());
+					$entityManager->persist($categorie);
+				}
+				else {
+					$categorie = $findCategorie;
+				}
+            }
+			
+			$jointureSport = $this->getDoctrine()->getRepository(Jointuresport::class)->findOneBy(array('joispoFksport'=> $sport, 'joispoFkepreuve'=> $epreuve, 'joispoFkcategorie'=> $categorie));	
             if ($jointureSport == null) {
                 $jointureSport = new Jointuresport();
                 $jointureSport->setJoispoFksport($sport);
@@ -77,12 +126,12 @@ class PerformanceController extends AbstractController
                 $entityManager->persist($jointureSport);
             }
             $performance->setPerFkjointuresport($jointureSport);
-
-            $entityManager->persist($performance);
+			
+			$entityManager->persist($performance);
             $entityManager->flush();
             return $this->redirectToRoute('index');
         }
-
+		
         return $this->render('performance/index.html.twig', [
             'form' => $form->createView(),
         ]);
@@ -121,7 +170,11 @@ class PerformanceController extends AbstractController
             return $this->redirectToRoute('index');
         }
         $performance = $this->getDoctrine()->getRepository(\App\Entity\Performance::class)->findOneByPerId($idPerformance);
+        $absenceFK = $this->getDoctrine()->getRepository(\App\Entity\Absence::class)->findOneByAbsFkperformance($performance);
         $entityManager = $this->getDoctrine()->getManager();
+        if($absenceFK != null){
+            $absenceFK->setAbsFkperformance(null);
+        }
         $entityManager->remove($performance);
         $entityManager->flush();
         return $this->redirectToRoute('visualiserPerformance');

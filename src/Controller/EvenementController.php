@@ -12,6 +12,8 @@ use App\Entity\Motifabsence;
 use App\Entity\Utilisateur;
 use App\Entity\Performance;
 use App\Entity\Jointuresport;
+use App\Entity\Epreuve;
+use App\Entity\Categorie;
 use Psr\Log\LoggerInterface;
 use App\Form\EvenementType;
 use App\Form\ModificationCompetitionType;
@@ -30,10 +32,25 @@ class EvenementController extends Controller
         
         $user_email = $this->getUser()->getEmail();
         $utilisateur = $this->getDoctrine()->getRepository(Utilisateur::class)->findOneByUtiEmail($user_email); #devra être l'utilisateur courant lorsque mécanisme d'authentification
+		
+		// Récupération des catégories et des épreuves liés au sport de l'user pour affichage dans le form
+		$filteredJoispo = $this->getDoctrine()->getRepository(Jointuresport::class)->findBy(array('joispoFksport'=> $utilisateur->getUtiFksport()));
+		$filteredEpreuve = array();
+		$filteredCategorie = array();
+		foreach($filteredJoispo as $joispo)
+		{
+			if(!in_array($joispo->getJoispoFkepreuve(),$filteredEpreuve)){
+				$filteredEpreuve[] = $joispo->getJoispoFkepreuve();
+			}
+			if(!in_array($joispo->getJoispoFkcategorie(),$filteredCategorie)){
+				$filteredCategorie[] = $joispo->getJoispoFkcategorie();
+			}
+			//$logger->info($joispo->getJoispoFkepreuve()->getEprNom());
+		}
    
         if ($idEvenement == 'nouveau') {
             $absence = new Absence();
-            $form = $this->createForm(EvenementType::class, $absence);
+            $form = $this->createForm(EvenementType::class, $absence, array('filteredEpreuve' => $filteredEpreuve, 'filteredCategorie' => $filteredCategorie));
         }
         else {
             if(self::findIfUserGotRightsOnEvent($utilisateur, $idEvenement) == null)
@@ -44,16 +61,20 @@ class EvenementController extends Controller
             $motifAbsence = $absence->getAbsFkmotifabsence();
             if($motifAbsence->getMotabsNom()=='Compétition'){
                 $performance = $absence->getAbsFkperformance();
-                $form = $this->createForm(ModificationCompetitionType::class, $absence);
+                $form = $this->createForm(ModificationCompetitionType::class, $absence, array('filteredEpreuve' => $filteredEpreuve, 'filteredCategorie' => $filteredCategorie));
                 $form->get('typeCompetition')->setData($performance->getPerFktypecompetition());
                 $form->get('echelleCompetition')->setData($performance->getPerFkechellecompetition());
                 $form->get('localisationCompetition')->setData($performance->getPerFklocalisationcompetition());
-                $form->get('epreuve')->setData($performance->getPerFkjointuresport()->getJoispoFkepreuve());
-                $form->get('categorie')->setData($performance->getPerFkjointuresport()->getJoispoFkcategorie());
+                if ($filteredEpreuve != null) {
+                    $form->get('epreuve')->setData($performance->getPerFkjointuresport()->getJoispoFkepreuve());
+                }
+                if ($filteredCategorie != null) {
+                    $form->get('categorie')->setData($performance->getPerFkjointuresport()->getJoispoFkcategorie());
+                }
                 $form->get('importance')->setData($performance->getPerImportance());
             }
             else {
-                $form = $this->createForm(EvenementType::class, $absence);
+                $form = $this->createForm(EvenementType::class, $absence, array('filteredEpreuve' => $filteredEpreuve, 'filteredCategorie' => $filteredCategorie));
             }
         }
         //$form = $this->createForm(EvenementType::class, $absence);
@@ -88,6 +109,40 @@ class EvenementController extends Controller
                 $sport = $utilisateur->getUtiFksport();
                 $epreuve = $form->get('epreuve')->getData();
                 $categorie = $form->get('categorie')->getData();
+				
+				if ($form->get('autreEpreuve')->getData() != null){
+                $nomEpreuve = $form->get('autreEpreuve')->getData();
+                $nomEpreuve = strtolower($nomEpreuve);
+                $nomEpreuve = preg_replace('/[éèëê]+/', 'e', $nomEpreuve);
+				$nomEpreuve = strtoupper($nomEpreuve);
+				$findEpreuve = $this->getDoctrine()->getRepository(Epreuve::class)->findOneByEprNom($nomEpreuve);
+				if ( $findEpreuve == null){
+					$epreuve = new Epreuve();
+					$epreuve->setEprNom($nomEpreuve);
+					$epreuve->setUpdateFields($utilisateur->getUtiEmail());
+					$entityManager->persist($epreuve);
+				}
+				else {
+					$epreuve = $findEpreuve;
+				}
+            }
+			
+			if ($form->get('autreCategorie')->getData() != null){
+                $nomCategorie = $form->get('autreCategorie')->getData();
+                $nomCategorie = strtolower($nomCategorie);
+                $nomCategorie = preg_replace('/[éèëê]+/', 'e', $nomCategorie);
+				$nomCategorie = strtoupper($nomCategorie);
+				$findCategorie = $this->getDoctrine()->getRepository(Categorie::class)->findOneByCatNom($nomCategorie);
+				if ($findCategorie == null){
+					$categorie = new Categorie();
+					$categorie->setCatNom($nomCategorie);
+					$categorie->setUpdateFields($utilisateur->getUtiEmail());
+					$entityManager->persist($categorie);
+				}
+				else {
+					$categorie = $findCategorie;
+				}
+            }
 
                 $jointureSport = $this->getDoctrine()->getRepository(Jointuresport::class)->findOneBy(array('joispoFksport'=> $sport, 'joispoFkepreuve'=> $epreuve, 'joispoFkcategorie'=> $categorie));
 

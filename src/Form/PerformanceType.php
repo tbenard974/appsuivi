@@ -28,12 +28,12 @@ class PerformanceType extends AbstractType
             ->add('perDatedebut', DateTimeType::class, array(
 				'widget' => 'choice',
 				'data' => new \DateTime("now"),
-				'years' => range(date('Y')-1, date('Y')+5),
+				'years' => range(date('Y'), date('Y')+5),
 			))
             ->add('perDatefin', DateTimeType::class, array(
 				'widget' => 'choice',
 				'data' => new \DateTime("now"),
-				'years' => range(date('Y')-1, date('Y')+5),
+				'years' => range(date('Y'), date('Y')+5),
 			))
             ->add('perLieu', TextType::class, array('label' => 'Lieu'))
             ->add('typeCompetition', EntityType::class, array(

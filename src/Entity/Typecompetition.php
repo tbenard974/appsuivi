@@ -141,5 +141,20 @@ class Typecompetition
         return $this;
     }
 
+    public function setUpdateFields($username)
+    {
+        $this->setTypcomDatechangement(new \DateTime(date('Y-m-d H:i:s')));
+        $this->setTypcomAuteurchangement($username);
+
+        if($this->getTypcomDatecreation() == null)
+        {
+            $this->setTypcomDatecreation(new \DateTime(date('Y-m-d H:i:s')));
+        }
+        if($this->getTypcomAuteurcreation() == null)
+        {
+            $this->setTypcomAuteurcreation($username);
+        }
+    }
+
 
 }

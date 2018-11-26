@@ -141,5 +141,18 @@ class Sport
         return $this;
     }
 
+    public function setUpdateFields($username)
+    {
+        $this->setSpoDatechangement(new \DateTime(date('Y-m-d H:i:s')));
+        $this->setSpoAuteurchangement($username);
 
+        if($this->getSpoDatecreation() == null)
+        {
+            $this->setSpoDatecreation(new \DateTime(date('Y-m-d H:i:s')));
+        }
+        if($this->getSpoAuteurcreation() == null)
+        {
+            $this->setSpoAuteurcreation($username);
+        }
+    }
 }

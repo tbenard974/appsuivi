@@ -23,15 +23,30 @@ class PerformanceController extends AbstractController
         $user_email = $this->getUser()->getEmail();
         $utilisateur = $this->getDoctrine()->getRepository(Utilisateur::class)->findOneByUtiEmail($user_email); #devra être l'utilisateur courant lorsque mécanisme d'authentification
         
+        // Récupération des catégories et des épreuves liés au sport de l'user pour affichage dans le form
+		$filteredJoispo = $this->getDoctrine()->getRepository(Jointuresport::class)->findBy(array('joispoFksport'=> $utilisateur->getUtiFksport()));
+		$filteredEpreuve = array();
+		$filteredCategorie = array();
+		foreach($filteredJoispo as $joispo)
+		{
+			if(!in_array($joispo->getJoispoFkepreuve(),$filteredEpreuve)){
+				$filteredEpreuve[] = $joispo->getJoispoFkepreuve();
+			}
+			if(!in_array($joispo->getJoispoFkcategorie(),$filteredCategorie)){
+				$filteredCategorie[] = $joispo->getJoispoFkcategorie();
+			}
+			//$logger->info($joispo->getJoispoFkepreuve()->getEprNom());
+		}
+        
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
         if ($idPerformance == 'nouveau') {
             $performance = new Performance();
-            $form = $this->createForm(PerformanceType::class, $performance);
+            $form = $this->createForm(PerformanceType::class, $performance,array('filteredEpreuve' => $filteredEpreuve, 'filteredCategorie' => $filteredCategorie));
         }
         else {
             $performance = $this->getDoctrine()->getRepository(\App\Entity\Performance::class)->findOneByPerId($idPerformance);
-            $form = $this->createForm(PerformanceType::class, $performance);
+            $form = $this->createForm(PerformanceType::class, $performance,array('filteredEpreuve' => $filteredEpreuve, 'filteredCategorie' => $filteredCategorie));
             $form->get('typeCompetition')->setData($performance->getPerFktypecompetition());
             $form->get('echelleCompetition')->setData($performance->getPerFkechellecompetition());
             $form->get('localisationCompetition')->setData($performance->getPerFklocalisationcompetition());

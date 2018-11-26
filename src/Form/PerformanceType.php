@@ -28,12 +28,12 @@ class PerformanceType extends AbstractType
             ->add('perDatedebut', DateTimeType::class, array(
 				'widget' => 'choice',
 				'data' => new \DateTime("now"),
-				'years' => range(date('Y')-1, date('Y')+5),
+				'years' => range(date('Y'), date('Y')+5),
 			))
             ->add('perDatefin', DateTimeType::class, array(
 				'widget' => 'choice',
 				'data' => new \DateTime("now"),
-				'years' => range(date('Y')-1, date('Y')+5),
+				'years' => range(date('Y'), date('Y')+5),
 			))
             ->add('perLieu', TextType::class, array('label' => 'Lieu'))
             ->add('typeCompetition', EntityType::class, array(
@@ -63,28 +63,22 @@ class PerformanceType extends AbstractType
                 'label' => 'Localisation de compétition',
                 'mapped' => false,
             ))
-            ->add('epreuve', EntityType::class, array(
-                'class' =>Epreuve::class,
-                'choice_label' => 'eprNom',
-                // used to render a select box, check boxes or radios
-                'multiple' => false,
-                'expanded' => false,
+            ->add('epreuve', ChoiceType::class, array(
                 'label' => 'Epreuve',
                 'mapped' => false,
+                'choices' => $options['filteredEpreuve'],
+                'choice_label' => 'eprNom',
             ))
             ->add('autreEpreuve', TextType::class, array(
                 'label' => 'Mon épreuve n\'est pas dans la liste, je l\'ajoute',
                 'mapped' => false,
                 'required' => false,
             ))
-            ->add('categorie', EntityType::class, array(
-                'class' =>Categorie::class,
-                'choice_label' => 'catNom',
-                // used to render a select box, check boxes or radios
-                'multiple' => false,
-                'expanded' => false,
+            ->add('categorie', ChoiceType::class, array(
                 'label' => 'Categorie',
                 'mapped' => false,
+                'choices' => $options['filteredCategorie'],
+                'choice_label' => 'catNom',
             ))
             ->add('autreCategorie', TextType::class, array(
                 'label' => 'Ma catégorie n\'est pas dans la liste, je l\'ajoute',
@@ -148,7 +142,9 @@ class PerformanceType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'App\Entity\Performance'
+            'data_class' => 'App\Entity\Performance',
+			'filteredCategorie' => null,
+			'filteredEpreuve' => null,
         ));
     }
     

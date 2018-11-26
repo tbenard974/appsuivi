@@ -42,17 +42,22 @@ class PerformanceController extends AbstractController
 
         if ($idPerformance == 'nouveau') {
             $performance = new Performance();
-            $form = $this->createForm(PerformanceType::class, $performance,array('filteredEpreuve' => $filteredEpreuve, 'filteredCategorie' => $filteredCategorie));
+            $form = $this->createForm(PerformanceType::class, $performance, array('filteredEpreuve' => $filteredEpreuve, 'filteredCategorie' => $filteredCategorie));
         }
         else {
             $performance = $this->getDoctrine()->getRepository(\App\Entity\Performance::class)->findOneByPerId($idPerformance);
-            $form = $this->createForm(PerformanceType::class, $performance,array('filteredEpreuve' => $filteredEpreuve, 'filteredCategorie' => $filteredCategorie));
+            $form = $this->createForm(PerformanceType::class, $performance, array('filteredEpreuve' => $filteredEpreuve, 'filteredCategorie' => $filteredCategorie));
             $form->get('typeCompetition')->setData($performance->getPerFktypecompetition());
             $form->get('echelleCompetition')->setData($performance->getPerFkechellecompetition());
             $form->get('localisationCompetition')->setData($performance->getPerFklocalisationcompetition());
-            $form->get('epreuve')->setData($performance->getPerFkjointuresport()->getJoispoFkepreuve());
-            $form->get('categorie')->setData($performance->getPerFkjointuresport()->getJoispoFkcategorie());
+            if ($filteredEpreuve != null) {
+                $form->get('epreuve')->setData($performance->getPerFkjointuresport()->getJoispoFkepreuve());
+            }
+            if ($filteredCategorie != null) {
+                $form->get('categorie')->setData($performance->getPerFkjointuresport()->getJoispoFkcategorie());
+            }
             $form->get('resultat')->setData($performance->getPerFkresultat());
+            $form->get('perImportance')->setData($performance->getPerImportance());
 
         }
         $form->handleRequest($request);

@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+ {{ parent() }}
+    {% if app.user == null %}
+		<a href="/login" class="btn btn-info"> You need to login >></a>
+	{% endif %}
+
+    {% if app.user != null %}
+        {{ form_start(form) }}
+        <div class="form_group">
+            <div >
+                {{ form_widget(form) }}
+            </div>
+        </div>
+        <input type="submit" class="btn" value="Enregistrer" />
+        {{ form_end(form) }}
+    {% endif %}
+
+{% endblock %}

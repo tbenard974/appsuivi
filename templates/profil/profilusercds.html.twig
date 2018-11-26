@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+{{ parent() }}
+    {% if app.user == null %}
+		<a href="/login" class="btn btn-info"> You need to login >></a>
+	{% endif %}
+
+    {% if app.user != null %}
+        {{ "Nom : " }} {{ utilisateur.utiNom }}
+        <br>
+        {{ "Prenom : " }} {{ utilisateur.utiPrenom }}
+        <br>
+        {{ "Mail : " }} {{ utilisateur.utiEmail }}
+        <br>
+        {{ "Departement : " }} {{ utilisateur.utiFkdepartement.depNom }}
+        <br>
+        {{ "Sport : " }} {{ utilisateur.utiFksport.spoNom }}
+        <br>
+        <input type="button" onclick="location.href='/visualisation/performance/{{ utilisateur.utiId }}';" value="Visualiser performances" />
+    
+    {% endif %}
+
+
+{% endblock %}

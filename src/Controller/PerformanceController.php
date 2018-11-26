@@ -157,16 +157,16 @@ class PerformanceController extends AbstractController
     }
 
     /**
-     * @Route("/visualisation/performance/{idUtilisateur}", name="visualiserPerformanceUsercds")
+     * @Route("/visualisation/performance/cds", name="visualiserPerformanceUsercds")
      */
 
-    public function visualiserPerformanceUsercds(Request $request, $idUtilisateur)
+    public function visualiserPerformanceUsercds(Request $request)
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         //$this->denyAccessUnlessGranted('ROLE_Admin');
-        $utilisateur = $this->getDoctrine()->getRepository(Utilisateur::class)->findOneByUtiId($idUtilisateur);
+        #$utilisateur = $this->getDoctrine()->getRepository(Utilisateur::class)->findOneByUtiId($idUtilisateur);
 		//select abs_id from absence where abs_fk_idutilisateur=(select uti_id from utilisateur where uti_email='dev@dev.fr');
-		$allPerformance = $this->getDoctrine()->getRepository(Performance::class)->findByPerFkutilisateur($utilisateur);
+		$allPerformance = $this->getDoctrine()->getRepository(Performance::class)->findAll();
             
             return $this->render('visu_perf/index.html.twig', array(
                 'allPerf' => $allPerformance,

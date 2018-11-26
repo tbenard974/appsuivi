@@ -9,6 +9,7 @@ use App\Entity\Echellecompetition;
 use App\Entity\Utilisateur;
 use App\Entity\Epreuve;
 use App\Entity\Categorie;
+use App\Entity\Jointuresport;
 use App\Entity\Sport;
 use App\Entity\Niveaulisteministerielle;
 use App\Form\AjouttypeType;
@@ -141,13 +142,19 @@ class AjoutController extends AbstractController
             
             $nomEpreuve = $form->get('eprNom')->getData();
             $descriptionEpreuve = $form->get('eprDescription')->getData();
+            $nomSport = $form->get('spoId')->getData();
             
             $epreuve->setEprNom($nomEpreuve);
             $epreuve->setEprDescription($descriptionEpreuve);
             $epreuve->setUpdateFields($utilisateur->getUtiNom());
-            
+
+            $sport = new Jointureepreuve();
+            $sport->setJoieprFksport($nomSport);
+            $sport->setJoieprFkepreuve($epreuve);
+            $sport->setUpdateFields($utilisateur->getUtiNom());
 
             $entityManager->persist($epreuve);
+            $entityManager->persist($sport);
             $entityManager->flush();
             return $this->redirectToRoute('administration');
         }

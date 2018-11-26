@@ -12,6 +12,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use App\Entity\Echellecompetition;
 use App\Entity\Typecompetition;
+use App\Entity\Sport;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class AjoutepreuveType extends AbstractType
@@ -20,7 +21,16 @@ class AjoutepreuveType extends AbstractType
     {
         $builder
             ->add('eprNom', TextType::class, array('label' => 'Nom'))
-            ->add('eprDescription', TextType::class, array('label' => 'Description'));
+            ->add('eprDescription', TextType::class, array('label' => 'Description'))
+            ->add('spoId', EntityType::class, array(
+                'class' =>Sport::class,
+                'choice_label' => 'spoNom',
+                // used to render a select box, check boxes or radios
+                'multiple' => false,
+                'expanded' => false,
+                'label' => 'Sport',
+                'mapped' => false,
+            ));
     }
 
     public function configureOptions(OptionsResolver $resolver)

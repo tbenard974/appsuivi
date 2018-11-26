@@ -40,7 +40,7 @@ class PerformanceController extends AbstractController
             $form->get('localisationCompetition')->setData($performance->getPerFklocalisationcompetition());
             $form->get('epreuve')->setData($performance->getPerFkjointuresport()->getJoispoFkepreuve());
             $form->get('categorie')->setData($performance->getPerFkjointuresport()->getJoispoFkcategorie());
-            $form->get('importance')->setData($performance->getPerImportance());
+            $form->get('perImportance')->setData($performance->getPerImportance());
             $form->get('resultat')->setData($performance->getPerFkresultat());
 
         }

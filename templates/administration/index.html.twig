@@ -37,8 +37,12 @@
             <th>Epreuve <input type="button" onclick="location.href='/ajout/epreuve';" value="Ajouter une épreuve" /></th>
             <br>
             {% for epreuve in allEpreuve %}
-                <td>{{ epreuve.eprNom }} <input type="button" onclick="location.href='/supprimer/epreuve/{{ epreuve.eprId }}';" value="Supprimer" /></td>
-                <br>
+                {% if epreuve.joispoFkepreuve != null %}
+                    <td>{{ epreuve.joispoFkepreuve.eprNom }} </td> 
+                    <td>{{ epreuve.joispoFksport.spoNom}} </td>
+                    <td><input type="button" onclick="location.href='/supprimer/epreuve/{{ epreuve.joispoFkepreuve.eprId }}';" value="Supprimer" /></td>
+                    <br>
+                {% endif %}
             {% endfor %}
         </tr>
         <br>

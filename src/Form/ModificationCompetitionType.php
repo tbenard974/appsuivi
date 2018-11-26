@@ -7,7 +7,7 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -27,8 +27,16 @@ class ModificationCompetitionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('absDatedebut', DateType::class, array('widget' => 'choice'))
-            ->add('absDatefin', DateType::class, array('widget' => 'choice'))
+            ->add('absDatedebut', DateTimeType::class, array(
+                'widget' => 'choice',
+                'data' => new \DateTime("now"),
+				'years' => range(date('Y'), date('Y')+5),
+            ))
+            ->add('absDatefin', DateTimeType::class, array(
+                'widget' => 'choice',
+                'data' => new \DateTime("now"),
+				'years' => range(date('Y'), date('Y')+5),
+            ))
             ->add('absLieu', TextType::class, array('label' => 'Lieu'))
             ->add('absFkmotifabsence', EntityType::class, array(
                 'class' => Motifabsence::class,
@@ -53,7 +61,10 @@ class ModificationCompetitionType extends AbstractType
                 ),
 				'label' => 'Souhaitez-vous un rappel ?',
             ))
-            ->add('absCommentaire', TextType::class, array('label' => 'Notes'))
+            ->add('absCommentaire', TextType::class, array(
+				'label' => 'Notes', 
+				'required' => false,
+			))
             ->add('typeCompetition', EntityType::class, array(
                     'class' =>Typecompetition::class,
                     'choice_label' => 'typcomNom',
@@ -70,7 +81,7 @@ class ModificationCompetitionType extends AbstractType
                     // used to render a select box, check boxes or radios
                     'multiple' => false,
                     'expanded' => false,
-                    'label' => 'Type de compétition',
+                    'label' => 'Echelle de la compétition',
                     'mapped' => false,
                 ))
 				->add('localisationCompetition', EntityType::class, array(
@@ -79,19 +90,31 @@ class ModificationCompetitionType extends AbstractType
                     // used to render a select box, check boxes or radios
                     'multiple' => false,
                     'expanded' => false,
-                    'label' => 'Type de compétition',
+                    'label' => 'Localisation de la compétition',
                     'mapped' => false,
                 ))
-                ->add('epreuve', EntityType::class, array(
+                /* ->add('epreuve', EntityType::class, array(
                     'class' =>Epreuve::class,
-                    'choice_label' => 'eprNom',
+                    
+					'choice_label' => 'eprNom',
                     // used to render a select box, check boxes or radios
                     'multiple' => false,
                     'expanded' => false,
                     'label' => 'Epreuve',
                     'mapped' => false,
+                )) */
+				->add('epreuve', ChoiceType::class, array(
+					'label' => 'Epreuve',
+					'mapped' => false,
+					'choices' => $options['filteredEpreuve'],
+					'choice_label' => 'eprNom',
                 ))
-                ->add('categorie', EntityType::class, array(
+				->add('autreEpreuve', TextType::class, array(
+					'label' => 'Mon épreuve n\'est pas dans la liste, je l\'ajoute',
+					'mapped' => false,
+					'required' => false,
+				))
+                /* ->add('categorie', EntityType::class, array(
                     'class' =>Categorie::class,
                     'choice_label' => 'catNom',
                     // used to render a select box, check boxes or radios
@@ -99,7 +122,18 @@ class ModificationCompetitionType extends AbstractType
                     'expanded' => false,
                     'label' => 'Categorie',
                     'mapped' => false,
+                )) */
+				->add('categorie', ChoiceType::class, array(
+					'label' => 'Categorie',
+					'mapped' => false,
+					'choices' => $options['filteredCategorie'],
+					'choice_label' => 'catNom',
                 ))
+				->add('autreCategorie', TextType::class, array(
+					'label' => 'Ma catégorie n\'est pas dans la liste, je l\'ajoute',
+					'mapped' => false,
+					'required' => false,
+				))
 				->add('importance', ChoiceType::class, array(
 					'choices'  => array(
 						'Importante' => true,
@@ -109,12 +143,48 @@ class ModificationCompetitionType extends AbstractType
 					'label' => 'Importance de la compétition',
                     'mapped' => false,
 				));
+				
+			//$builder->get('epreuve')->addEventListener(FormEvents::SUBMIT, [$this, 'requiredEpreuve']);
+			//$builder->get('categorie')->addEventListener(FormEvents::SUBMIT, [$this, 'requiredCategorie']);
+    }
+	
+	public function requiredEpreuve(FormEvent $event) {
+        $epreuve = $event->getData();
+        $form = $event->getForm()->getParent();
+
+        if (empty($epreuve)) {
+            return;
+        }
+        if ($epreuve->getEprNom() == 'Autre') {
+            $form
+            ->add('autreEpreuve', TextType::class, array(
+                'mapped' => false,
+                'constraints' => new Assert\NotBlank(array('message' => 'Veuillez indiquer votre épreuve')),
+            ));
+        }
+    }
+	public function requiredCategorie(FormEvent $event) {
+        $categorie = $event->getData();
+        $form = $event->getForm()->getParent();
+
+        if (empty($categorie)) {
+            return;
+        }
+        if ($categorie->getCatNom() == 'Autre') {
+            $form
+            ->add('autreCategorie', TextType::class, array(
+                'mapped' => false,
+                'constraints' => new Assert\NotBlank(array('message' => 'Veuillez indiquer votre catégorie')),
+            ));
+        }
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'App\Entity\Absence'
+            'data_class' => 'App\Entity\Absence',
+			'filteredCategorie' => null,
+			'filteredEpreuve' => null,
         ));
     }
 }

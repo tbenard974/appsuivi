@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Utilisateur
  *
- * @ORM\Table(name="utilisateur", indexes={@ORM\Index(name="IDX_1D1C63B36620B6C4", columns={"uti_fk_iddepartement"}), @ORM\Index(name="IDX_1D1C63B38604A225", columns={"uti_fk_idniveaulisteministerielle"}), @ORM\Index(name="IDX_1D1C63B344A21B17", columns={"uti_fk_idsport"})})
+ * @ORM\Table(name="utilisateur", uniqueConstraints={@ORM\UniqueConstraint(name="utilisateur_uti_email_key", columns={"uti_email"})}, indexes={@ORM\Index(name="IDX_1D1C63B36620B6C4", columns={"uti_fk_iddepartement"}), @ORM\Index(name="IDX_1D1C63B38604A225", columns={"uti_fk_idniveaulisteministerielle"}), @ORM\Index(name="IDX_1D1C63B344A21B17", columns={"uti_fk_idsport"})})
  * @ORM\Entity
  */
 class Utilisateur

@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Controller;
-
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Categorie;
@@ -11,8 +9,6 @@ use App\Entity\Niveaulisteministerielle;
 use App\Entity\Sport;
 use App\Entity\Jointuresport;
 use App\Entity\Typecompetition;
-
-
 class AdministrationController extends AbstractController
 {
     /**
@@ -35,12 +31,10 @@ class AdministrationController extends AbstractController
                 }
             }
         }
-
         $allNiveaulisteministerielle = $this->getDoctrine()->getRepository(Niveaulisteministerielle::class)->findAll();
         $allSport = $this->getDoctrine()->getRepository(Sport::class)->findAll();
         $allTypecompetition = $this->getDoctrine()->getRepository(Typecompetition::class)->findAll();
 
-        
         return $this->render('administration/index.html.twig', [
             'allCategorie' => $allCategorie,
             'allEchellecompetition' => $allEchellecompetition,

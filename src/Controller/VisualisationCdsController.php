@@ -22,7 +22,7 @@ class VisualisationCdsController extends AbstractController
         //$utilisateur = $this->getDoctrine()->getRepository(Utilisateur::class)->findOneByUtiEmail($user_email);
 		$allPerformance = $this->getDoctrine()->getRepository(Performance::class)->findAll(); //->findByPerFkutilisateur($utilisateur);
             
-            return $this->render('visualisation_cds/index.html.twig', array(
+            return $this->render('/visualisation_cds/index.html.twig', array(
                 'allPerf' => $allPerformance,
                 'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
         ));
@@ -38,7 +38,7 @@ class VisualisationCdsController extends AbstractController
         $this->denyAccessUnlessGranted('ROLE_Admin');
 		$allUtilisateur = $this->getDoctrine()->getRepository(Utilisateur::class)->findAll(); 
             
-            return $this->render('visualisation_cds/profil.html.twig', array(
+            return $this->render('/visualisation_cds/profil.html.twig', array(
                 'allUtilisateur' => $allUtilisateur,
                 //'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
         ));

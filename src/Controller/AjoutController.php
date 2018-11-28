@@ -65,6 +65,7 @@ class AjoutController extends AbstractController
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         
         $typecompet = $this->getDoctrine()->getRepository(\App\Entity\Typecompetition::class)->findOneByTypcomId($idType);
+        $echellecompet = $this->getDoctrine()->getRepository(\App\Entity\Typecompetition::class)->findOneByTypcomId($idType);
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->remove($typecompet);
         $entityManager->flush();
@@ -148,9 +149,9 @@ class AjoutController extends AbstractController
             $epreuve->setEprDescription($descriptionEpreuve);
             $epreuve->setUpdateFields($utilisateur->getUtiNom());
 
-            $sport = new Jointureepreuve();
-            $sport->setJoieprFksport($nomSport);
-            $sport->setJoieprFkepreuve($epreuve);
+            $sport = new Jointuresport();
+            $sport->setJoispoFksport($nomSport);
+            $sport->setJoispoFkepreuve($epreuve);
             $sport->setUpdateFields($utilisateur->getUtiNom());
 
             $entityManager->persist($epreuve);
@@ -173,11 +174,20 @@ class AjoutController extends AbstractController
         
         $epreuve = $this->getDoctrine()->getRepository(\App\Entity\Epreuve::class)->findOneByEprId($idEpreuve);
         $sport = $this->getDoctrine()->getRepository(\App\Entity\Sport::class)->findOneBySpoId($idSport);
-        $jointure = $this->getDoctrine()->getRepository(\App\Entity\Jointuresport::class)->findOneBy(array('joispoFkepreuve' => $epreuve, 'joispoFksport' => $sport));
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->remove($epreuve);
-        $entityManager->remove($jointure);
-        $entityManager->flush();
+        $jointure = $this->getDoctrine()->getRepository(\App\Entity\Jointuresport::class)->findOneBy(array('joispoFkepreuve' => $epreuve, 'joispoFksport' => $sport, 'joispoFkcategorie' => null));
+
+        //$existe = $this->getDoctrine()->getRepository(\App\Entity\Performance::class)->findByPerFkjointuresport($jointure);
+        
+        //if ($existe == null){
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($jointure);
+            //$entityManager->remove($epreuve);
+            $entityManager->flush();
+        //}
+        //else{
+            
+        //}
+        
         return $this->redirectToRoute('administration');
     }
 
@@ -200,13 +210,19 @@ class AjoutController extends AbstractController
             
             $nomCategorie = $form->get('catNom')->getData();
             $descriptionCategorie = $form->get('catDescription')->getData();
+            $nomSport = $form->get('spoId')->getData();
             
             $categorie->setCatNom($nomCategorie);
             $categorie->setCatDescription($descriptionCategorie);
             $categorie->setUpdateFields($utilisateur->getUtiNom());
-            
 
+            $sport = new Jointuresport();
+            $sport->setJoispoFksport($nomSport);
+            $sport->setJoispoFkcategorie($categorie);
+            $sport->setUpdateFields($utilisateur->getUtiNom());
+            
             $entityManager->persist($categorie);
+            $entityManager->persist($sport);
             $entityManager->flush();
             return $this->redirectToRoute('administration');
         }
@@ -217,15 +233,18 @@ class AjoutController extends AbstractController
     }
 
     /**
-     * @Route("/supprimer/categorie/{idCategorie}", name="supprimerCategorie")
+     * @Route("/supprimer/categorie/{idCategorie}/{idSport}", name="supprimerCategorie")
      */
-    public function supprimerCategorie(Request $request, $idCategorie)
+    public function supprimerCategorie(Request $request, $idCategorie, $idSport)
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         
         $categorie = $this->getDoctrine()->getRepository(\App\Entity\Categorie::class)->findOneByCatId($idCategorie);
+        $sport = $this->getDoctrine()->getRepository(\App\Entity\Sport::class)->findOneBySpoId($idSport);
+        $jointure = $this->getDoctrine()->getRepository(\App\Entity\Jointuresport::class)->findOneBy(array('joispoFkcategorie' => $categorie, 'joispoFksport' => $sport, 'joispoFkepreuve' => null));
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->remove($categorie);
+        $entityManager->remove($jointure);
         $entityManager->flush();
         return $this->redirectToRoute('administration');
     }

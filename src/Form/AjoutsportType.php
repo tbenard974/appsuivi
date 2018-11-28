@@ -19,7 +19,9 @@ class AjoutsportType extends AbstractType
     {
         $builder
             ->add('spoNom', TextType::class, array('label' => 'Nom'))
-            ->add('spoDescription', TextType::class, array('label' => 'Description'));
+            ->add('spoDescription', TextType::class, array(
+                'label' => 'Description',
+                'required' => false));
     }
 
     public function configureOptions(OptionsResolver $resolver)

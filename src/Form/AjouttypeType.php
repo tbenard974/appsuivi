@@ -20,7 +20,9 @@ class AjouttypeType extends AbstractType
     {
         $builder
             ->add('typcomNom', TextType::class, array('label' => 'Nom'))
-            ->add('typcomDescription', TextType::class, array('label' => 'Description'));
+            ->add('typcomDescription', TextType::class, array(
+                'label' => 'Description',
+                'required' => false));
     }
 
     public function configureOptions(OptionsResolver $resolver)

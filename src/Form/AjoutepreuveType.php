@@ -21,7 +21,9 @@ class AjoutepreuveType extends AbstractType
     {
         $builder
             ->add('eprNom', TextType::class, array('label' => 'Nom'))
-            ->add('eprDescription', TextType::class, array('label' => 'Description'))
+            ->add('eprDescription', TextType::class, array(
+                'label' => 'Description',
+                'required' => false))
             ->add('spoId', EntityType::class, array(
                 'class' =>Sport::class,
                 'choice_label' => 'spoNom',

@@ -19,35 +19,44 @@ class AdministrationController extends AbstractController
         #$allCategorie = $this->getDoctrine()->getRepository(Categorie::class)->findAll();
         $allEchellecompetition = $this->getDoctrine()->getRepository(Echellecompetition::class)->findAll();
         #$allEpreuve= $this->getDoctrine()->getRepository(Epreuve::class)->findAll();
-        $allJoispo= $this->getDoctrine()->getRepository(Jointuresport::class)->findAll();
+        $allJoispoepr= $this->getDoctrine()->getRepository(Jointuresport::class)->findByJoispoFkcategorie(null);
+        $allJoispocat= $this->getDoctrine()->getRepository(Jointuresport::class)->findByJoispoFkepreuve(null);
         $allEpreuve = array();
-        $allEpreuve[] = $allJoispo[0];
-        foreach($allJoispo as $joispo){
-            $flag = false;
-            foreach($allEpreuve as $epr){
-                if ($joispo->getJoispoFkepreuve() == $epr->getJoispoFkepreuve()){
-                    if ($joispo->getJoispoFksport() == $epr->getJoispoFksport()) {
-                        $flag = true;
+        if($allJoispoepr != null){
+            $allEpreuve[] = $allJoispoepr[0];
+            foreach($allJoispoepr as $joispo){
+                $flag = false;
+                foreach($allEpreuve as $epr){
+                    if ($joispo->getJoispoFkepreuve() == $epr->getJoispoFkepreuve()){
+                        if ($joispo->getJoispoFksport() == $epr->getJoispoFksport()) {
+                            $flag = true;
+                        }
                     }
                 }
-            }
-            if ($flag == false){
-                $allEpreuve[]=$joispo;
+                if ($flag == false){
+                    if ($joispo->getJoispoFkcategorie() == null) {
+                        $allEpreuve[]=$joispo;
+                    }
+                }
             }
         }
         $allCategorie = array();
-        $allCategorie[] = $allJoispo[0];
-        foreach($allJoispo as $joispo){
-            $flag = false;
-            foreach($allCategorie as $cat){
-                if ($joispo->getJoispoFkcategorie() == $cat->getJoispoFkcategorie()){
-                    if ($joispo->getJoispoFksport() == $cat->getJoispoFksport()) {
-                        $flag = true;
+        if($allJoispocat != null){
+            $allCategorie[] = $allJoispocat[0];
+            foreach($allJoispocat as $joispo){
+                $flag = false;
+                foreach($allCategorie as $cat){
+                    if ($joispo->getJoispoFkcategorie() == $cat->getJoispoFkcategorie()){
+                        if ($joispo->getJoispoFksport() == $cat->getJoispoFksport()) {
+                            $flag = true;
+                        }
                     }
                 }
-            }
-            if ($flag == false){
-                $allCategorie[]=$joispo;
+                if ($flag == false){
+                    if ($joispo->getJoispoFkepreuve() == null) {
+                        $allCategorie[]=$joispo;
+                    }
+                }
             }
         }
         $allNiveaulisteministerielle = $this->getDoctrine()->getRepository(Niveaulisteministerielle::class)->findAll();

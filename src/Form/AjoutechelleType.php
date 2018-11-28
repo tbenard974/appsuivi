@@ -20,7 +20,9 @@ class AjoutechelleType extends AbstractType
     {
         $builder
             ->add('echcomNom', TextType::class, array('label' => 'Nom'))
-            ->add('echcomDescription', TextType::class, array('label' => 'Description'))
+            ->add('echcomDescription', TextType::class, array(
+                'label' => 'Description',
+                'required' => false))
             ->add('typeCompetition', EntityType::class, array(
                 'class' => Typecompetition::class,
                 'choice_label' => 'typcomNom',

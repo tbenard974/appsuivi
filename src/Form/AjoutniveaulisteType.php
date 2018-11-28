@@ -19,7 +19,9 @@ class AjoutniveaulisteType extends AbstractType
     {
         $builder
             ->add('nivlisminNom', TextType::class, array('label' => 'Nom'))
-            ->add('nivlisminDescription', TextType::class, array('label' => 'Description'));
+            ->add('nivlisminDescription', TextType::class, array(
+                'label' => 'Description',
+                'required' => false));
     }
 
     public function configureOptions(OptionsResolver $resolver)

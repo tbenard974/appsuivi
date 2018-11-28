@@ -10,23 +10,47 @@
     <div class="row">
         <ol class="breadcrumb">
             <li><a href="/"><svg class="glyph stroked home"><use xlink:href="#stroked-home"></use></svg></a></li>
+            <li class="active">Visualisation Profil Sportif</li>
         </ol>
     </div>
 
     {% if app.user != null %}
-        {{ "Nom : " }} {{ utilisateur.utiNom }}
-        <br>
-        {{ "Prenom : " }} {{ utilisateur.utiPrenom }}
-        <br>
-        {{ "Mail : " }} {{ utilisateur.utiEmail }}
-        <br>
-        {{ "Departement : " }} {{ utilisateur.utiFkdepartement.depNom }}
-        <br>
-        {{ "Sport : " }} {{ utilisateur.utiFksport.spoNom }}
-        <br>
-        <input type="button" onclick="location.href='/visualisation/performance/{{ utilisateur.utiId }}';" value="Visualiser performances" />
-    
-    {% endif %}
 
+
+    <div class="row">
+
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h3 class="panel-title"> Prenom : {{ utilisateur.utiPrenom }} <br> Nom :  {{ utilisateur.utiNom }} </h3>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class=" col-md-9 col-lg-9 ">
+                        <table class="table table-user-information">
+                            <tbody>
+                            <tr>
+                                <td>Departement:</td>
+                                <td>{{ utilisateur.utiFkdepartement.depNom }}</td>
+                            </tr>
+                            <tr>
+                                <td>Mail</td>
+                                <td>{{ utilisateur.utiEmail }}</td>
+                            </tr>
+                            <tr>
+                                <td>Sport</td>
+                                <td>{{ utilisateur.utiFksport.spoNom }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                        <a href="/visualisation/performance/{{ utilisateur.utiId }}" class="btn btn-primary">Visualiser les performances</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    {% endif %}
 </div>
 {% endblock %}

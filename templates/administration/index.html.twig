@@ -112,7 +112,7 @@
                                             {% if epreuve.joispoFkepreuve != null %}
                                                 <td>{{ epreuve.joispoFkepreuve.eprNom }}</td> 
                                                 <td>{{ epreuve.joispoFksport.spoNom}}</td>
-                                                <td><p data-placement="top" data-toggle="tooltip" title="Delete"><button  onclick="location.href='/supprimer/epreuve/{{ epreuve.joispoFkepreuve.eprId }}';" class="btn btn-danger btn-xs pull-right" data-title="Delete" data-toggle="modal" data-target="delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
+                                                <td><p data-placement="top" data-toggle="tooltip" title="Delete"><button  onclick="location.href='/supprimer/epreuve/{{ epreuve.joispoFkepreuve.eprId }}/{{ epreuve.joispoFksport.spoId }}';" class="btn btn-danger btn-xs pull-right" data-title="Delete" data-toggle="modal" data-target="delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
                                             {% endif %}
                                         </tr>
                                     {% endfor %}

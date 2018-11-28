@@ -16,19 +16,38 @@ class AdministrationController extends AbstractController
      */
     public function administration()
     {
-        $allCategorie = $this->getDoctrine()->getRepository(Categorie::class)->findAll();
+        #$allCategorie = $this->getDoctrine()->getRepository(Categorie::class)->findAll();
         $allEchellecompetition = $this->getDoctrine()->getRepository(Echellecompetition::class)->findAll();
         #$allEpreuve= $this->getDoctrine()->getRepository(Epreuve::class)->findAll();
         $allJoispo= $this->getDoctrine()->getRepository(Jointuresport::class)->findAll();
         $allEpreuve = array();
         $allEpreuve[] = $allJoispo[0];
         foreach($allJoispo as $joispo){
+            $flag = false;
             foreach($allEpreuve as $epr){
-                if ($joispo->getJoispoFkepreuve() != $epr->getJoispoFkepreuve()){
-                    if ($joispo->getJoispoFksport() != $epr->getJoispoFksport()) {
-                        $allEpreuve[]=$joispo;
+                if ($joispo->getJoispoFkepreuve() == $epr->getJoispoFkepreuve()){
+                    if ($joispo->getJoispoFksport() == $epr->getJoispoFksport()) {
+                        $flag = true;
                     }
                 }
+            }
+            if ($flag == false){
+                $allEpreuve[]=$joispo;
+            }
+        }
+        $allCategorie = array();
+        $allCategorie[] = $allJoispo[0];
+        foreach($allJoispo as $joispo){
+            $flag = false;
+            foreach($allCategorie as $cat){
+                if ($joispo->getJoispoFkcategorie() == $cat->getJoispoFkcategorie()){
+                    if ($joispo->getJoispoFksport() == $cat->getJoispoFksport()) {
+                        $flag = true;
+                    }
+                }
+            }
+            if ($flag == false){
+                $allCategorie[]=$joispo;
             }
         }
         $allNiveaulisteministerielle = $this->getDoctrine()->getRepository(Niveaulisteministerielle::class)->findAll();

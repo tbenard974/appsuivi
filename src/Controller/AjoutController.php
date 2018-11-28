@@ -165,15 +165,18 @@ class AjoutController extends AbstractController
     }
 
     /**
-     * @Route("/supprimer/epreuve/{idEpreuve}", name="supprimerEpreuve")
+     * @Route("/supprimer/epreuve/{idEpreuve}/{idSport}", name="supprimerEpreuve")
      */
-    public function supprimerEpreuve(Request $request, $idEpreuve)
+    public function supprimerEpreuve(Request $request, $idEpreuve, $idSport)
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         
         $epreuve = $this->getDoctrine()->getRepository(\App\Entity\Epreuve::class)->findOneByEprId($idEpreuve);
+        $sport = $this->getDoctrine()->getRepository(\App\Entity\Sport::class)->findOneBySpoId($idSport);
+        $jointure = $this->getDoctrine()->getRepository(\App\Entity\Jointuresport::class)->findOneBy(array('joispoFkepreuve' => $epreuve, 'joispoFksport' => $sport));
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->remove($epreuve);
+        $entityManager->remove($jointure);
         $entityManager->flush();
         return $this->redirectToRoute('administration');
     }

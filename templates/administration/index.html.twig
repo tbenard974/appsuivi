@@ -21,17 +21,13 @@
         <div class="row">
             <div>
                 <div class="panel panel-default">
-                    <div class="panel-heading">Gestion des Compétitions</div>
+                    <div class="panel-heading">Gestion des Types de compétitions</div>
                     <div class="row">
                         <nav class="navbar navbar-left nav-wrapper" role="navigation" style="background-color: #5DBCD2">
                             <div class="container-fluid">
                                 <div class="collapse navbar-collapse">
                                     <ul class="user-menu">
                                         <li><a href="/ajout/typecompetition"><svg class="glyph stroked plus sign" ><use xlink:href="#stroked-plus-sign"></use></svg> Ajouter un nouveau type de Compétition </a></li>
-                                    </ul>
-
-                                    <ul class="user-menu">
-                                        <li><a href="/ajout/echellecompetition"><svg class="glyph stroked plus sign"><use xlink:href="#stroked-plus-sign"></use></svg> Ajouter une  Echelle de compétition </a></li>
                                     </ul>
                                 </div>
                         </nav>
@@ -53,19 +49,35 @@
                             </thead>
                         </table>
                     </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">Gestion de l'échelle des compétitions</div>
+                    <div class="row">
+                        <nav class="navbar navbar-left nav-wrapper" role="navigation" style="background-color: #5DBCD2">
+                            <div class="container-fluid">
+                                <div class="collapse navbar-collapse">
+                                    <ul class="user-menu">
+                                        <li><a href="/ajout/echellecompetition"><svg class="glyph stroked plus sign"><use xlink:href="#stroked-plus-sign"></use></svg> Ajouter une  Echelle de compétition </a></li>
+                                    </ul>
+                                </div>
+                        </nav>
+                    </div>
 
                     <div class="table-responsive">
                         <table class="table" data-toggle="table"   data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="toolbar1" data-pagination="true" data-sort-name="name" data-sort-order="desc">
                             <thead>
                             <tr>
                                 <th>Echelles compétitions</th>
-
-                            <tr>
-                                {% for echellecompetition in allEchellecompetition %}
-                                <td>{{ echellecompetition.echcomNom }} </td>
-                                <td><p data-placement="top" data-toggle="tooltip" title="Delete"><button  onclick="location.href='/supprimer/echellecompetition/{{ echellecompetition.echcomId }}';" class="btn btn-danger btn-xs pull-right" data-title="Delete" data-toggle="modal" data-target="delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
+                                <th class="pull-right">Supprimer</th>
                             </tr>
-                                {% endfor %}
+
+                            
+                            {% for echellecompetition in allEchellecompetition %}
+                                <tr>
+                                    <td>{{ echellecompetition.echcomNom }} </td>
+                                    <td><p data-placement="top" data-toggle="tooltip" title="Delete"><button  onclick="location.href='/supprimer/echellecompetition/{{ echellecompetition.echcomId }}';" class="btn btn-danger btn-xs pull-right" data-title="Delete" data-toggle="modal" data-target="delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
+                                </tr>
+                            {% endfor %}
                             </thead>
                         </table>
                     </div>
@@ -82,9 +94,6 @@
                                             <ul class="user-menu">
                                                 <li><a href="/ajout/epreuve"><svg class="glyph stroked plus sign"><use xlink:href="#stroked-plus-sign"></use></svg> Ajouter une épreuve </a></li>
                                             </ul>
-                                            <ul class="user-menu">
-                                                <li><a href="/ajout/categorie"><svg class="glyph stroked plus sign"><use xlink:href="#stroked-plus-sign"></use></svg> Ajouter une categorie </a></li>
-                                            </ul>
                                         </div>
                                     </div>
                                 </nav>
@@ -94,18 +103,35 @@
                                     <thead>
                                     <tr>
                                         <th>Epreuves</th>
+                                        <th>Sports</th>
+                                        <th class="pull-right">Supprimer</th>
                                     </tr>
-                                        {% for epreuve in allEpreuve %}
-                                        {% if epreuve.joispoFkepreuve != null %}
-                                            <tr>
-                                                <td>{{ epreuve.joispoFkepreuve.eprNom }} </td>
-                                                <td>{{ epreuve.joispoFksport.spoNom}} </td>
-                                                    <td><p data-placement="top" data-toggle="tooltip" title="Delete"><button  onclick="location.href='/supprimer/epreuve/{{ epreuve.joispoFkepreuve.eprId }}';" class="btn btn-danger btn-xs pull-right" data-title="Delete" data-toggle="modal" data-target="delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
-                                            </tr>
-                                        {% endif %}
+                                    
+                                    {% for epreuve in allEpreuve %}
+                                        <tr>
+                                            {% if epreuve.joispoFkepreuve != null %}
+                                                <td>{{ epreuve.joispoFkepreuve.eprNom }}</td> 
+                                                <td>{{ epreuve.joispoFksport.spoNom}}</td>
+                                                <td><p data-placement="top" data-toggle="tooltip" title="Delete"><button  onclick="location.href='/supprimer/epreuve/{{ epreuve.joispoFkepreuve.eprId }}/{{ epreuve.joispoFksport.spoId }}';" class="btn btn-danger btn-xs pull-right" data-title="Delete" data-toggle="modal" data-target="delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
+                                            {% endif %}
+                                        </tr>
                                     {% endfor %}
                                     </thead>
                                 </table>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Gestion des Catégories</div>
+                            <div class="row">
+                                <nav class="navbar navbar-left navbar-toggler" role="navigation" style="background-color: #5DBCD2">
+                                    <div class="container-fluid">
+                                        <div class="navbar-header">
+                                            <ul class="user-menu">
+                                                <li><a href="/ajout/categorie"><svg class="glyph stroked plus sign"><use xlink:href="#stroked-plus-sign"></use></svg> Ajouter une categorie </a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </nav>
                             </div>
 
                             <div class="table-responsive">
@@ -113,12 +139,18 @@
                                     <thead>
                                     <tr>
                                         <th>Categories</th>
+                                        <th>Sport</th>
                                         <th class="pull-right">Supprimer</th>
-                                    <tr>
-                                        {% for categorie in allCategorie%}
-                                        <td>{{ categorie.catNom }} </td>
-                                         <td><p data-placement="top" data-toggle="tooltip" title="Delete"><button  onclick="location.href='/supprimer/categorie/{{ categorie.catId }}';" class="btn btn-danger btn-xs pull-right" data-title="Delete" data-toggle="modal" data-target="delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
                                     </tr>
+                                        {% for categorie in allCategorie%}
+                                            {% if categorie.joispoFkcategorie != null %}
+                                                <tr>
+                                                    <td>{{ categorie.joispoFkcategorie.catNom }}</td>
+                                                    <td>{{ categorie.joispoFksport.spoNom}}</td>
+                                                    <td><p data-placement="top" data-toggle="tooltip" title="Delete"><button  onclick="location.href='/supprimer/categorie/{{ categorie.joispoFkcategorie.catId }}';" class="btn btn-danger btn-xs pull-right" data-title="Delete" data-toggle="modal" data-target="delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td> 
+                                                    <br>
+                                                </tr>
+                                            {% endif %}
                                     {% endfor %}
                                     </thead>
                                 </table>
@@ -139,9 +171,6 @@
                                         <ul class="user-menu">
                                             <li><a href="/ajout/sport"><svg class="glyph stroked plus sign"><use xlink:href="#stroked-plus-sign"></use></svg> Ajouter un sport </a></li>
                                         </ul>
-                                        <ul class="user-menu">
-                                            <li><a href="/ajout/niveauliste"><svg class="glyph stroked plus sign"><use xlink:href="#stroked-plus-sign"></use></svg> Ajouter un niveau de liste ministerrielle </a></li>
-                                        </ul>
                                     </div>
                                 </div>
                             </nav>
@@ -150,7 +179,7 @@
                             <table class="table" data-toggle="table"   data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="toolbar1" data-pagination="true" data-sort-name="name" data-sort-order="desc">
                                 <thead>
                                 <tr>
-                                    <th>Sports</th>
+                                    <th>Sports </th>
                                     <th class="pull-right">Supprimer</th>
                                 <tr>
                                     {% for sport in allSport %}
@@ -160,6 +189,20 @@
                                 {% endfor %}
                                 </thead>
                             </table>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                    <div class="panel-heading">Gestion du niveau de liste ministerielle</div>
+                        <div class="row">
+                            <nav class="navbar navbar-left navbar-toggler" role="navigation" style="background-color: #5DBCD2">
+                                <div class="container-fluid">
+                                    <div class="navbar-header">
+                                        <ul class="user-menu">
+                                            <li><a href="/ajout/niveauliste"><svg class="glyph stroked plus sign"><use xlink:href="#stroked-plus-sign"></use></svg> Ajouter un niveau de liste ministerrielle </a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </nav>
                         </div>
 
                         <div class="table-responsive">

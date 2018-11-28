@@ -8,26 +8,42 @@
 {{ parent() }}
 
     {% if app.user != null %}
-<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
-    <div class="row">
-        <ol class="breadcrumb">
-            <li><a href="/"><svg class="glyph stroked home"><use xlink:href="#stroked-home"></use></svg></a></li>
-            <li class="active">Mon Profil</li>
-        </ol>
-    </div>
-    <div class="col-lg-12">
-        <div class="card">
-            <h1> {{ "Nom : " }} {{ utilisateur.utiNom }}</h1>
-            <h1> {{ "Prénom : " }} {{ utilisateur.utiPrenom }}</h1>
-            <p class="title">{{ "Mail : " }} {{ utilisateur.utiEmail }}</p>
-            <p> {{ "Departement : " }} {{ utilisateur.utiFkdepartement.depNom }}</p>
-            <p>{{ "Sport : " }} {{ utilisateur.utiFksport.spoNom }}</p>
-
+    <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+        <div class="row">
+            <ol class="breadcrumb">
+                <li><a href="/"><svg class="glyph stroked home"><use xlink:href="#stroked-home"></use></svg></a></li>
+                <li class="active">Mon Profil</li>
+            </ol>
         </div>
+          <div class="row">
 
-        <input type="button" onclick="location.href='/profil/modif/{{ utilisateur.utiId }}';" value="Modifier mon sport" />
-    </div>
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"> Prenom : {{ utilisateur.utiPrenom }} <br> Nom :  {{ utilisateur.utiNom }} </h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class=" col-md-9 col-lg-9 ">
+                                        <table class="table table-user-information">
+                                            <tbody>
+                                            <tr>
+                                                <td>Departement:</td>
+                                                <td>{{ utilisateur.utiFkdepartement.depNom }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Mail</td>
+                                                <td>{{ utilisateur.utiEmail }}</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+
+                                        <a href="/profil/modif/{{ utilisateur.utiId }}" class="btn btn-primary">Modifier mon sport</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+          </div>
     {% endif %}
-
     </div>
 {% endblock %}

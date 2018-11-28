@@ -10,6 +10,7 @@
     <div class="row">
         <ol class="breadcrumb">
             <li><a href="/"><svg class="glyph stroked home"><use xlink:href="#stroked-home"></use></svg></a></li>
+            <li class="active">Visualisation Tous les Sportifs</li>
         </ol>
     </div>
     {% if app.user != null %}
@@ -17,25 +18,40 @@
             <p> Aucun utilisateur</p>
         {% endif %}
         {% if allUtilisateur != null %}
-            <tr>
-                <th>Nom</th>
-                <th>Prénom</th>
-                <th>Email</th>
-                <th>Département</th>
-                <th>Sport</th>
-            </tr>
-            <br>
+
             {% for utilisateur in allUtilisateur %}
-                <tr>
-                    <a href="/profil/{{ utilisateur.utiId }}">
-                    <td>{{ utilisateur.utiNom }}</td>
-                    <td>{{ utilisateur.utiPrenom }}</td>
-                    <td>{{ utilisateur.utiEmail }}</td>
-                    <td>{{ utilisateur.utiFkdepartement.depNom }}</td>
-                    <td>{{ utilisateur.utiFksport.spoNom }}</td>
-                    </a>
-                </tr>
                 <br>
+                <div class="row">
+                    <div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Sportifs Haut Niveau</div>
+                            <div class="table-responsive">
+                                <table class="table" data-toggle="table"   data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="toolbar1" data-pagination="true" data-sort-name="name" data-sort-order="desc">
+                                    <thead>
+                                    <tr>
+                                        <th>Nom</th>
+                                        <th>Prénom</th>
+                                        <th>Email</th>
+                                        <th>Département</th>
+                                        <th>Sport</th>
+                                        <th>Visualiser les Performances du sportif</th>
+                                    </tr>
+                                    {% for utilisateur in allUtilisateur %}
+                                        <tr>
+                                            <td><a href="/profil/{{ utilisateur.utiId }}">{{ utilisateur.utiNom }}</a></td>
+                                            <td><a href="/profil/{{ utilisateur.utiId }}">{{ utilisateur.utiPrenom }}</a></td>
+                                            <td>{{ utilisateur.utiEmail }}</td>
+                                            <td>{{ utilisateur.utiFkdepartement.depNom }}</td>
+                                            <td>{{ utilisateur.utiFksport.spoNom }}</td>
+                                            <td><a href="/visualisation/performance/{{ utilisateur.utiId }}" class="btn btn-primary">Visualiser les performances</a></td>
+                                        </tr>
+                                    {% endfor %}
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div><!--/.row-->
             {% endfor %}
         {% endif %}
     {% endif %}

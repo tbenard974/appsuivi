@@ -40,10 +40,14 @@ class EvenementController extends Controller
 		foreach($filteredJoispo as $joispo)
 		{
 			if(!in_array($joispo->getJoispoFkepreuve(),$filteredEpreuve)){
-				$filteredEpreuve[] = $joispo->getJoispoFkepreuve();
+                if($joispo->getJoispoFkcategorie()==null){
+                    $filteredEpreuve[] = $joispo->getJoispoFkepreuve();
+                }
 			}
 			if(!in_array($joispo->getJoispoFkcategorie(),$filteredCategorie)){
-				$filteredCategorie[] = $joispo->getJoispoFkcategorie();
+                if($joispo->getJoispoFkepreuve()==null){
+                    $filteredCategorie[] = $joispo->getJoispoFkcategorie();
+                }
 			}
 			//$logger->info($joispo->getJoispoFkepreuve()->getEprNom());
 		}
@@ -145,7 +149,8 @@ class EvenementController extends Controller
             }
 
                 $jointureSport = $this->getDoctrine()->getRepository(Jointuresport::class)->findOneBy(array('joispoFksport'=> $sport, 'joispoFkepreuve'=> $epreuve, 'joispoFkcategorie'=> $categorie));
-
+                $jointureEpreuve = $this->getDoctrine()->getRepository(Jointuresport::class)->findOneBy(array('joispoFksport'=> $sport, 'joispoFkepreuve'=> $epreuve));
+                $jointureCategorie = $this->getDoctrine()->getRepository(Jointuresport::class)->findOneBy(array('joispoFksport'=> $sport, 'joispoFkcategorie'=> $categorie));
                 if ($jointureSport == null) {
                     $jointureSport = new Jointuresport();
                     $jointureSport->setJoispoFksport($sport);
@@ -153,6 +158,20 @@ class EvenementController extends Controller
                     $jointureSport->setJoispoFkcategorie($categorie);
                     $jointureSport->setUpdateFields($utilisateur->getUtiEmail());
                     $entityManager->persist($jointureSport);
+                }
+                if ($jointureEpreuve == null) {
+                    $jointureEpreuve = new Jointuresport();
+                    $jointureEpreuve->setJoispoFksport($sport);
+                    $jointureEpreuve->setJoispoFkepreuve($epreuve);
+                    $jointureEpreuve->setUpdateFields($utilisateur->getUtiEmail());
+                    $entityManager->persist($jointureEpreuve);
+                }
+                if ($jointureCategorie == null) {
+                    $jointureCategorie = new Jointuresport();
+                    $jointureCategorie->setJoispoFksport($sport);
+                    $jointureCategorie->setJoispoFkcategorie($categorie);
+                    $jointureCategorie->setUpdateFields($utilisateur->getUtiEmail());
+                    $entityManager->persist($jointureCategorie);
                 }
                 $performance->setPerFkjointuresport($jointureSport);
 

@@ -149,12 +149,14 @@ class EvenementType extends AbstractType
                 ))
                 ->add('importance', ChoiceType::class, array(
                     'choices'  => array(
-                        'Importante' => true,
-                        'Normale' => false,
+                        'Saison' => true,
+                        'Intermédiaire' => false,
                     ),
                     'preferred_choices' => array(false),
-                    'label' => 'Importance de la compétition',
-                    'mapped' => false,
+                    'label' => 'Objectif de la compétition',
+                    'multiple' => false,
+                    'expanded' => true,
+                    'required' => true,
                 ))
             ;
         }

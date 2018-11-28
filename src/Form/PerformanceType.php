@@ -73,7 +73,7 @@ class PerformanceType extends AbstractType
                 'required' => false,
             ))
             ->add('categorie', ChoiceType::class, array(
-                'label' => 'Categorie',
+                'label' => 'Catégorie',
                 'mapped' => false,
                 'choices' => $options['filteredCategorie'],
                 'choice_label' => 'catNom',
@@ -85,11 +85,13 @@ class PerformanceType extends AbstractType
             ))
             ->add('perImportance', ChoiceType::class, array(
                 'choices'  => array(
-                    'Importante' => true,
-                    'Normale' => false,
+                    'Saison' => true,
+                    'Intermédiaire' => false,
                 ),
-                'preferred_choices' => array(false),
-                'label' => 'Importance de la compétition',
+                'label' => 'Objectif de la compétition',
+                'multiple' => false,
+                'expanded' => true,
+                'required' => true,
             ))
             ->add('resultat', EntityType::class, array(
                 'class' => Resultat::class,

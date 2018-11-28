@@ -18,41 +18,38 @@
             <p> Aucun utilisateur</p>
         {% endif %}
         {% if allUtilisateur != null %}
-
-            {% for utilisateur in allUtilisateur %}
-                <br>
-                <div class="row">
-                    <div>
-                        <div class="panel panel-default">
-                            <div class="panel-heading">Sportifs Haut Niveau</div>
-                            <div class="table-responsive">
-                                <table class="table" data-toggle="table"   data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="toolbar1" data-pagination="true" data-sort-name="name" data-sort-order="desc">
-                                    <thead>
+            <br>
+            <div class="row">
+                <div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Sportifs Haut Niveau</div>
+                        <div class="table-responsive">
+                            <table class="table" data-toggle="table"   data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="toolbar1" data-pagination="true" data-sort-name="name" data-sort-order="desc">
+                                <thead>
+                                <tr>
+                                    <th>Nom</th>
+                                    <th>Prénom</th>
+                                    <th>Email</th>
+                                    <th>Département</th>
+                                    <th>Sport</th>
+                                    <th>Visualiser les Performances du sportif</th>
+                                </tr>
+                                {% for utilisateur in allUtilisateur %}
                                     <tr>
-                                        <th>Nom</th>
-                                        <th>Prénom</th>
-                                        <th>Email</th>
-                                        <th>Département</th>
-                                        <th>Sport</th>
-                                        <th>Visualiser les Performances du sportif</th>
+                                        <td><a href="/profil/{{ utilisateur.utiId }}">{{ utilisateur.utiNom }}</a></td>
+                                        <td><a href="/profil/{{ utilisateur.utiId }}">{{ utilisateur.utiPrenom }}</a></td>
+                                        <td>{{ utilisateur.utiEmail }}</td>
+                                        <td>{{ utilisateur.utiFkdepartement.depNom }}</td>
+                                        <td>{{ utilisateur.utiFksport.spoNom }}</td>
+                                        <td><a href="/visualisation/performance/{{ utilisateur.utiId }}" class="btn btn-primary">Visualiser les performances</a></td>
                                     </tr>
-                                    {% for utilisateur in allUtilisateur %}
-                                        <tr>
-                                            <td><a href="/profil/{{ utilisateur.utiId }}">{{ utilisateur.utiNom }}</a></td>
-                                            <td><a href="/profil/{{ utilisateur.utiId }}">{{ utilisateur.utiPrenom }}</a></td>
-                                            <td>{{ utilisateur.utiEmail }}</td>
-                                            <td>{{ utilisateur.utiFkdepartement.depNom }}</td>
-                                            <td>{{ utilisateur.utiFksport.spoNom }}</td>
-                                            <td><a href="/visualisation/performance/{{ utilisateur.utiId }}" class="btn btn-primary">Visualiser les performances</a></td>
-                                        </tr>
-                                    {% endfor %}
-                                    </thead>
-                                </table>
-                            </div>
+                                {% endfor %}
+                                </thead>
+                            </table>
                         </div>
                     </div>
-                </div><!--/.row-->
-            {% endfor %}
+                </div>
+            </div><!--/.row-->
         {% endif %}
     {% endif %}
     </div>

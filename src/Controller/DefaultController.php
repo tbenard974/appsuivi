@@ -22,6 +22,10 @@ class DefaultController extends Controller
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $user_email = $this->getUser()->getEmail();
         $utilisateur = $this->getDoctrine()->getRepository(Utilisateur::class)->findOneByUtiEmail($user_email);
+
+        if ($this->getUser()->getRole()=='ROLE_Admin'){
+            return $this->redirectToRoute('visualiserProfilCds');
+        }
         
 		//$allAbsence = $this->get('manage.evenement')->visualiserAll($this);
         $allAbsence = $this->getDoctrine()->getRepository(Absence::class)->findByAbsFkutilisateur($utilisateur);

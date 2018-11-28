@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'menu.html.twig' %}
 
 {% block stylesheets %}
     {{ parent() }}
@@ -6,77 +6,197 @@
 
 {% block body %}
  {{ parent() }}
-    {% if app.user == null %}
-        <a href="/login" class="btn btn-info"> You need to login >></a>
-    {% endif %}
-
     {% if app.user != null %}
-        <tr>
-            <th>Type compétition <input type="button" onclick="location.href='/ajout/typecompetition';" value="Ajouter un type" /></th>
-            <br>
-            {% for typecompetition in allTypecompetition %}
-            <tr>
-                <td>{{ typecompetition.typcomNom }} <input type="button" onclick="location.href='/supprimer/typecompetition/{{ typecompetition.typcomId }}';" value="Supprimer" /></td>
-                <br>
-            </tr>
-            {% endfor %}
-        </tr>
-        <br>
-        <br>
-        <tr>
-            <th>Echelle compétition <input type="button" onclick="location.href='/ajout/echellecompetition';" value="Ajouter une échelle" /></th>
-            <br>
-            {% for echellecompetition in allEchellecompetition %}
-                <td>{{ echellecompetition.echcomNom }} <input type="button" onclick="location.href='/supprimer/echellecompetition/{{ echellecompetition.echcomId }}';" value="Supprimer" /></td>
-                <br>
-            {% endfor %}
-        </tr>
-        <br>
-        <br>
-        <tr>
-            <th>Epreuve <input type="button" onclick="location.href='/ajout/epreuve';" value="Ajouter une épreuve" /></th>
-            <br>
-            {% for epreuve in allEpreuve %}
-                {% if epreuve.joispoFkepreuve != null %}
-                    <td>{{ epreuve.joispoFkepreuve.eprNom }} </td> 
-                    <td>{{ epreuve.joispoFksport.spoNom}} </td>
-                    <td><input type="button" onclick="location.href='/supprimer/epreuve/{{ epreuve.joispoFkepreuve.eprId }}';" value="Supprimer" /></td>
-                    <br>
-                {% endif %}
-            {% endfor %}
-        </tr>
-        <br>
-        <br>
-        <tr>
-            <th>Catégorie <input type="button" onclick="location.href='/ajout/categorie';" value="Ajouter une categorie" /></th>
-            <br>
-            {% for categorie in allCategorie%}
-                <td>{{ categorie.catNom }} <input type="button" onclick="location.href='/supprimer/categorie/{{ categorie.catId }}';" value="Supprimer" /> </td>
-                <br>
-            {% endfor %}
-        </tr>
-        <br>
-        <br>
-        <tr>
-            <th>Sport <input type="button" onclick="location.href='/ajout/sport';" value="Ajouter un sport" /></th>
-            <br>
-            {% for sport in allSport %}
-                <td>{{ sport.spoNom }} <input type="button" onclick="location.href='/supprimer/sport/{{ sport.spoId }}';" value="Supprimer" /></td>
-                <br>
-            {% endfor %}
-        </tr>
-        <br>
-        <br>
-        <tr>
-            <th>Niveau liste ministerielle <input type="button" onclick="location.href='/ajout/niveauliste';" value="Ajouter un niveau de liste ministerrielle" /></th>
-            <br>
-            {% for niveaulisteministerielle in allNiveaulisteministerielle %}
-                <td>{{ niveaulisteministerielle.nivlisminNom }} <input type="button" onclick="location.href='/supprimer/niveauliste/{{ niveaulisteministerielle.nivlisminId }}';" value="Supprimer" /></td>
-                <br>
-            {% endfor %}
-        </tr>
 
+        <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+
+            <div class="row">
+                <ol class="breadcrumb">
+                    <li><a href="/"><svg class="glyph stroked home"><use xlink:href="#stroked-home"></use></svg></a></li>
+                    <li class="active">Administration</li>
+                </ol>
+            </div>
+
+
+        <div class="row">
+            <div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">Gestion des Compétitions</div>
+                    <div class="row">
+                        <nav class="navbar navbar-left nav-wrapper" role="navigation" style="background-color: #5DBCD2">
+                            <div class="container-fluid">
+                                <div class="collapse navbar-collapse">
+                                    <ul class="user-menu">
+                                        <li><a href="/ajout/typecompetition"><svg class="glyph stroked plus sign" ><use xlink:href="#stroked-plus-sign"></use></svg> Ajouter un nouveau type de Compétition </a></li>
+                                    </ul>
+
+                                    <ul class="user-menu">
+                                        <li><a href="/ajout/echellecompetition"><svg class="glyph stroked plus sign"><use xlink:href="#stroked-plus-sign"></use></svg> Ajouter une  Echelle de compétition </a></li>
+                                    </ul>
+                                </div>
+                        </nav>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table" data-toggle="table" >
+                            <thead>
+                            <tr>
+                                <th>Type compétition</th>
+                               <th class="pull-right">Supprimer</th>
+                            <tr>
+                                {% for typecompetition in allTypecompetition %}
+                            <tr>
+                                <td>{{ typecompetition.typcomNom }} </td>
+                                <td><p data-placement="top" data-toggle="tooltip" title="Delete"><button  onclick="location.href='/supprimer/typecompetition/{{ typecompetition.typcomId }}';" class="btn btn-danger btn-xs pull-right" data-title="Delete" data-toggle="modal" data-target="delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
+                            </tr>
+                                {% endfor %}
+                            </thead>
+                        </table>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table" data-toggle="table"   data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="toolbar1" data-pagination="true" data-sort-name="name" data-sort-order="desc">
+                            <thead>
+                            <tr>
+                                <th>Echelles compétitions</th>
+
+                            <tr>
+                                {% for echellecompetition in allEchellecompetition %}
+                                <td>{{ echellecompetition.echcomNom }} </td>
+                                <td><p data-placement="top" data-toggle="tooltip" title="Delete"><button  onclick="location.href='/supprimer/echellecompetition/{{ echellecompetition.echcomId }}';" class="btn btn-danger btn-xs pull-right" data-title="Delete" data-toggle="modal" data-target="delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
+                            </tr>
+                                {% endfor %}
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+                    <div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Gestion des Epreuves</div>
+                            <div class="row">
+                                <nav class="navbar navbar-left navbar-toggler" role="navigation" style="background-color: #5DBCD2">
+                                    <div class="container-fluid">
+                                        <div class="navbar-header">
+                                            <ul class="user-menu">
+                                                <li><a href="/ajout/epreuve"><svg class="glyph stroked plus sign"><use xlink:href="#stroked-plus-sign"></use></svg> Ajouter une épreuve </a></li>
+                                            </ul>
+                                            <ul class="user-menu">
+                                                <li><a href="/ajout/categorie"><svg class="glyph stroked plus sign"><use xlink:href="#stroked-plus-sign"></use></svg> Ajouter une categorie </a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </nav>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table" data-toggle="table"   data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="toolbar1" data-pagination="true" data-sort-name="name" data-sort-order="desc">
+                                    <thead>
+                                    <tr>
+                                        <th>Epreuves</th>
+                                    </tr>
+                                        {% for epreuve in allEpreuve %}
+                                        {% if epreuve.joispoFkepreuve != null %}
+                                            <tr>
+                                                <td>{{ epreuve.joispoFkepreuve.eprNom }} </td>
+                                                <td>{{ epreuve.joispoFksport.spoNom}} </td>
+                                                    <td><p data-placement="top" data-toggle="tooltip" title="Delete"><button  onclick="location.href='/supprimer/epreuve/{{ epreuve.joispoFkepreuve.eprId }}';" class="btn btn-danger btn-xs pull-right" data-title="Delete" data-toggle="modal" data-target="delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
+                                            </tr>
+                                        {% endif %}
+                                    {% endfor %}
+                                    </thead>
+                                </table>
+                            </div>
+
+                            <div class="table-responsive">
+                                <table class="table" data-toggle="table"   data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="toolbar1" data-pagination="true" data-sort-name="name" data-sort-order="desc">
+                                    <thead>
+                                    <tr>
+                                        <th>Categories</th>
+                                        <th class="pull-right">Supprimer</th>
+                                    <tr>
+                                        {% for categorie in allCategorie%}
+                                        <td>{{ categorie.catNom }} </td>
+                                         <td><p data-placement="top" data-toggle="tooltip" title="Delete"><button  onclick="location.href='/supprimer/categorie/{{ categorie.catId }}';" class="btn btn-danger btn-xs pull-right" data-title="Delete" data-toggle="modal" data-target="delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
+                                    </tr>
+                                    {% endfor %}
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                <div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Gestion des Sports</div>
+                        <div class="row">
+                            <nav class="navbar navbar-left navbar-toggler" role="navigation" style="background-color: #5DBCD2">
+                                <div class="container-fluid">
+                                    <div class="navbar-header">
+                                        <ul class="user-menu">
+                                            <li><a href="/ajout/sport"><svg class="glyph stroked plus sign"><use xlink:href="#stroked-plus-sign"></use></svg> Ajouter un sport </a></li>
+                                        </ul>
+                                        <ul class="user-menu">
+                                            <li><a href="/ajout/niveauliste"><svg class="glyph stroked plus sign"><use xlink:href="#stroked-plus-sign"></use></svg> Ajouter un niveau de liste ministerrielle </a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </nav>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table" data-toggle="table"   data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="toolbar1" data-pagination="true" data-sort-name="name" data-sort-order="desc">
+                                <thead>
+                                <tr>
+                                    <th>Sports</th>
+                                    <th class="pull-right">Supprimer</th>
+                                <tr>
+                                    {% for sport in allSport %}
+                                    <td>{{ sport.spoNom }}</td>
+                                    <td><p data-placement="top" data-toggle="tooltip" title="Delete"><button  onclick="location.href='/supprimer/sport/{{ sport.spoId }}';" class="btn btn-danger btn-xs pull-right" data-title="Delete" data-toggle="modal" data-target="delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
+                                </tr>
+                                {% endfor %}
+                                </thead>
+                            </table>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="table" data-toggle="table"   data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="toolbar1" data-pagination="true" data-sort-name="name" data-sort-order="desc">
+                                <thead>
+                                <tr>
+                                    <th>Listes Ministrielles</th>
+                                    <th class="pull-right">Supprimer</th>
+                                <tr>
+                                    {% for niveaulisteministerielle in allNiveaulisteministerielle %}
+                                        <td>{{ niveaulisteministerielle.nivlisminNom }} </td>
+                                        <td><p data-placement="top" data-toggle="tooltip" title="Delete"><button  onclick="location.href='/supprimer/niveauliste/{{ niveaulisteministerielle.nivlisminId }}';" class="btn btn-danger btn-xs pull-right" data-title="Delete" data-toggle="modal" data-target="delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
+                                </tr>
+                                    {% endfor %}
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     {% endif %}
+
+    {% block javascripts %}
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $('[data-toggle="tooltip"]').tooltip();
+                var actions = $("table td:last-child").html();
+
+                // Delete row on delete button click
+                $(document).on("click", ".delete", function(){
+                    $(this).parents("tr").remove();
+                    $(".add-new").removeAttr("disabled");
+                });
+            });
+        </script>
+    {% endblock %}
 
 
 {% endblock %}

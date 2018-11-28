@@ -1,7 +1,6 @@
 <?php
 // src/Form/PerformanceType.php
 namespace App\Form;
-
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormEvents;
@@ -19,22 +18,21 @@ use App\Entity\Localisationcompetition;
 use App\Entity\Resultat;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Validator\Constraints as Assert;
-
 class PerformanceType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('perDatedebut', DateTimeType::class, array(
-				'widget' => 'choice',
-				'data' => new \DateTime("now"),
-				'years' => range(date('Y'), date('Y')+5),
-			))
+                'widget' => 'choice',
+                'data' => new \DateTime("now"),
+                'years' => range(date('Y'), date('Y')+5),
+            ))
             ->add('perDatefin', DateTimeType::class, array(
-				'widget' => 'choice',
-				'data' => new \DateTime("now"),
-				'years' => range(date('Y'), date('Y')+5),
-			))
+                'widget' => 'choice',
+                'data' => new \DateTime("now"),
+                'years' => range(date('Y'), date('Y')+5),
+            ))
             ->add('perLieu', TextType::class, array('label' => 'Lieu'))
             ->add('typeCompetition', EntityType::class, array(
                 'class' =>Typecompetition::class,
@@ -103,49 +101,45 @@ class PerformanceType extends AbstractType
                 'mapped' => false,
             ))
             ->add('perRessenti', TextType::class, array('label' => 'Ressenti'));
-
-            $builder->get('epreuve')->addEventListener(FormEvents::SUBMIT, [$this, 'requiredEpreuve']);
-			$builder->get('categorie')->addEventListener(FormEvents::SUBMIT, [$this, 'requiredCategorie']);
+        $builder->get('epreuve')->addEventListener(FormEvents::SUBMIT, [$this, 'requiredEpreuve']);
+        $builder->get('categorie')->addEventListener(FormEvents::SUBMIT, [$this, 'requiredCategorie']);
     }
-
     public function requiredEpreuve(FormEvent $event) {
         $epreuve = $event->getData();
         $form = $event->getForm()->getParent();
-
         if (empty($epreuve)) {
             return;
         }
         if ($epreuve->getEprNom() == 'Autre') {
             $form
-            ->add('autreEpreuve', TextType::class, array(
-                'mapped' => false,
-                'constraints' => new Assert\NotBlank(array('message' => 'Veuillez indiquer votre épreuve')),
-            ));
+                ->add('autreEpreuve', TextType::class, array(
+                    'mapped' => false,
+                    'constraints' => new Assert\NotBlank(array('message' => 'Veuillez indiquer votre épreuve')),
+                ));
         }
     }
-	public function requiredCategorie(FormEvent $event) {
+    public function requiredCategorie(FormEvent $event) {
         $categorie = $event->getData();
         $form = $event->getForm()->getParent();
-
         if (empty($categorie)) {
             return;
         }
         if ($categorie->getCatNom() == 'Autre') {
             $form
-            ->add('autreCategorie', TextType::class, array(
-                'mapped' => false,
-                'constraints' => new Assert\NotBlank(array('message' => 'Veuillez indiquer votre catégorie')),
-            ));
+                ->add('autreCategorie', TextType::class, array(
+                    'mapped' => false,
+                    'constraints' => new Assert\NotBlank(array('message' => 'Veuillez indiquer votre catégorie')),
+                ));
         }
     }
-    
+
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'data_class' => 'App\Entity\Performance',
-			'filteredCategorie' => null,
-			'filteredEpreuve' => null,
+            'filteredCategorie' => null,
+            'filteredEpreuve' => null,
         ));
     }
-    
+
 }

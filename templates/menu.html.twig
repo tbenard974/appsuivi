@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+
+    {% if app.user == null %}
+        <a href="/login" class="btn btn-info"> You need to login >></a>
+    {% endif %}
+
+    {% if app.user != null %}
+        <div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
+            <form role="search">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Search">
+                </div>
+            </form>
+            <ul class="nav menu">
+                <li id="accueil"><a href="/"><svg class="glyph stroked dashboard-dial"><use xlink:href="#stroked-dashboard-dial"></use></svg> Accueil</a></li>
+                <li ><a href="/visualisation/evenement"><svg class="glyph stroked calendar"><use xlink:href="#stroked-calendar"></use></svg> Mon Planning</a>
+                <li ><a href="/visualisation/performance"><svg class="glyph stroked notepad"><use xlink:href="#stroked-notepad"></use></svg> Mes performances</a></li>
+                <li ><a href="/visualisation/performance/cds"><svg class="glyph stroked notepad"><use xlink:href="#stroked-notepad"></use></svg> Toutes les performances</a></li>
+                <li ><a href="/administration"><svg class="glyph stroked notepad"><use xlink:href="#stroked-notepad"></use></svg> Administration </a></li>
+                <li role="presentation" class="divider"></li>
+            </ul>
+
+        </div><!--/.sidebar-->
+    {% endif %}
+
+
+    {% block javascripts %}
+        {{ parent() }}
+    {% endblock %}
+
+{% endblock %}

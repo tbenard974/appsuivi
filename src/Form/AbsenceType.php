@@ -28,8 +28,21 @@ class AbsenceType extends AbstractType
                 'multiple' => false,
                 'expanded' => false,
             ))
-            ->add('absDatedebut', DateType::class, array('widget' => 'choice'))
-            ->add('absDatefin', DateType::class, array('widget' => 'choice'))
+            ->add('absDatedebut', DateType::class, array('widget' => 'single_text',
+
+                // prevents rendering it as type="date", to avoid HTML5 date pickers
+                'html5' => false,
+
+                // adds a class that can be selected in JavaScript
+                'attr' => ['class' => 'js-datepicker'],))
+
+            ->add('absDatefin', DateType::class, array('widget' => 'single_text',
+
+                // prevents rendering it as type="date", to avoid HTML5 date pickers
+                'html5' => false,
+
+                // adds a class that can be selected in JavaScript
+                'attr' => ['class' => 'js-datepicker'],))
             ->add('absLieu', TextType::class, array('label' => 'Lieu'))
             ->add('absCommentaire', TextType::class, array('label' => 'Évènement'))
             ;

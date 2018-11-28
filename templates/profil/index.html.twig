@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'menu.html.twig' %}
 
 {% block stylesheets %}
     {{ parent() }}
@@ -6,24 +6,28 @@
 
 {% block body %}
 {{ parent() }}
-    {% if app.user == null %}
-		<a href="/login" class="btn btn-info"> You need to login >></a>
-	{% endif %}
 
     {% if app.user != null %}
-        {{ "Nom : " }} {{ utilisateur.utiNom }}
-        <br>
-        {{ "Prenom : " }} {{ utilisateur.utiPrenom }}
-        <br>
-        {{ "Mail : " }} {{ utilisateur.utiEmail }}
-        <br>
-        {{ "Departement : " }} {{ utilisateur.utiFkdepartement.depNom }}
-        <br>
-        {{ "Sport : " }} {{ utilisateur.utiFksport.spoNom }}
-        <br>
+<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+    <div class="row">
+        <ol class="breadcrumb">
+            <li><a href="/"><svg class="glyph stroked home"><use xlink:href="#stroked-home"></use></svg></a></li>
+            <li class="active">Mon Profil</li>
+        </ol>
+    </div>
+    <div class="col-lg-12">
+        <div class="card">
+            <h1> {{ "Nom : " }} {{ utilisateur.utiNom }}</h1>
+            <h1> {{ "Prénom : " }} {{ utilisateur.utiPrenom }}</h1>
+            <p class="title">{{ "Mail : " }} {{ utilisateur.utiEmail }}</p>
+            <p> {{ "Departement : " }} {{ utilisateur.utiFkdepartement.depNom }}</p>
+            <p>{{ "Sport : " }} {{ utilisateur.utiFksport.spoNom }}</p>
+
+        </div>
+
         <input type="button" onclick="location.href='/profil/modif/{{ utilisateur.utiId }}';" value="Modifier mon sport" />
-    
+    </div>
     {% endif %}
 
-
+    </div>
 {% endblock %}

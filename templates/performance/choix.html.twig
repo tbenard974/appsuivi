@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'menu.html.twig' %}
 
 {% block stylesheets %}
     {{ parent() }}
@@ -6,28 +6,6 @@
 
 {% block body %}
     {{ parent() }}
-
-    {% if app.user != null %}
-        <div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
-            <form role="search">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search">
-                </div>
-            </form>
-            <ul class="nav menu">
-                <li><a href="/"><svg class="glyph stroked dashboard-dial"><use xlink:href="#stroked-dashboard-dial"></use></svg> Accueil</a></li>
-                <li ><a href="/evenement/afficher"><svg class="glyph stroked calendar"><use xlink:href="#stroked-calendar"></use></svg> Mon Planning</a></li>
-                <li class="active"><a href="/performance/visualisation"><svg class="glyph stroked notepad"><use xlink:href="#stroked-notepad"></use></svg> Mes performances</a></li>
-                <li ><a href="/performance/visualisation/cds"><svg class="glyph stroked notepad"><use xlink:href="#stroked-notepad"></use></svg> Toutes les performances</a></li>
-                <li role="presentation" class="divider"></li>
-            </ul>
-
-        </div><!--/.sidebar-->
-    {% endif %}
-
-    {% if app.user == null %}
-        <a href="/login" class="btn btn-info"> You need to login >></a>
-    {% endif %}
 
     {% if app.user != null %}
         <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
@@ -59,6 +37,13 @@
                 </div>
             </div>
     {% endif %}
+
+
+
+            {% block javascripts %}
+                {{ parent() }}
+            {% endblock %}
+
 
 {% endblock %}
 

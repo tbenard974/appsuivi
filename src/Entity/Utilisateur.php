@@ -30,6 +30,13 @@ class Utilisateur
     private $utiNom;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="uti_premiereconnexion", type="boolean", nullable=false)
+     */
+    private $utiPremiereconnexion;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="uti_prenom", type="string", length=30, nullable=false)
@@ -114,6 +121,18 @@ class Utilisateur
     public function setUtiNom(string $utiNom): self
     {
         $this->utiNom = $utiNom;
+
+        return $this;
+    }
+
+    public function getUtiPremiereconnexion(): ?bool
+    {
+        return $this->utiPremiereconnexion;
+    }
+
+    public function setUtiPremiereconnexion(bool $utiPremiereconnexion): self
+    {
+        $this->utiPremiereconnexion = $utiPremiereconnexion;
 
         return $this;
     }

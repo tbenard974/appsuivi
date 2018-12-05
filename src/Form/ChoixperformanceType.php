@@ -25,17 +25,11 @@ class ChoixperformanceType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            /*->add('absNom', EntityType::class, array(
-                'class' =>Absence::class,
-                'choice_label' => 'absNom',
-                // used to render a select box, check boxes or radios
-                'multiple' => false,
-                'expanded' => false,
-                'label' => 'Evènements',
-                'mapped' => true,
-            ));*/
-            ->add('absNom', ChoiceType::class, array (
-                'data' => $options['allAbsence']
+            ->add('nom', ChoiceType::class, array (
+				'label' => 'A partir de',
+                'choices' => $options['allAbsence'],
+				'mapped' => false,
+				'choice_label' => 'absNom',
             ));
         
     }

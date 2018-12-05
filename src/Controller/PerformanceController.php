@@ -4,10 +4,12 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\Absence;
 use App\Entity\Performance;
 use App\Entity\Utilisateur;
 //use App\Entity\Sport;
 use App\Form\PerformanceType;
+use App\Form\ChoixperformanceType;
 use App\Entity\Jointuresport;
 use App\Entity\Epreuve;
 use App\Entity\Categorie;
@@ -15,6 +17,30 @@ use Symfony\Component\HttpFoundation\Request;
 
 class PerformanceController extends AbstractController
 {
+	/**
+     * @Route("/performance/selection", name="selectionPerformance")
+     */
+	public function selection(Request $request)
+    {
+		$user_email = $this->getUser()->getEmail();
+        $utilisateur = $this->getDoctrine()->getRepository(Utilisateur::class)->findOneByUtiEmail($user_email); #devra être l'utilisateur courant lorsque mécanisme d'authentification
+		
+		$absence = new Absence();
+		$allAbsence = $this->getDoctrine()->getRepository(Absence::class)->findByAbsFkutilisateur($utilisateur);
+		$form = $this->createForm(ChoixperformanceType::class, $absence, array('allAbsence' => $allAbsence));
+		
+		if ($form->isSubmitted() && $form->isValid()) {
+			$selection = $form->getData();
+			return $this->redirectToRoute('actionPerformance',$selection->getAbsId());
+		}
+		
+		return $this->render('performance/choix.html.twig', array(
+            'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
+			'form' => $form->createView(),
+			//'allAbsence' => $allAbsence,
+        ));
+	}
+	
     /**
      * @Route("/performance/{idPerformance}", name="actionPerformance")
      */

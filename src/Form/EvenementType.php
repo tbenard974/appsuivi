@@ -157,6 +157,7 @@ class EvenementType extends AbstractType
                     'multiple' => false,
                     'expanded' => true,
                     'required' => true,
+                    'mapped' => false,
                 ))
             ;
         }

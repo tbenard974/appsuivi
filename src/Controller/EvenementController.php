@@ -177,11 +177,11 @@ class EvenementController extends Controller
 
                 $entityManager->persist($performance);
 
-                $absence->setAbsNom('Compét - '.$typeCompetition->getTypcomNom().' '.$localisationCompetition->getLoccomNom());
+                $absence->setAbsNom(date_format($absence->getAbsDatedebut(),'d-m-Y').' - '.'Compét - '.$typeCompetition->getTypcomNom().' '.$localisationCompetition->getLoccomNom());
                 $absence->setAbsFkperformance($performance);
             }
             else {
-                $absence->setAbsNom($absence->getAbsFkmotifabsence()->getMotabsNom().' - '.$absence->getAbsLieu());
+                $absence->setAbsNom(date_format($absence->getAbsDatedebut(),'d-m-Y').' - '.$absence->getAbsFkmotifabsence()->getMotabsNom().' - '.$absence->getAbsLieu());
             }
             $absence->setAbsFkutilisateur($utilisateur);
             $absence->setUpdateFields($utilisateur->getUtiEmail());

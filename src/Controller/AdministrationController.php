@@ -17,7 +17,7 @@ class AdministrationController extends AbstractController
     public function administration()
     {
         #$allCategorie = $this->getDoctrine()->getRepository(Categorie::class)->findAll();
-        $allEchellecompetition = $this->getDoctrine()->getRepository(Echellecompetition::class)->findAll();
+        $allEchellecompetition = $this->getDoctrine()->getRepository(Echellecompetition::class)->findBy(array(), array('echcomNom' => 'ASC'));
         #$allEpreuve= $this->getDoctrine()->getRepository(Epreuve::class)->findAll();
         $allJoispoepr= $this->getDoctrine()->getRepository(Jointuresport::class)->findByJoispoFkcategorie(null);
         $allJoispocat= $this->getDoctrine()->getRepository(Jointuresport::class)->findByJoispoFkepreuve(null);
@@ -59,9 +59,9 @@ class AdministrationController extends AbstractController
                 }
             }
         }
-        $allNiveaulisteministerielle = $this->getDoctrine()->getRepository(Niveaulisteministerielle::class)->findAll();
-        $allSport = $this->getDoctrine()->getRepository(Sport::class)->findAll();
-        $allTypecompetition = $this->getDoctrine()->getRepository(Typecompetition::class)->findAll();
+        $allNiveaulisteministerielle = $this->getDoctrine()->getRepository(Niveaulisteministerielle::class)->findBy(array(), array('nivlisminNom' => 'ASC'));
+        $allSport = $this->getDoctrine()->getRepository(Sport::class)->findBy(array(), array('spoNom' => 'ASC'));
+        $allTypecompetition = $this->getDoctrine()->getRepository(Typecompetition::class)->findBy(array(), array('typcomNom' => 'ASC'));
 
         return $this->render('administration/index.html.twig', [
             'allCategorie' => $allCategorie,

@@ -44,6 +44,39 @@ class ProfilController extends AbstractController
     }
 
     /**
+     * @Route("/nouveau/profil", name="nouveauProfil")
+     */
+    
+    public function nouveauProfil(Request $request)
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $user_email = $this->getUser()->getEmail();
+        $utilisateur = $this->getDoctrine()->getRepository(Utilisateur::class)->findOneByUtiEmail($user_email);
+        $form = $this->createForm(ProfilType::class, $utilisateur);
+        $form->get('utiSport')->setData($utilisateur->getUtiFkSport());
+        
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $utilisateur = $form->getData();
+            $entityManager = $this->getDoctrine()->getManager();
+
+            $utiSport = $form->get('utiSport')->getData();
+            $utilisateur->setUtiFksport($utiSport);
+        
+            $entityManager->persist($utilisateur);
+            $entityManager->flush();
+            return $this->redirectToRoute('profil');
+        }
+
+
+
+        return $this->render('profil/modif.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
      * @Route("/profil/modif/{idUtilisateur}", name="modifProfil")
      */
     public function modif(Request $request, $idUtilisateur)

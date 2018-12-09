@@ -32,7 +32,7 @@ class DefaultController extends Controller
             $utilisateur->setUtiPremiereconnexion(false);
             $entityManager->persist($utilisateur);
             $entityManager->flush();
-            return $this->redirectToRoute('profil');
+            return $this->redirectToRoute('nouveauProfil');
         }
         
 		//$allAbsence = $this->get('manage.evenement')->visualiserAll($this);

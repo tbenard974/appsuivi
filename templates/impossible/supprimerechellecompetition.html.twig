@@ -1,0 +1,27 @@
+{% extends 'menu.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+ {{ parent() }}
+    {% if app.user != null %}
+
+        <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+
+            <div class="row">
+                <ol class="breadcrumb">
+                    <li><a href="/"><svg class="glyph stroked home"><use xlink:href="#stroked-home"></use></svg></a></li>
+                    <li class="active">Administration</li>
+                </ol>
+            </div>
+        
+         <div class="table-responsive">
+            {{ "Impossible de supprimer cette échelle car elle est associée à une performance" }}
+            <button  onclick="location.href='/administration'" name='précédent'>
+            <a href="/administration"> Revenir à la page précédente </a>
+        </div>
+    {% endif %}
+{% endblock %}
+    

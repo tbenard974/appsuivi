@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use App\Entity\Epreuve;
 use App\Entity\Categorie;
 use App\Entity\Typecompetition;
@@ -102,7 +103,13 @@ class PerformanceType extends AbstractType
                 'label' => 'Résultat de la compétition',
                 'mapped' => false,
             ))
-            ->add('perRessenti', TextType::class, array('label' => 'Ressenti'));
+            ->add('perRessenti', TextType::class, array('label' => 'Ressenti'))
+			->add('image', FileType::class, array(
+				'mapped' => false,
+				'label' => 'Image(JPG)',
+				//'multiple' => true,
+				));
+			
         $builder->get('epreuve')->addEventListener(FormEvents::SUBMIT, [$this, 'requiredEpreuve']);
         $builder->get('categorie')->addEventListener(FormEvents::SUBMIT, [$this, 'requiredCategorie']);
     }

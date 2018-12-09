@@ -9,42 +9,58 @@ use App\Entity\Performance;
 use App\Entity\Utilisateur;
 //use App\Entity\Sport;
 use App\Form\PerformanceType;
+use App\Form\ModificationPerformanceType;
 use App\Form\ChoixperformanceType;
 use App\Entity\Jointuresport;
 use App\Entity\Epreuve;
 use App\Entity\Categorie;
 use Symfony\Component\HttpFoundation\Request;
+use Psr\Log\LoggerInterface;
+use App\Service\FileUploader;
+use App\Entity\Typefichier;
 
 class PerformanceController extends AbstractController
 {
 	/**
      * @Route("/performance/selection", name="selectionPerformance")
      */
-	public function selection(Request $request)
+	public function selection(Request $request, LoggerInterface $logger)
     {
+		$this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 		$user_email = $this->getUser()->getEmail();
         $utilisateur = $this->getDoctrine()->getRepository(Utilisateur::class)->findOneByUtiEmail($user_email); #devra être l'utilisateur courant lorsque mécanisme d'authentification
 		
 		$absence = new Absence();
 		$allAbsence = $this->getDoctrine()->getRepository(Absence::class)->findByAbsFkutilisateur($utilisateur);
-		$form = $this->createForm(ChoixperformanceType::class, $absence, array('allAbsence' => $allAbsence));
+		$filteredAbsence = array();
+		foreach($allAbsence as $absence)
+		{
+			if($absence->getAbsFkmotifabsence()->getMotabsNom() == 'Compétition')
+			{
+				$filteredAbsence[] = $absence;
+			}
+		}
+		
+		$form = $this->createForm(ChoixperformanceType::class, $absence, array('allAbsence' => $filteredAbsence));
+		$form->handleRequest($request);
 		
 		if ($form->isSubmitted() && $form->isValid()) {
-			$selection = $form->getData();
-			return $this->redirectToRoute('actionPerformance',$selection->getAbsId());
+			//$selection = $form->getData();
+			//$logger->info($form->get('nom')->getData()->getAbsNom());
+			//$selectedAbsence = $this->getDoctrine()->getRepository(Absence::class)->findOneByAbsNom($selection->get('nom'));
+			return $this->redirectToRoute('actionPerformance',array('idPerformance' => $form->get('nom')->getData()->getAbsFkperformance()->getPerId()));
 		}
 		
 		return $this->render('performance/choix.html.twig', array(
             'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
 			'form' => $form->createView(),
-			//'allAbsence' => $allAbsence,
         ));
 	}
 	
     /**
      * @Route("/performance/{idPerformance}", name="actionPerformance")
      */
-    public function action(Request $request, $idPerformance)
+    public function action(Request $request, $idPerformance, FileUploader $fileUploader)
     {
         $user_email = $this->getUser()->getEmail();
         $utilisateur = $this->getDoctrine()->getRepository(Utilisateur::class)->findOneByUtiEmail($user_email); #devra être l'utilisateur courant lorsque mécanisme d'authentification
@@ -76,7 +92,8 @@ class PerformanceController extends AbstractController
         }
         else {
             $performance = $this->getDoctrine()->getRepository(\App\Entity\Performance::class)->findOneByPerId($idPerformance);
-            $form = $this->createForm(PerformanceType::class, $performance, array('filteredEpreuve' => $filteredEpreuve, 'filteredCategorie' => $filteredCategorie));
+			$allFiles = $performance->getPerFkfichier();
+            $form = $this->createForm(ModificationPerformanceType::class, $performance, array('filteredEpreuve' => $filteredEpreuve, 'filteredCategorie' => $filteredCategorie));
             $form->get('typeCompetition')->setData($performance->getPerFktypecompetition());
             $form->get('echelleCompetition')->setData($performance->getPerFkechellecompetition());
             $form->get('localisationCompetition')->setData($performance->getPerFklocalisationcompetition());
@@ -115,7 +132,9 @@ class PerformanceController extends AbstractController
             if ($form->get('autreEpreuve')->getData() != null){
                 $nomEpreuve = $form->get('autreEpreuve')->getData();
                 $nomEpreuve = strtolower($nomEpreuve);
-                $nomEpreuve = preg_replace('/[éèëê]+/', 'e', $nomEpreuve);
+                //$nomEpreuve = preg_replace('/[éèëê]+/', 'e', $nomEpreuve);
+				$nomEpreuve = preg_replace('/[a]+/', 'z', $nomEpreuve);
+				//$nomEpreuve = preg_replace('!\s+!', ' ', $nomEpreuve);
 				$nomEpreuve = strtoupper($nomEpreuve);
 				$findEpreuve = $this->getDoctrine()->getRepository(Epreuve::class)->findOneByEprNom($nomEpreuve);
 				if ( $findEpreuve == null){
@@ -173,6 +192,26 @@ class PerformanceController extends AbstractController
             }
             $performance->setPerFkjointuresport($jointureSport);
 			
+			if ($form->get('image')->getData() != null)
+			{
+				$typeFichier = $this->getDoctrine()->getRepository(Typefichier::class)->findOneByTypficNom('Photo');
+				$fichierTransmis = $form->get('image')->getData();
+				$fileToUpload = $fileUploader->upload($fichierTransmis, $utilisateur);
+				$fileToUpload->setFicFktypefichier($typeFichier);
+				$entityManager->persist($fileToUpload);
+				
+				$performance->setPerFkfichier($fileToUpload);
+				/*foreach ($fichierTransmis as $fichier)
+				{
+					$fileToUpload = $fileUploader->upload($fichier, $utilisateur);
+					$fileToUpload->setFicFktypefichier($typeFichier);
+					$entityManager->persist($fileToUpload);
+					
+					$performance->getPerPhotos()->add($fileToUpload);
+				}*/
+				
+			}
+			
 			$entityManager->persist($performance);
             $entityManager->flush();
             return $this->redirectToRoute('index');
@@ -180,6 +219,7 @@ class PerformanceController extends AbstractController
 		
         return $this->render('performance/index.html.twig', [
             'form' => $form->createView(),
+			'allFiles' => $allFiles,
         ]);
     }
 

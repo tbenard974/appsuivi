@@ -26,6 +26,14 @@ class DefaultController extends Controller
         if ($this->getUser()->getRole()=='ROLE_Admin'){
             return $this->redirectToRoute('visualiserProfilCds');
         }
+
+        if ($utilisateur->getUtiPremiereconnexion() == true){
+            $entityManager = $this->getDoctrine()->getManager();
+            $utilisateur->setUtiPremiereconnexion(false);
+            $entityManager->persist($utilisateur);
+            $entityManager->flush();
+            return $this->redirectToRoute('nouveauProfil');
+        }
         
 		//$allAbsence = $this->get('manage.evenement')->visualiserAll($this);
         $allAbsence = $this->getDoctrine()->getRepository(Absence::class)->findByAbsFkutilisateur($utilisateur);

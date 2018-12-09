@@ -57,7 +57,7 @@ class AjoutController extends AbstractController
         ]);
     }
 
-    /**
+     /**
      * @Route("/supprimer/typecompetition/{idType}", name="supprimerTypecompet")
      */
     public function supprimerTypecompet(Request $request, $idType)
@@ -66,10 +66,29 @@ class AjoutController extends AbstractController
         
         $typecompet = $this->getDoctrine()->getRepository(\App\Entity\Typecompetition::class)->findOneByTypcomId($idType);
         $echellecompet = $this->getDoctrine()->getRepository(\App\Entity\Typecompetition::class)->findOneByTypcomId($idType);
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->remove($typecompet);
-        $entityManager->flush();
-        return $this->redirectToRoute('administration');
+        $existe = $this->getDoctrine()->getRepository(\App\Entity\Performance::class)->findByPerFktypecompetition($typecompet);
+        
+        if ($existe == null){
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($typecompet);
+            $entityManager->flush();
+            return $this->redirectToRoute('administration');
+        }
+        else{
+            return $this->redirectToRoute('impossiblesupprimertypecompetition');
+        }
+        
+    }
+
+    /**
+     * @Route("impossible/supprimer/typecompetition", name="impossiblesupprimertypecompetition")
+     */
+    public function impossiblesupprimertypecompetition()
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+        return $this->render('impossible/supprimertypecompetition.html.twig');
+
     }
 
     /**
@@ -118,10 +137,29 @@ class AjoutController extends AbstractController
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         
         $echellecompet = $this->getDoctrine()->getRepository(\App\Entity\Echellecompetition::class)->findOneByEchcomId($idEchelle);
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->remove($echellecompet);
-        $entityManager->flush();
+        $existe = $this->getDoctrine()->getRepository(\App\Entity\Performance::class)->findByPerFkechellecompetition($echellecompet);
+        
+        if ($existe == null){
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($echellecompet);
+            $entityManager->flush();
         return $this->redirectToRoute('administration');
+        }
+        else{
+            return $this->redirectToRoute('impossiblesupprimerechellecompetition');
+        }
+        
+    }
+
+     /**
+     * @Route("impossible/supprimer/echellecompetition", name="impossiblesupprimerechellecompetition")
+     */
+    public function impossiblesupprimerechellecompetition()
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+        return $this->render('impossible/supprimerechellecompetition.html.twig');
+
     }
 
     /**
@@ -175,19 +213,9 @@ class AjoutController extends AbstractController
         $epreuve = $this->getDoctrine()->getRepository(\App\Entity\Epreuve::class)->findOneByEprId($idEpreuve);
         $sport = $this->getDoctrine()->getRepository(\App\Entity\Sport::class)->findOneBySpoId($idSport);
         $jointure = $this->getDoctrine()->getRepository(\App\Entity\Jointuresport::class)->findOneBy(array('joispoFkepreuve' => $epreuve, 'joispoFksport' => $sport, 'joispoFkcategorie' => null));
-
-        //$existe = $this->getDoctrine()->getRepository(\App\Entity\Performance::class)->findByPerFkjointuresport($jointure);
-        
-        //if ($existe == null){
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($jointure);
-            //$entityManager->remove($epreuve);
-            $entityManager->flush();
-        //}
-        //else{
-            
-        //}
-        
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($jointure);
+        $entityManager->flush();
         return $this->redirectToRoute('administration');
     }
 
@@ -243,7 +271,7 @@ class AjoutController extends AbstractController
         $sport = $this->getDoctrine()->getRepository(\App\Entity\Sport::class)->findOneBySpoId($idSport);
         $jointure = $this->getDoctrine()->getRepository(\App\Entity\Jointuresport::class)->findOneBy(array('joispoFkcategorie' => $categorie, 'joispoFksport' => $sport, 'joispoFkepreuve' => null));
         $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->remove($categorie);
+        //$entityManager->remove($categorie);
         $entityManager->remove($jointure);
         $entityManager->flush();
         return $this->redirectToRoute('administration');

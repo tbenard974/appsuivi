@@ -27,6 +27,11 @@
                         </div>
                         <input type="submit" class="btn" value="Enregistrer" />
                         {{ form_end(form) }}
+						
+						{% if allFiles != null %}
+							<li>Photo 1 <button  onclick="location.href='/download/image/{{ allFiles.ficChemin }}';">Télécharger</button></li>
+							
+						{% endif %}
                     </div>
                 </div>
             </div>

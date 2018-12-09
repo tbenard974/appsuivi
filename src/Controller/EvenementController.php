@@ -17,6 +17,7 @@ use App\Entity\Categorie;
 use Psr\Log\LoggerInterface;
 use App\Form\EvenementType;
 use App\Form\ModificationCompetitionType;
+use App\Form\ModificationStageType;
 use App\Entity\Typefichier;
 
 class EvenementController extends Controller
@@ -78,7 +79,7 @@ class EvenementController extends Controller
                 $form->get('importance')->setData($performance->getPerImportance());
             }
             else {
-                $form = $this->createForm(EvenementType::class, $absence, array('filteredEpreuve' => $filteredEpreuve, 'filteredCategorie' => $filteredCategorie));
+                $form = $this->createForm(ModificationStageType::class, $absence, array('filteredEpreuve' => $filteredEpreuve, 'filteredCategorie' => $filteredCategorie));
             }
         }
         //$form = $this->createForm(EvenementType::class, $absence);
@@ -118,6 +119,8 @@ class EvenementController extends Controller
                 $nomEpreuve = $form->get('autreEpreuve')->getData();
                 $nomEpreuve = strtolower($nomEpreuve);
                 $nomEpreuve = preg_replace('/[éèëê]+/', 'e', $nomEpreuve);
+				//$nomEpreuve = preg_replace('[\/\\*$=_<>:;!{}[\]]+', ' ', $nomEpreuve);
+				//$nomEpreuve = preg_replace('!\s+!', ' ', $nomEpreuve);
 				$nomEpreuve = strtoupper($nomEpreuve);
 				$findEpreuve = $this->getDoctrine()->getRepository(Epreuve::class)->findOneByEprNom($nomEpreuve);
 				if ( $findEpreuve == null){
@@ -177,11 +180,11 @@ class EvenementController extends Controller
 
                 $entityManager->persist($performance);
 
-                $absence->setAbsNom('Compét - '.$typeCompetition->getTypcomNom().' '.$localisationCompetition->getLoccomNom());
+                $absence->setAbsNom(date_format($absence->getAbsDatedebut(),'d-m-Y').' - '.'Compét - '.$typeCompetition->getTypcomNom().' '.$localisationCompetition->getLoccomNom());
                 $absence->setAbsFkperformance($performance);
             }
             else {
-                $absence->setAbsNom($absence->getAbsFkmotifabsence()->getMotabsNom().' - '.$absence->getAbsLieu());
+                $absence->setAbsNom(date_format($absence->getAbsDatedebut(),'d-m-Y').' - '.$absence->getAbsFkmotifabsence()->getMotabsNom().' - '.$absence->getAbsLieu());
             }
             $absence->setAbsFkutilisateur($utilisateur);
             $absence->setUpdateFields($utilisateur->getUtiEmail());

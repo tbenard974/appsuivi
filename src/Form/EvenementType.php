@@ -67,6 +67,7 @@ class EvenementType extends AbstractType
                 'label' => 'Notes',
                 'required' => false,
             ));
+		
         $builder->get('absFkmotifabsence')->addEventListener(FormEvents::SUBMIT, [$this, 'addEvenement']);
     }
 
@@ -157,6 +158,7 @@ class EvenementType extends AbstractType
                     'multiple' => false,
                     'expanded' => true,
                     'required' => true,
+                    'mapped' => false,
                 ))
             ;
         }

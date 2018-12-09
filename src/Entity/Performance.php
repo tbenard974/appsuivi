@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -144,7 +145,29 @@ class Performance
      * })
      */
     private $perFkutilisateur;
+	
+	/**
+     * @var \Fichier
+     *
+     * @ORM\ManyToOne(targetEntity="Fichier")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="per_fk_idfichier", referencedColumnName="fic_id")
+     * })
+     */
+    private $perFkfichier;
+	
+	public function getPerFkfichier(): ?Fichier
+    {
+        return $this->perFkfichier;
+    }
 
+    public function setPerFkfichier(?Fichier $perFkfichier): self
+    {
+        $this->perFkfichier = $perFkfichier;
+
+        return $this;
+    }
+	
     public function getPerId(): ?int
     {
         return $this->perId;

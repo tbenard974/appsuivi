@@ -18,7 +18,7 @@
             <div class="row">
 
                 <div class="panel panel-default">
-                    <div class="panel-heading">Ajouter une nouvelle performance</div>
+                    <div class="panel-heading">Saisir une nouvelle performance</div>
                     <div class="panel-body">
                         {{ form_start(form) }}
                         <div class="form_group">
@@ -26,12 +26,12 @@
                                 {{ form_widget(form) }}
                             </div>
                         </div>
-                        <input type="submit" class="btn" value="Selectionner" />
+                        <input type="submit" class="btn" value="Sélectionner" />
                         <br>
                         <br>
                         <br>
                         <br>
-                        <input type="button" class="btn" onclick="location.href='/performance/creer';" value="Creer une performance dans un nouvel evenement" />
+                        <input type="button" class="btn" onclick="location.href='/performance/nouveau';" value="Saisir une performance manuellement" />
                         {{ form_end(form) }}
                     </div>
                 </div>

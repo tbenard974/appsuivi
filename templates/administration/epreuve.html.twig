@@ -1,0 +1,58 @@
+{% extends 'menu.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+ {{ parent() }}
+    {% if app.user != null %}
+
+        <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+
+            <div class="row">
+                <ol class="breadcrumb">
+                    <li><a href="/"><svg class="glyph stroked home"><use xlink:href="#stroked-home"></use></svg></a></li>
+                </ol>
+            </div>
+
+
+        <div class="row">
+            <div class="panel panel-default">
+                <div class="panel-heading">Gestion des Epreuves</div>
+                <div class="row">
+                    <nav class="navbar navbar-left navbar-toggler" role="navigation" style="background-color: #5DBCD2">
+                        <div class="container-fluid">
+                            <div class="navbar-header">
+                                <ul class="user-menu">
+                                    <li><a href="/ajout/epreuve"><svg class="glyph stroked plus sign"><use xlink:href="#stroked-plus-sign"></use></svg> Ajouter une épreuve </a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+                <div class="table-responsive">
+                    <table class="table" data-toggle="table"   data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="toolbar1" data-pagination="true" data-sort-name="name" data-sort-order="desc">
+                        <thead>
+                        <tr>
+                            <th>Epreuves</th>
+                            <th>Sports</th>
+                            <th class="pull-right">Supprimer</th>
+                        </tr>
+                        
+                        {% for epreuve in allEpreuve %}
+                            <tr>
+                                {% if epreuve.joispoFkepreuve != null %}
+                                    <td>{{ epreuve.joispoFkepreuve.eprNom }}</td> 
+                                    <td>{{ epreuve.joispoFksport.spoNom}}</td>
+                                    <td><p data-placement="top" data-toggle="tooltip" title="Delete"><button  onclick="location.href='/supprimer/epreuve/{{ epreuve.joispoFkepreuve.eprId }}/{{ epreuve.joispoFksport.spoId }}';" class="btn btn-danger btn-xs pull-right" data-title="Delete" data-toggle="modal" data-target="delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
+                                {% endif %}
+                            </tr>
+                        {% endfor %}
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

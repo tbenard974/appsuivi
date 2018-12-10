@@ -18,6 +18,8 @@ use Psr\Log\LoggerInterface;
 use App\Form\EvenementType;
 use App\Form\ModificationCompetitionType;
 use App\Entity\Typefichier;
+use Symfony\Component\HttpFoundation\StreamedResponse;
+use \DateTime;
 
 class EvenementController extends Controller
 {
@@ -199,6 +201,47 @@ class EvenementController extends Controller
         return $this->render('/evenement/afficher.html.twig', [
             'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
         ]);
+    }
+
+    /**
+     * @Route("/download/evenement", name="downloadEvenement")
+     */
+    public function downloadEvenement(Request $request)
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $user_email = $this->getUser()->getEmail();
+        $utilisateur = $this->getDoctrine()->getRepository(Utilisateur::class)->findOneByUtiEmail($user_email);
+        $allAbsence = $this->getDoctrine()->getRepository(Absence::class)->findByAbsFkutilisateur($utilisateur);
+        $response = new StreamedResponse();
+        $response->setCallback(function() use ($allAbsence) {
+            $handle = fopen('php://output', 'w+');
+    
+            fputcsv($handle, ['Subject', 'Start date','Start Time','Location','End date','End Time'], ';');
+            $date_now = new DateTime("now");
+            foreach ($allAbsence as $user) {
+                // Faire le test que la date de début est bien après la date d'aujourd'hui
+                if($date_now > $user->getAbsDatedebut()){
+                }
+                else{
+                fputcsv(
+                    $handle,
+                    
+                    [$date_now->format('d-m-Y'),$user->getAbsNom(),$user->getAbsDatedebut()->format('d-m-Y'),$user->getAbsDatedebut()->format('G:ia'),$user->getAbsLieu(),$user->getAbsDatefin()->format('d-m-Y'),$user->getAbsDatefin()->format('G:ia')],
+                    ';'
+                 );
+                }
+            }
+    
+            fclose($handle);
+        });
+    
+        $response->setStatusCode(200);
+        $response->headers->set('Content-Type', 'text/csv; charset=utf-8');
+        $response->headers->set('Content-Disposition','attachment; filename="planning.csv"');
+    
+        return $response;
+        //return $this->render('/evenement/download.html.twig', [
+        //]);
     }
 
     /**

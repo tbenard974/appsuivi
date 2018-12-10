@@ -2,6 +2,7 @@
 // src/Form/AjouttypeType.php
 namespace App\Form;
 
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormEvents;
@@ -20,7 +21,7 @@ class AjouttypeType extends AbstractType
     {
         $builder
             ->add('typcomNom', TextType::class, array('label' => 'Nom'))
-            ->add('typcomDescription', TextType::class, array(
+            ->add('typcomDescription', TextareaType::class, array(
                 'label' => 'Description',
                 'required' => false));
     }

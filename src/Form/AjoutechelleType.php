@@ -2,6 +2,7 @@
 // src/Form/AjoutechelleType.php
 namespace App\Form;
 
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormEvents;
@@ -20,7 +21,7 @@ class AjoutechelleType extends AbstractType
     {
         $builder
             ->add('echcomNom', TextType::class, array('label' => 'Nom'))
-            ->add('echcomDescription', TextType::class, array(
+            ->add('echcomDescription', TextareaType::class, array(
                 'label' => 'Description',
                 'required' => false))
             ->add('typeCompetition', EntityType::class, array(

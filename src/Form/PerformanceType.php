@@ -1,6 +1,7 @@
 <?php
 // src/Form/PerformanceType.php
 namespace App\Form;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormEvents;
@@ -103,7 +104,7 @@ class PerformanceType extends AbstractType
                 'label' => 'Résultat de la compétition',
                 'mapped' => false,
             ))
-            ->add('perRessenti', TextType::class, array('label' => 'Ressenti'))
+            ->add('perRessenti', TextareaType::class, array('label' => 'Ressenti'))
 			->add('image', FileType::class, array(
 				'mapped' => false,
 				'label' => 'Image(JPG)',

@@ -1,6 +1,7 @@
 <?php
 // src/Form/EvenementType.php
 namespace App\Form;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\AbstractType;
@@ -63,7 +64,7 @@ class EvenementType extends AbstractType
                 ),
                 'label' => 'Souhaitez-vous un rappel ?',
             ))
-            ->add('absCommentaire', TextType::class, array(
+            ->add('absCommentaire', TextareaType::class, array(
                 'label' => 'Notes',
                 'required' => false,
             ));

@@ -155,6 +155,25 @@ class Performance
      * })
      */
     private $perFkfichier;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="per_listephoto", type="string", nullable=true)
+     */
+    private $perListephoto;
+
+    public function getPerListephoto(): ?string
+    {
+        return $this->perListephoto;
+    }
+
+    public function setPerListephoto(?string $perListephoto): self
+    {
+        $this->perListephoto = $perListephoto;
+
+        return $this;
+    }
 	
 	public function getPerFkfichier(): ?Fichier
     {

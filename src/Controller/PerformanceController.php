@@ -262,7 +262,7 @@ class PerformanceController extends AbstractController
 			
 			$entityManager->persist($performance);
             $entityManager->flush();
-            return $this->redirectToRoute('index');
+            return $this->redirectToRoute('visualiserPerformance');
         }
 		
         return $this->render('performance/index.html.twig', [

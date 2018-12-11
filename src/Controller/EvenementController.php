@@ -248,7 +248,7 @@ class EvenementController extends Controller
                 fputcsv(
                     $handle,
                     
-                    [$date_now->format('d-m-Y'),$user->getAbsNom(),$user->getAbsDatedebut()->format('d-m-Y'),$user->getAbsDatedebut()->format('G:ia'),$user->getAbsLieu(),$user->getAbsDatefin()->format('d-m-Y'),$user->getAbsDatefin()->format('G:ia')],
+                    [$user->getAbsNom(),$user->getAbsDatedebut()->format('d-m-Y'),$user->getAbsDatedebut()->format('G:ia'),$user->getAbsLieu(),$user->getAbsDatefin()->format('d-m-Y'),$user->getAbsDatefin()->format('G:ia')],
                     ';'
                  );
                 }

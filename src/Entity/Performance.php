@@ -47,7 +47,7 @@ class Performance
     /**
      * @var bool
      *
-     * @ORM\Column(name="per_importance", type="boolean", nullable=false)
+     * @ORM\Column(name="per_importance", type="boolean", nullable=true)
      */
     private $perImportance;
 
@@ -145,16 +145,6 @@ class Performance
      * })
      */
     private $perFkutilisateur;
-	
-	/**
-     * @var \Fichier
-     *
-     * @ORM\ManyToOne(targetEntity="Fichier")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="per_fk_idfichier", referencedColumnName="fic_id")
-     * })
-     */
-    private $perFkfichier;
 
     /**
      * @var string
@@ -162,6 +152,16 @@ class Performance
      * @ORM\Column(name="per_listephoto", type="string", nullable=true)
      */
     private $perListephoto;
+
+    /**
+     * @var \Absence
+     *
+     * @ORM\ManyToOne(targetEntity="Absence")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="per_fk_idabsence", referencedColumnName="abs_id")
+     * })
+     */
+    private $perFkabsence;
 
     public function getPerListephoto(): ?string
     {
@@ -171,18 +171,6 @@ class Performance
     public function setPerListephoto(?string $perListephoto): self
     {
         $this->perListephoto = $perListephoto;
-
-        return $this;
-    }
-	
-	public function getPerFkfichier(): ?Fichier
-    {
-        return $this->perFkfichier;
-    }
-
-    public function setPerFkfichier(?Fichier $perFkfichier): self
-    {
-        $this->perFkfichier = $perFkfichier;
 
         return $this;
     }
@@ -368,6 +356,18 @@ class Performance
     public function setPerFkutilisateur(?Utilisateur $perFkutilisateur): self
     {
         $this->perFkutilisateur = $perFkutilisateur;
+
+        return $this;
+    }
+
+    public function getPerAbsence(): ?Absence
+    {
+        return $this->perAbsence;
+    }
+
+    public function setPerAbsence(?Absence $perAbsence): self
+    {
+        $this->perAbsence = $perAbsence;
 
         return $this;
     }

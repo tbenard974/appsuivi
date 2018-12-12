@@ -30,7 +30,7 @@ class PerformanceController extends AbstractController
 		$user_email = $this->getUser()->getEmail();
         $utilisateur = $this->getDoctrine()->getRepository(Utilisateur::class)->findOneByUtiEmail($user_email); #devra être l'utilisateur courant lorsque mécanisme d'authentification
 		
-		$absence = new Absence();
+		//$absence = new Absence();
 		$allAbsence = $this->getDoctrine()->getRepository(Absence::class)->findByAbsFkutilisateur($utilisateur);
 		$filteredAbsence = array();
 		foreach($allAbsence as $absence)
@@ -48,7 +48,7 @@ class PerformanceController extends AbstractController
 			//$selection = $form->getData();
 			//$logger->info($form->get('nom')->getData()->getAbsNom());
 			//$selectedAbsence = $this->getDoctrine()->getRepository(Absence::class)->findOneByAbsNom($selection->get('nom'));
-			return $this->redirectToRoute('actionPerformance',array('idPerformance' => $form->get('nom')->getData()->getAbsFkperformance()->getPerId()));
+			return $this->redirectToRoute('actionPerformance',array('typeAction' => 'creer', 'idObjet' => $absence->getAbsId()));
 		}
 		
 		return $this->render('performance/choix.html.twig', array(
@@ -58,9 +58,9 @@ class PerformanceController extends AbstractController
 	}
 	
     /**
-     * @Route("/performance/{idPerformance}", name="actionPerformance")
+     * @Route("/performance/{typeAction}/{idObjet}", name="actionPerformance")
      */
-    public function action(Request $request, $idPerformance, FileUploader $fileUploader, LoggerInterface $logger)
+    public function action(Request $request, $typeAction, $idObjet, FileUploader $fileUploader, LoggerInterface $logger)
     {
         $user_email = $this->getUser()->getEmail();
         $utilisateur = $this->getDoctrine()->getRepository(Utilisateur::class)->findOneByUtiEmail($user_email); #devra être l'utilisateur courant lorsque mécanisme d'authentification
@@ -86,46 +86,97 @@ class PerformanceController extends AbstractController
         
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
-        if ($idPerformance == 'nouveau') {
+        if ($idObjet == 'nouveau') {
             $performance = new Performance();
             $form = $this->createForm(PerformanceType::class, $performance, array('filteredEpreuve' => $filteredEpreuve, 'filteredCategorie' => $filteredCategorie));
         }
         else {
-            $performance = $this->getDoctrine()->getRepository(\App\Entity\Performance::class)->findOneByPerId($idPerformance);
-			//$allFiles = $performance->getPerFkfichier();
-            $form = $this->createForm(ModificationPerformanceType::class, $performance, array('filteredEpreuve' => $filteredEpreuve, 'filteredCategorie' => $filteredCategorie));
-            $form->get('typeCompetition')->setData($performance->getPerFktypecompetition());
-            $form->get('echelleCompetition')->setData($performance->getPerFkechellecompetition());
-            $form->get('localisationCompetition')->setData($performance->getPerFklocalisationcompetition());
-            if ($filteredEpreuve != null) {
-                $form->get('epreuve')->setData($performance->getPerFkjointuresport()->getJoispoFkepreuve());
-            }
-            if ($filteredCategorie != null) {
-                $form->get('categorie')->setData($performance->getPerFkjointuresport()->getJoispoFkcategorie());
-            }
-            $form->get('resultat')->setData($performance->getPerFkresultat());
-            $form->get('perImportance')->setData($performance->getPerImportance());
-            $phpListePhotos = explode(",", $performance->getPerListephoto());
-            foreach ($phpListePhotos as $pieces)
+            if ($typeAction == 'creer')
             {
-                if (array_search($pieces, $phpListePhotos) == 0)
-                {
-                    $tempListe = explode("{", $phpListePhotos[0]);
-                    $phpListePhotos[0] = $tempListe[1];
-                }
-                if (array_search($pieces, $phpListePhotos) == (count($phpListePhotos)-1))
-                {
-                    $tempListe = explode("}", $phpListePhotos[count($phpListePhotos)-1]);
-                    $phpListePhotos[count($phpListePhotos)-1] = $tempListe[0];
-                }
+                $absence = $this->getDoctrine()->getRepository(Absence::class)->findOneByAbsId($idObjet);
+                $performance = new Performance();
+                $form = $this->createForm(ModificationPerformanceType::class, $performance, array('filteredEpreuve' => $filteredEpreuve, 'filteredCategorie' => $filteredCategorie));
+                $form->get('perLieu')->setData($absence->getAbsLieu());
+                $form->get('typeCompetition')->setData($absence->getAbsFktypecompetition());
+                $form->get('echelleCompetition')->setData($absence->getAbsFkechellecompetition());
+                $form->get('localisationCompetition')->setData($absence->getAbsFklocalisationcompetition());
+                $allFiles = array();
+                $performance->setPerAbsence($absence);
             }
-            $allFiles = array();
-            foreach ($phpListePhotos as $pieces)
+            elseif ($typeAction == 'modifier')
             {
-                if ($pieces > 0)
-                {
-                    $allFiles[] = $this->getDoctrine()->getRepository(\App\Entity\Fichier::class)->findOneByFicId($pieces);
+                $performance = $this->getDoctrine()->getRepository(\App\Entity\Performance::class)->findOneByPerId($idObjet);
+                //$allFiles = $performance->getPerFkfichier();
+                $form = $this->createForm(ModificationPerformanceType::class, $performance, array('filteredEpreuve' => $filteredEpreuve, 'filteredCategorie' => $filteredCategorie));
+                $form->get('perLieu')->setData($performance->getPerLieu());
+                $form->get('typeCompetition')->setData($performance->getPerFktypecompetition());
+                $form->get('echelleCompetition')->setData($performance->getPerFkechellecompetition());
+                $form->get('localisationCompetition')->setData($performance->getPerFklocalisationcompetition());
+                if ($filteredEpreuve != null) {
+                    $form->get('epreuve')->setData($performance->getPerFkjointuresport()->getJoispoFkepreuve());
                 }
+                if ($filteredCategorie != null) {
+                    $form->get('categorie')->setData($performance->getPerFkjointuresport()->getJoispoFkcategorie());
+                }
+                $form->get('resultat')->setData($performance->getPerFkresultat());
+                $form->get('perImportance')->setData($performance->getPerImportance());
+                /*$phpListePhotos = explode(",", $performance->getPerListephoto());
+                foreach ($phpListePhotos as $pieces)
+                {
+                    if (array_search($pieces, $phpListePhotos) == 0)
+                    {
+                        $tempListe = explode("{", $phpListePhotos[0]);
+                        $logger->info('0 --> '.$tempListe[0]);
+                        $logger->info('1 --> '.$tempListe[1]);
+                        $phpListePhotos[0] = $tempListe[1];
+                        
+                    }
+                    if (array_search($pieces, $phpListePhotos) == (count($phpListePhotos)-1))
+                    {
+                        $tempListe = explode("}", $phpListePhotos[count($phpListePhotos)-1]);
+                        $phpListePhotos[count($phpListePhotos)-1] = $tempListe[0];
+                    }
+                }
+                $allFiles = array();
+                foreach ($phpListePhotos as $pieces)
+                {
+                    if ($pieces > 0)
+                    {
+                        $allFiles[] = $this->getDoctrine()->getRepository(\App\Entity\Fichier::class)->findOneByFicId($pieces);
+                    }
+                }*/
+                $allFiles = $this->getDoctrine()->getRepository(\App\Entity\Fichier::class)->findByFicFkperformance($performance->getPerId());
+            }
+            elseif ($typeAction == 'dupliquer')
+            {
+                //$performance = new Performance();
+                $fromPerformance = $this->getDoctrine()->getRepository(\App\Entity\Performance::class)->findOneByPerId($idObjet);
+                $performance = clone $fromPerformance;
+                /*$performance->setPerFkjointuresport($fromPerformance->getPerFkjointuresport());
+                $performance->setPerFktypecompetition($fromPerformance->getPerFktypecompetition());
+                $performance->setPerFkechellecompetition($fromPerformance->getPerFkechellecompetition());
+                $performance->setPerFklocalisationcompetition($fromPerformance->getPerFklocalisationcompetition());
+                $performance->setPerFkresultat($fromPerformance->getPerFkresultat());
+                $performance->setPerDatedebut($fromPerformance->getPerDatedebut());
+                $performance->setPerDatefin($fromPerformance->getPerDatefin());
+                $performance->setPerLieu($fromPerformance->getPerLieu());
+                $performance->set*/
+
+                
+                $form = $this->createForm(ModificationPerformanceType::class, $performance, array('filteredEpreuve' => $filteredEpreuve, 'filteredCategorie' => $filteredCategorie));
+                $form->get('perLieu')->setData($performance->getPerLieu());
+                $form->get('typeCompetition')->setData($performance->getPerFktypecompetition());
+                $form->get('echelleCompetition')->setData($performance->getPerFkechellecompetition());
+                $form->get('localisationCompetition')->setData($performance->getPerFklocalisationcompetition());
+                if ($filteredEpreuve != null) {
+                    $form->get('epreuve')->setData($performance->getPerFkjointuresport()->getJoispoFkepreuve());
+                }
+                if ($filteredCategorie != null) {
+                    $form->get('categorie')->setData($performance->getPerFkjointuresport()->getJoispoFkcategorie());
+                }
+                $form->get('resultat')->setData($performance->getPerFkresultat());
+                $form->get('perImportance')->setData($performance->getPerImportance());
+                $allFiles = array();
             }
 
 
@@ -137,11 +188,13 @@ class PerformanceController extends AbstractController
             $performance = $form->getData();
             $entityManager = $this->getDoctrine()->getManager();
 
+            $lieu = $form->get('perLieu')->getData();
             $typeCompetition = $form->get('typeCompetition')->getData();
             $echelleCompetition = $form->get('echelleCompetition')->getData();
             $localisationCompetition = $form->get('localisationCompetition')->getData();
             $resultat = $form->get('resultat')->getData();
             
+            $performance->setPerLieu($lieu);
             $performance->setPerFkutilisateur($utilisateur);
             $performance->setPerFktypecompetition($typeCompetition);
             $performance->setPerFkechellecompetition($echelleCompetition);
@@ -216,29 +269,31 @@ class PerformanceController extends AbstractController
             }
             $performance->setPerFkjointuresport($jointureSport);
             
-            $listePhotos = [
+            /*$listePhotos = [
                 0 => 0,
                 1 => 0,
                 2 => 0,
-            ];
+            ];*/
 
 			if ($form->get('image0')->getData() != null)
 			{
 				$typeFichier = $this->getDoctrine()->getRepository(Typefichier::class)->findOneByTypficNom('Photo');
 				$fichierTransmis = $form->get('image0')->getData();
 				$fileToUpload = $fileUploader->upload($fichierTransmis, $utilisateur);
-				$fileToUpload->setFicFktypefichier($typeFichier);
+                $fileToUpload->setFicFktypefichier($typeFichier);
+                $fileToUpload->setFicFkperformance($performance);
 				$entityManager->persist($fileToUpload);
-                $listePhotos[0] = $fileToUpload->getFicId();
+                //$listePhotos[0] = $fileToUpload->getFicId();
             }
             if ($form->get('image1')->getData() != null)
 			{
                 $typeFichier = $this->getDoctrine()->getRepository(Typefichier::class)->findOneByTypficNom('Photo');
                 $fichierTransmis = $form->get('image1')->getData();
                 $fileToUpload = $fileUploader->upload($fichierTransmis, $utilisateur);
-				$fileToUpload->setFicFktypefichier($typeFichier);
+                $fileToUpload->setFicFktypefichier($typeFichier);
+                $fileToUpload->setFicFkperformance($performance);
 				$entityManager->persist($fileToUpload);
-                $listePhotos[1] = $fileToUpload->getFicId();
+                //$listePhotos[1] = $fileToUpload->getFicId();
             }
             if ($form->get('image2')->getData() != null)
 			{
@@ -246,11 +301,12 @@ class PerformanceController extends AbstractController
                 $fichierTransmis = $form->get('image2')->getData();
                 $fileToUpload = $fileUploader->upload($fichierTransmis, $utilisateur);
 				$fileToUpload->setFicFktypefichier($typeFichier);
-				$entityManager->persist($fileToUpload);
-                $listePhotos[2] = $fileToUpload->getFicId();
+                $fileToUpload->setFicFkperformance($performance);
+                $entityManager->persist($fileToUpload);
+                //$listePhotos[2] = $fileToUpload->getFicId();
             }
-            $psqlListePhotos = '{' . implode(",", $listePhotos) . '}';
-            $performance->setPerListephoto($psqlListePhotos);
+            //$psqlListePhotos = '{' . implode(",", $listePhotos) . '}';
+            //$performance->setPerListephoto($psqlListePhotos);
 
             if (($form->get('image0')->getData() != null) or ($form->get('image1')->getData() != null) or ($form->get('image2')->getData() != null))
             {
@@ -259,7 +315,8 @@ class PerformanceController extends AbstractController
                     $entityManager->remove($files);
                 }
             }
-			
+            
+            
 			$entityManager->persist($performance);
             $entityManager->flush();
             return $this->redirectToRoute('visualiserPerformance');

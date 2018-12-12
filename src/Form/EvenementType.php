@@ -116,7 +116,7 @@ class EvenementType extends AbstractType
                     'expanded' => false,
                     'label' => 'Epreuve',
                     'mapped' => false,
-                )) */
+                )) 
                 ->add('epreuve', ChoiceType::class, array(
                     'label' => 'Epreuve',
                     'mapped' => false,
@@ -136,7 +136,7 @@ class EvenementType extends AbstractType
                     'expanded' => false,
                     'label' => 'Categorie',
                     'mapped' => false,
-                )) */
+                ))
                 ->add('categorie', ChoiceType::class, array(
                     'label' => 'Categorie',
                     'mapped' => false,
@@ -159,40 +159,11 @@ class EvenementType extends AbstractType
                     'expanded' => true,
                     'required' => true,
                     'mapped' => false,
-                ))
+                ))*/
             ;
         }
 
     }
-
-    /* public function requiredEpreuve(FormEvent $event) {
-        $epreuve = $event->getData();
-        $form = $event->getForm()->getParent();
-        if (empty($epreuve)) {
-            return;
-        }
-        if ($epreuve->getEprNom() == 'Autre') {
-            $form
-            ->add('autreEpreuve', TextType::class, array(
-                'mapped' => false,
-                'constraints' => new Assert\NotBlank(array('message' => 'Veuillez indiquer votre épreuve')),
-            ));
-        }
-    }
-    public function requiredCategorie(FormEvent $event) {
-        $categorie = $event->getData();
-        $form = $event->getForm()->getParent();
-        if (empty($categorie)) {
-            return;
-        }
-        if ($categorie->getCatNom() == 'Autre') {
-            $form
-            ->add('autreCategorie', TextType::class, array(
-                'mapped' => false,
-                'constraints' => new Assert\NotBlank(array('message' => 'Veuillez indiquer votre catégorie')),
-            ));
-        }
-    } */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(

@@ -142,6 +142,36 @@ class Absence
      */
     private $absFkutilisateur;
 
+    /**
+     * @var \Typecompetition
+     *
+     * @ORM\ManyToOne(targetEntity="Typecompetition")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="abs_fk_idtypecompetition", referencedColumnName="typcom_id")
+     * })
+     */
+    private $absFktypecompetition;
+
+    /**
+     * @var \Echellecompetition
+     *
+     * @ORM\ManyToOne(targetEntity="Echellecompetition")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="abs_fk_idechellecompetition", referencedColumnName="echcom_id")
+     * })
+     */
+    private $absFkechellecompetition;
+
+    /**
+     * @var \Localisationcompetition
+     *
+     * @ORM\ManyToOne(targetEntity="Localisationcompetition")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="abs_fk_idlocalisationcompetition", referencedColumnName="loccom_id")
+     * })
+     */
+    private $absFklocalisationcompetition;
+
     public function getAbsId(): ?int
     {
         return $this->absId;
@@ -323,6 +353,42 @@ class Absence
     public function setAbsFkutilisateur(?Utilisateur $absFkutilisateur): self
     {
         $this->absFkutilisateur = $absFkutilisateur;
+
+        return $this;
+    }
+
+    public function getAbsFktypecompetition(): ?Typecompetition
+    {
+        return $this->absFktypecompetition;
+    }
+
+    public function setAbsFktypecompetition(?Typecompetition $absFktypecompetition): self
+    {
+        $this->absFktypecompetition = $absFktypecompetition;
+
+        return $this;
+    }
+
+    public function getAbsFkechellecompetition(): ?Echellecompetition
+    {
+        return $this->absFkechellecompetition;
+    }
+
+    public function setAbsFkechellecompetition(?Echellecompetition $absFkechellecompetition): self
+    {
+        $this->absFkechellecompetition = $absFkechellecompetition;
+
+        return $this;
+    }
+
+    public function getAbsFklocalisationcompetition(): ?Localisationcompetition
+    {
+        return $this->absFklocalisationcompetition;
+    }
+
+    public function setAbsFklocalisationcompetition(?Localisationcompetition $absFklocalisationcompetition): self
+    {
+        $this->absFklocalisationcompetition = $absFklocalisationcompetition;
 
         return $this;
     }

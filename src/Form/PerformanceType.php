@@ -104,11 +104,36 @@ class PerformanceType extends AbstractType
                 'mapped' => false,
             ))
             ->add('perRessenti', TextType::class, array('label' => 'Ressenti'))
-			->add('image', FileType::class, array(
+			->add('image0', FileType::class, array(
 				'mapped' => false,
 				'label' => 'Image(JPG)',
-				//'multiple' => true,
-				));
+                'required' => false,
+                //'multiple' => true,
+                //'attr' => [
+                //    'accept' => 'image/*',
+                //    'multiple' => 'multiple'
+                //]
+            ))
+            ->add('image1', FileType::class, array(
+				'mapped' => false,
+                'label' => 'Image 2 (JPG)',
+                'required' => false,
+                //'multiple' => true,
+                //'attr' => [
+                //    'accept' => 'image/*',
+                //    'multiple' => 'multiple'
+                //]
+            ))
+            ->add('image2', FileType::class, array(
+                'mapped' => false,
+                'label' => 'Image 3 (JPG)',
+                'required' => false,
+                //'multiple' => true,
+                //'attr' => [
+                //    'accept' => 'image/*',
+                //    'multiple' => 'multiple'
+                //]
+                ));
 			
         $builder->get('epreuve')->addEventListener(FormEvents::SUBMIT, [$this, 'requiredEpreuve']);
         $builder->get('categorie')->addEventListener(FormEvents::SUBMIT, [$this, 'requiredCategorie']);

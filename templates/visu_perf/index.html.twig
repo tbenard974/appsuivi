@@ -51,6 +51,7 @@
                                             <th>Type compétition</th>
                                             <th>Echelle compétition</th>
                                             <th>Localisation compétition</th>
+                                            <th>Sport</th>
                                             <th>Epreuve</th>
                                             <th>Catégorie</th>
                                             <th>Importance</th>
@@ -67,6 +68,7 @@
                                                     <td>{{ performance.perFktypecompetition.typcomNom }}</td>
                                                     <td>{{ performance.perFkechellecompetition.echcomNom }}</td>
                                                     <td>{{ performance.perFklocalisationcompetition.loccomNom }}</td>
+                                                    <td>{{ performance.perFkjointuresport.joispoFksport.spoNom }}</td>
                                                     <td>{{ performance.perFkjointuresport.joispoFkepreuve.eprNom }}</td>
                                                     <td>{{ performance.perFkjointuresport.joispoFkcategorie.catNom }}</td>
                                                     <td>{% if performance.perImportance == 1 %}

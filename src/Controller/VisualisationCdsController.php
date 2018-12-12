@@ -7,6 +7,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Utilisateur;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Performance;
+use App\Entity\Sport;
+use App\Entity\Jointuresport;
 
 class VisualisationCdsController extends AbstractController
 {   
@@ -18,12 +20,11 @@ class VisualisationCdsController extends AbstractController
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $this->denyAccessUnlessGranted('ROLE_Admin');
-        //$user_email = $this->getUser()->getEmail();
-        //$utilisateur = $this->getDoctrine()->getRepository(Utilisateur::class)->findOneByUtiEmail($user_email);
-		$allPerformance = $this->getDoctrine()->getRepository(Performance::class)->findAll(); //->findByPerFkutilisateur($utilisateur);
+        $allPerformance = $this->getDoctrine()->getRepository(Performance::class)->findAll(); //->findByPerFkutilisateur($utilisateur);
             
             return $this->render('/visualisation_cds/index.html.twig', array(
                 'allPerf' => $allPerformance,
+                'sport' => $sport,
                 'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
         ));
     }   

@@ -4,6 +4,9 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Psr\Log\LoggerInterface;
 use App\Entity\Absence;
 use App\Entity\Performance;
 use App\Entity\Utilisateur;
@@ -14,13 +17,82 @@ use App\Form\ChoixperformanceType;
 use App\Entity\Jointuresport;
 use App\Entity\Epreuve;
 use App\Entity\Categorie;
-use Symfony\Component\HttpFoundation\Request;
-use Psr\Log\LoggerInterface;
-use App\Service\FileUploader;
 use App\Entity\Typefichier;
+use App\Entity\Echellecompetition;
+use App\Entity\Localisationcompetition;
+use App\Service\FileUploader;
+use App\Repository\LocalisationcompetitionRepository;
 
 class PerformanceController extends AbstractController
 {
+
+    /**
+     * @Route("/performance/ajouterLocalisation", name="formulaireAjouterLocalisation")
+     */
+	public function formulaireAjouterLocalisation(Request $request, LoggerInterface $logger)
+    {
+		//$this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+		//$user_email = $this->getUser()->getEmail();
+        //$utilisateur = $this->getDoctrine()->getRepository(Utilisateur::class)->findOneByUtiEmail($user_email); #devra être l'utilisateur courant lorsque mécanisme d'authentification
+        
+        $em = $this->getDoctrine()->getEntityManager();
+        //$logger->info("avant ajax");
+
+        if($request->isXmlHttpRequest())
+        {
+            //$echelleCompetitionInitial = '--choisir--';
+            $echelleCompetitionInitial = null;
+            $echelleCompetition = $request->get('echelle');
+            //$logger->info('request : '.$request->get('echelle'));
+            //$logger->info('initial : '.$echelleCompetitionInitial);
+
+            if ($echelleCompetition != $echelleCompetitionInitial)
+            {
+                $echcomObject = $this->getDoctrine()->getRepository(Echellecompetition::class)->findOneByEchcomId($echelleCompetition);
+                $logger->info('echObject : '.$echcomObject->getEchcomNom());
+                $localisationCompetition = $em->getRepository(Localisationcompetition::class)->findLocalisationFromEchelle($echcomObject);
+
+                $tabLocalisation = array();
+                $i = 0;
+
+                foreach ($localisationCompetition as $localisation)
+                {
+                    $logger->info('Nom localisation : '.$localisation->getLoccomNom());
+                    $tabLocalisation[$i]['loccomId'] = $localisation->getLoccomId();
+                    $tabLocalisation[$i]['loccomNom'] = $localisation->getLoccomNom();
+                    $i++;
+                }
+
+                $response = new Response();
+
+                $data = json_encode($tabLocalisation);
+                $logger->info('data : '.$data);
+                $response->headers->set('Content-Type', 'application/json');
+                $response->setContent($data);
+
+                return $response;
+            }
+            else
+            {
+                return new Response('petite erreur de manip chef');
+            }
+
+        }
+        
+        /*$echelleCompetition = $this->getDoctrine()->getRepository(Echellecompetition::class)->findOneByEchcomNom('Régional');
+        $logger->info($echelleCompetition->getEchcomNom());
+        $result = $em->getRepository(\App\Entity\Localisationcompetition::class)->findLocalisationFromEchelle($echelleCompetition);
+        foreach ($result as $uniq)
+        {
+            $logger->info('Nom localisation : '.$uniq->getLoccomNom());
+        }
+
+		
+		return $this->render('test.html.twig', array(
+            'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
+        ));*/
+    }
+    
 	/**
      * @Route("/performance/selection", name="selectionPerformance")
      */
@@ -85,14 +157,14 @@ class PerformanceController extends AbstractController
 		}
         
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
-
-        if ($idObjet == 'nouveau') {
-            $performance = new Performance();
-            $form = $this->createForm(PerformanceType::class, $performance, array('filteredEpreuve' => $filteredEpreuve, 'filteredCategorie' => $filteredCategorie));
-        }
-        else {
-            if ($typeAction == 'creer')
-            {
+        
+        if ($typeAction == 'creer')
+        {
+            if ($idObjet == 'nouveau') {
+                $performance = new Performance();
+                $form = $this->createForm(PerformanceType::class, $performance, array('filteredEpreuve' => $filteredEpreuve, 'filteredCategorie' => $filteredCategorie));
+            }
+            else{
                 $absence = $this->getDoctrine()->getRepository(Absence::class)->findOneByAbsId($idObjet);
                 $performance = new Performance();
                 $form = $this->createForm(ModificationPerformanceType::class, $performance, array('filteredEpreuve' => $filteredEpreuve, 'filteredCategorie' => $filteredCategorie));
@@ -100,86 +172,84 @@ class PerformanceController extends AbstractController
                 $form->get('typeCompetition')->setData($absence->getAbsFktypecompetition());
                 $form->get('echelleCompetition')->setData($absence->getAbsFkechellecompetition());
                 $form->get('localisationCompetition')->setData($absence->getAbsFklocalisationcompetition());
-                $allFiles = array();
                 $performance->setPerAbsence($absence);
             }
-            elseif ($typeAction == 'modifier')
-            {
-                $performance = $this->getDoctrine()->getRepository(\App\Entity\Performance::class)->findOneByPerId($idObjet);
-                //$allFiles = $performance->getPerFkfichier();
-                $form = $this->createForm(ModificationPerformanceType::class, $performance, array('filteredEpreuve' => $filteredEpreuve, 'filteredCategorie' => $filteredCategorie));
-                $form->get('perLieu')->setData($performance->getPerLieu());
-                $form->get('typeCompetition')->setData($performance->getPerFktypecompetition());
-                $form->get('echelleCompetition')->setData($performance->getPerFkechellecompetition());
-                $form->get('localisationCompetition')->setData($performance->getPerFklocalisationcompetition());
-                if ($filteredEpreuve != null) {
-                    $form->get('epreuve')->setData($performance->getPerFkjointuresport()->getJoispoFkepreuve());
-                }
-                if ($filteredCategorie != null) {
-                    $form->get('categorie')->setData($performance->getPerFkjointuresport()->getJoispoFkcategorie());
-                }
-                $form->get('resultat')->setData($performance->getPerFkresultat());
-                $form->get('perImportance')->setData($performance->getPerImportance());
-                /*$phpListePhotos = explode(",", $performance->getPerListephoto());
-                foreach ($phpListePhotos as $pieces)
-                {
-                    if (array_search($pieces, $phpListePhotos) == 0)
-                    {
-                        $tempListe = explode("{", $phpListePhotos[0]);
-                        $logger->info('0 --> '.$tempListe[0]);
-                        $logger->info('1 --> '.$tempListe[1]);
-                        $phpListePhotos[0] = $tempListe[1];
-                        
-                    }
-                    if (array_search($pieces, $phpListePhotos) == (count($phpListePhotos)-1))
-                    {
-                        $tempListe = explode("}", $phpListePhotos[count($phpListePhotos)-1]);
-                        $phpListePhotos[count($phpListePhotos)-1] = $tempListe[0];
-                    }
-                }
-                $allFiles = array();
-                foreach ($phpListePhotos as $pieces)
-                {
-                    if ($pieces > 0)
-                    {
-                        $allFiles[] = $this->getDoctrine()->getRepository(\App\Entity\Fichier::class)->findOneByFicId($pieces);
-                    }
-                }*/
-                $allFiles = $this->getDoctrine()->getRepository(\App\Entity\Fichier::class)->findByFicFkperformance($performance->getPerId());
+            $allFiles = array();
+        }
+        elseif ($typeAction == 'modifier')
+        {
+            $performance = $this->getDoctrine()->getRepository(\App\Entity\Performance::class)->findOneByPerId($idObjet);
+            //$allFiles = $performance->getPerFkfichier();
+            $form = $this->createForm(ModificationPerformanceType::class, $performance, array('filteredEpreuve' => $filteredEpreuve, 'filteredCategorie' => $filteredCategorie));
+            $form->get('perLieu')->setData($performance->getPerLieu());
+            $form->get('typeCompetition')->setData($performance->getPerFktypecompetition());
+            $form->get('echelleCompetition')->setData($performance->getPerFkechellecompetition());
+            $form->get('localisationCompetition')->setData($performance->getPerFklocalisationcompetition());
+            if ($filteredEpreuve != null) {
+                $form->get('epreuve')->setData($performance->getPerFkjointuresport()->getJoispoFkepreuve());
             }
-            elseif ($typeAction == 'dupliquer')
-            {
-                //$performance = new Performance();
-                $fromPerformance = $this->getDoctrine()->getRepository(\App\Entity\Performance::class)->findOneByPerId($idObjet);
-                $performance = clone $fromPerformance;
-                /*$performance->setPerFkjointuresport($fromPerformance->getPerFkjointuresport());
-                $performance->setPerFktypecompetition($fromPerformance->getPerFktypecompetition());
-                $performance->setPerFkechellecompetition($fromPerformance->getPerFkechellecompetition());
-                $performance->setPerFklocalisationcompetition($fromPerformance->getPerFklocalisationcompetition());
-                $performance->setPerFkresultat($fromPerformance->getPerFkresultat());
-                $performance->setPerDatedebut($fromPerformance->getPerDatedebut());
-                $performance->setPerDatefin($fromPerformance->getPerDatefin());
-                $performance->setPerLieu($fromPerformance->getPerLieu());
-                $performance->set*/
-
-                
-                $form = $this->createForm(ModificationPerformanceType::class, $performance, array('filteredEpreuve' => $filteredEpreuve, 'filteredCategorie' => $filteredCategorie));
-                $form->get('perLieu')->setData($performance->getPerLieu());
-                $form->get('typeCompetition')->setData($performance->getPerFktypecompetition());
-                $form->get('echelleCompetition')->setData($performance->getPerFkechellecompetition());
-                $form->get('localisationCompetition')->setData($performance->getPerFklocalisationcompetition());
-                if ($filteredEpreuve != null) {
-                    $form->get('epreuve')->setData($performance->getPerFkjointuresport()->getJoispoFkepreuve());
-                }
-                if ($filteredCategorie != null) {
-                    $form->get('categorie')->setData($performance->getPerFkjointuresport()->getJoispoFkcategorie());
-                }
-                $form->get('resultat')->setData($performance->getPerFkresultat());
-                $form->get('perImportance')->setData($performance->getPerImportance());
-                $allFiles = array();
+            if ($filteredCategorie != null) {
+                $form->get('categorie')->setData($performance->getPerFkjointuresport()->getJoispoFkcategorie());
             }
+            $form->get('resultat')->setData($performance->getPerFkresultat());
+            $form->get('perImportance')->setData($performance->getPerImportance());
+            /*$phpListePhotos = explode(",", $performance->getPerListephoto());
+            foreach ($phpListePhotos as $pieces)
+            {
+                if (array_search($pieces, $phpListePhotos) == 0)
+                {
+                    $tempListe = explode("{", $phpListePhotos[0]);
+                    $logger->info('0 --> '.$tempListe[0]);
+                    $logger->info('1 --> '.$tempListe[1]);
+                    $phpListePhotos[0] = $tempListe[1];
+                    
+                }
+                if (array_search($pieces, $phpListePhotos) == (count($phpListePhotos)-1))
+                {
+                    $tempListe = explode("}", $phpListePhotos[count($phpListePhotos)-1]);
+                    $phpListePhotos[count($phpListePhotos)-1] = $tempListe[0];
+                }
+            }
+            $allFiles = array();
+            foreach ($phpListePhotos as $pieces)
+            {
+                if ($pieces > 0)
+                {
+                    $allFiles[] = $this->getDoctrine()->getRepository(\App\Entity\Fichier::class)->findOneByFicId($pieces);
+                }
+            }*/
+            $allFiles = $this->getDoctrine()->getRepository(\App\Entity\Fichier::class)->findByFicFkperformance($performance->getPerId());
+        }
+        elseif ($typeAction == 'dupliquer')
+        {
+            //$performance = new Performance();
+            $fromPerformance = $this->getDoctrine()->getRepository(\App\Entity\Performance::class)->findOneByPerId($idObjet);
+            $performance = clone $fromPerformance;
+            /*$performance->setPerFkjointuresport($fromPerformance->getPerFkjointuresport());
+            $performance->setPerFktypecompetition($fromPerformance->getPerFktypecompetition());
+            $performance->setPerFkechellecompetition($fromPerformance->getPerFkechellecompetition());
+            $performance->setPerFklocalisationcompetition($fromPerformance->getPerFklocalisationcompetition());
+            $performance->setPerFkresultat($fromPerformance->getPerFkresultat());
+            $performance->setPerDatedebut($fromPerformance->getPerDatedebut());
+            $performance->setPerDatefin($fromPerformance->getPerDatefin());
+            $performance->setPerLieu($fromPerformance->getPerLieu());
+            $performance->set*/
 
-
+            
+            $form = $this->createForm(ModificationPerformanceType::class, $performance, array('filteredEpreuve' => $filteredEpreuve, 'filteredCategorie' => $filteredCategorie));
+            $form->get('perLieu')->setData($performance->getPerLieu());
+            $form->get('typeCompetition')->setData($performance->getPerFktypecompetition());
+            $form->get('echelleCompetition')->setData($performance->getPerFkechellecompetition());
+            $form->get('localisationCompetition')->setData($performance->getPerFklocalisationcompetition());
+            if ($filteredEpreuve != null) {
+                $form->get('epreuve')->setData($performance->getPerFkjointuresport()->getJoispoFkepreuve());
+            }
+            if ($filteredCategorie != null) {
+                $form->get('categorie')->setData($performance->getPerFkjointuresport()->getJoispoFkcategorie());
+            }
+            $form->get('resultat')->setData($performance->getPerFkresultat());
+            $form->get('perImportance')->setData($performance->getPerImportance());
+            $allFiles = array();
         }
         //$allFiles = $performance->getPerFkfichier();
         $form->handleRequest($request);

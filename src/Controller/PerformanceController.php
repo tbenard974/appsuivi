@@ -31,20 +31,14 @@ class PerformanceController extends AbstractController
      */
 	public function formulaireAjouterLocalisation(Request $request, LoggerInterface $logger)
     {
-		//$this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
-		//$user_email = $this->getUser()->getEmail();
-        //$utilisateur = $this->getDoctrine()->getRepository(Utilisateur::class)->findOneByUtiEmail($user_email); #devra être l'utilisateur courant lorsque mécanisme d'authentification
-        
+		$this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+		
         $em = $this->getDoctrine()->getEntityManager();
-        //$logger->info("avant ajax");
 
         if($request->isXmlHttpRequest())
         {
-            //$echelleCompetitionInitial = '--choisir--';
             $echelleCompetitionInitial = null;
             $echelleCompetition = $request->get('echelle');
-            //$logger->info('request : '.$request->get('echelle'));
-            //$logger->info('initial : '.$echelleCompetitionInitial);
 
             if ($echelleCompetition != $echelleCompetitionInitial)
             {
@@ -78,19 +72,6 @@ class PerformanceController extends AbstractController
             }
 
         }
-        
-        /*$echelleCompetition = $this->getDoctrine()->getRepository(Echellecompetition::class)->findOneByEchcomNom('Régional');
-        $logger->info($echelleCompetition->getEchcomNom());
-        $result = $em->getRepository(\App\Entity\Localisationcompetition::class)->findLocalisationFromEchelle($echelleCompetition);
-        foreach ($result as $uniq)
-        {
-            $logger->info('Nom localisation : '.$uniq->getLoccomNom());
-        }
-
-		
-		return $this->render('test.html.twig', array(
-            'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
-        ));*/
     }
     
 	/**
@@ -117,9 +98,6 @@ class PerformanceController extends AbstractController
 		$form->handleRequest($request);
 		
 		if ($form->isSubmitted() && $form->isValid()) {
-			//$selection = $form->getData();
-			//$logger->info($form->get('nom')->getData()->getAbsNom());
-			//$selectedAbsence = $this->getDoctrine()->getRepository(Absence::class)->findOneByAbsNom($selection->get('nom'));
 			return $this->redirectToRoute('actionPerformance',array('typeAction' => 'creer', 'idObjet' => $absence->getAbsId()));
 		}
 		
@@ -153,7 +131,6 @@ class PerformanceController extends AbstractController
                     $filteredCategorie[] = $joispo->getJoispoFkcategorie();
                 }
 			}
-			//$logger->info($joispo->getJoispoFkepreuve()->getEprNom());
 		}
         
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
@@ -179,7 +156,6 @@ class PerformanceController extends AbstractController
         elseif ($typeAction == 'modifier')
         {
             $performance = $this->getDoctrine()->getRepository(\App\Entity\Performance::class)->findOneByPerId($idObjet);
-            //$allFiles = $performance->getPerFkfichier();
             $form = $this->createForm(ModificationPerformanceType::class, $performance, array('filteredEpreuve' => $filteredEpreuve, 'filteredCategorie' => $filteredCategorie));
             $form->get('perLieu')->setData($performance->getPerLieu());
             $form->get('typeCompetition')->setData($performance->getPerFktypecompetition());

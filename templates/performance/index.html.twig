@@ -5,6 +5,7 @@
 {% endblock %}
 
 {% block body %}
+
     {{ parent() }}
     {% if app.user != null %}
         <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
@@ -21,24 +22,135 @@
                     <div class="panel-body">
                         {{ form_start(form) }}
                         <div class="form_group">
-                            <div >
-                                {{ form_widget(form) }}
+                            <div>
+                                {{ form_errors(form) }}
+                            </div>
+                            <br>
+                            <div>
+                                {{ form_label(form.perDatedebut, "Date de début") }}
+                                {{ form_errors(form.perDatedebut) }}
+                                {{ form_widget(form.perDatedebut) }}
+                            </div>
+                            <br>
+                            <div>
+                                {{ form_label(form.perDatefin, "Date de fin") }}
+                                {{ form_errors(form.perDatefin) }}
+                                {{ form_widget(form.perDatefin) }}
+                            </div>
+                            <br>
+                            <div>
+                                {{ form_label(form.typeCompetition, "Type de ta compétition") }}
+                                {{ form_errors(form.typeCompetition) }}
+                                {{ form_widget(form.typeCompetition) }}
+                            </div>
+                            <br>
+                            <div>
+                                {{ form_label(form.echelleCompetition, "Échelle de ta compétition") }}
+                                {{ form_errors(form.echelleCompetition) }}
+                                {{ form_widget(form.echelleCompetition, {'id': 'echelleCompetition', 'attr': {'onChange': 'remplirLocalisationcompetition()'}}) }}
+                            </div>
+                            <br>
+                            <div>
+                                {{ form_label(form.localisationCompetition, "Localisation de ta compétition") }}
+                                {{ form_errors(form.localisationCompetition) }}
+                                {{ form_widget(form.localisationCompetition, {'id': 'localisationCompetition'}) }}
+                            </div>
+                            <br>
+                            <div>
+                                {{ form_label(form.perLieu, "Précision sur le lieu") }}
+                                {{ form_errors(form.perLieu) }}
+                                {{ form_widget(form.perLieu) }}
+                            </div>
+                            <br>
+                            <div>
+                                {{ form_label(form.epreuve, "Épreuve") }}
+                                {{ form_errors(form.epreuve) }}
+                                {{ form_widget(form.epreuve) }}
+                            </div>
+                            <br>
+                            <div>
+                                {{ form_label(form.autreEpreuve, "Ton épreuve n\'est pas dans la liste ? Ajoute-la ici") }}
+                                {{ form_errors(form.autreEpreuve) }}
+                                {{ form_widget(form.autreEpreuve) }}
+                            </div>
+                            <br>
+                            <div>
+                                {{ form_label(form.categorie, "Catégorie") }}
+                                {{ form_errors(form.categorie) }}
+                                {{ form_widget(form.categorie) }}
+                            </div>
+                            <br>
+                            <div>
+                                {{ form_label(form.autreCategorie, "Ta catégorie n\'est pas dans la liste ? Ajoute-la ici") }}
+                                {{ form_errors(form.autreCategorie) }}
+                                {{ form_widget(form.autreCategorie) }}
+                            </div>
+                            <br>
+                            <div>
+                                {{ form_label(form.perImportance, 'Objectif de la compétition') }}
+                                {{ form_errors(form.perImportance) }}
+                                {{ form_widget(form.perImportance) }}
+                            </div>
+                            <br>
+                            <div>
+                                {{ form_label(form.resultat, 'Résultat de la compétition') }}
+                                {{ form_errors(form.resultat) }}
+                                {{ form_widget(form.resultat) }}
+                            </div>
+                            <br>
+                            <div>
+                                {{ form_label(form.perRessenti, 'Fais-nous part de ton ressenti') }}
+                                {{ form_errors(form.perRessenti) }}
+                                {{ form_widget(form.perRessenti) }}
+                            </div>
+                            <br>
+                            <div>
+                                {{ form_label(form.image0, 'Partage des photos de ta compétition (3 max)') }}
+                                {{ form_errors(form.image0) }}
+                                {{ form_widget(form.image0) }}
+                                {{ form_errors(form.image1) }}
+                                {{ form_widget(form.image1) }}
+                                {{ form_errors(form.image2) }}
+                                {{ form_widget(form.image2) }}
                             </div>
                         </div>
                         <input type="submit" class="btn" value="Enregistrer" />
                         {{ form_end(form) }}
 						<br/>
-                        <p> Photos envoyées </p>
 						{% if allFiles != null %}
+                            <p> Photos envoyées </p>
                             {% for photos in allFiles %}
-							<li>Photo - <button  onclick="location.href='/download/image/{{ photos.ficChemin }}';">Télécharger</button></li>
+							    <li>Photo - <button  onclick="location.href='/download/image/{{ photos.ficChemin }}';">Télécharger</button></li>
                             {% endfor %}
 							
 						{% endif %}
                     </div>
                 </div>
             </div>
+            <script type="text/javascript">
+                function remplirLocalisationcompetition() 
+                {
+                    console.log('changed');
+                    var echelleCompetition = $('#echelleCompetition').val();
+                    $.ajax({
+                        url: "{{ path('formulaireAjouterLocalisation') }}",
+                        type: 'GET',
+                        data: {'echelle': echelleCompetition},
+                        dataType: 'json',
+                        //success: alert('success')
+                        success: function(json){ // quand la réponse de la requete arrive
+                            $('#localisationCompetition').html('');
+                            $.each(json, function(index, value) { // et  boucle sur la réponse contenu dans la variable passé à la function du success "json"
+                                $('#localisationCompetition').append('<option value="'+ value.loccomId +'">'+ value.loccomNom +'</option>');
+                            });
+                        }
+                    });
+                }
+            </script>
     {% endif %}
 
+
+
 {% endblock %}
+
 

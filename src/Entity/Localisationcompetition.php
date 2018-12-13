@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Localisationcompetition
  *
  * @ORM\Table(name="localisationcompetition")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\LocalisationcompetitionRepository")
  */
 class Localisationcompetition
 {

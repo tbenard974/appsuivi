@@ -18,14 +18,8 @@ use App\Entity\Jointuresport;
 use App\Entity\Epreuve;
 use App\Entity\Categorie;
 use App\Entity\Typefichier;
-<<<<<<< HEAD
 use Symfony\Component\HttpFoundation\StreamedResponse;
-=======
-use App\Entity\Echellecompetition;
-use App\Entity\Localisationcompetition;
 use App\Service\FileUploader;
-use App\Repository\LocalisationcompetitionRepository;
->>>>>>> 889d27d46f82cd1a0284494db0a40b5e11c29366
 
 class PerformanceController extends AbstractController
 {

@@ -77,6 +77,16 @@ class Fichier
      */
     private $ficFkutilisateur;
 
+    /**
+     * @var \Performance
+     *
+     * @ORM\ManyToOne(targetEntity="Performance")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="fic_fk_idperformance", referencedColumnName="per_id")
+     * })
+     */
+    private $ficFkperformance;
+
     public function getFicId(): ?int
     {
         return $this->ficId;
@@ -162,6 +172,18 @@ class Fichier
     public function setFicFkutilisateur(?Utilisateur $ficFkutilisateur): self
     {
         $this->ficFkutilisateur = $ficFkutilisateur;
+
+        return $this;
+    }
+
+    public function getFicFkperformance(): ?Performance
+    {
+        return $this->ficFkperformance;
+    }
+
+    public function setFicFkperformance(?Performance $ficFkperformance): self
+    {
+        $this->ficFkperformance = $ficFkperformance;
 
         return $this;
     }

@@ -18,6 +18,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Psr\Log\LoggerInterface;
 use App\Service\FileUploader;
 use App\Entity\Typefichier;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class PerformanceController extends AbstractController
 {
@@ -240,6 +241,79 @@ class PerformanceController extends AbstractController
                 'allPerf' => $allPerformance,
                 'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
         ));
+    }
+
+    /**
+     * @Route("/telechargement/performances", name="telechargementPerformance")
+     */
+
+    public function telechargementPerformance(Request $request)
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $user_email = $this->getUser()->getEmail();
+        $utilisateur = $this->getDoctrine()->getRepository(Utilisateur::class)->findOneByUtiEmail($user_email);
+		$allPerformance = $this->getDoctrine()->getRepository(Performance::class)->findByPerFkutilisateur($utilisateur);
+        $response = new StreamedResponse();
+        $response->setCallback(function() use ($allPerformance) {
+            $handle = fopen('php://output', 'w+');
+    
+            fputcsv($handle, [
+                                'Type compétition',
+                                'Echelle compétition',
+                                'Localisation compétition',
+                                'Epreuve',
+                                'Catégorie',
+                                'Importance',
+                                'Date début',
+                                'Date fin',
+                                'Lieu',
+                                'Résultat',
+                                'Ressenti'
+                            ], ';');
+            foreach ($allPerformance as $user) {
+
+                if ( $user->getPerFkresultat() == null ){ 
+                    $resultat='Non renseigné';
+                }
+                else{ 
+                    $resultat=$user->getPerFkresultat()->getResNom();
+                }
+                $importance='';
+                
+                if( $user->getPerImportance() == 1){
+                    $importance='Forte';
+                }
+                else{ 
+                    $importance='Basse'; 
+                }
+                fputcsv(
+                    $handle,
+                    
+                    [
+                        $user->getPerFktypecompetition()->getTypcomNom(),
+                        $user->getPerFkechellecompetition()->getEchcomNom(),
+                        $user->getPerFklocalisationcompetition()->getLoccomNom(),
+                        $user->getPerFkjointuresport()->getJoispoFkepreuve()->getEprNom(),
+                        $user->getPerFkjointuresport()->getJoispoFkcategorie()->getCatNom(),
+                        $importance,
+                        $user->getPerDatedebut()->format('d-m-Y'),
+                        $user->getPerDatefin()->format('d-m-Y'),
+                        $user->getPerLieu(),
+                        $resultat,
+                        $user->getPerRessenti()
+                    ],
+                    ';'
+                 );
+            }
+    
+            fclose($handle);
+        });
+    
+        $response->setStatusCode(200);
+        $response->headers->set('Content-Type', 'text/csv; charset=utf-8');
+        $response->headers->set('Content-Disposition','attachment; filename="performance.csv"');
+    
+        return $response;     
     }
     
 

@@ -64,7 +64,7 @@ class DefaultController extends Controller
      * @Route("/mobile", name="indexMobile")
      * @Method({"GET"})
      */
-    public function indexMobile(Request $request)
+    /*public function indexMobile(Request $request)
     {   
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $user_email = $this->getUser()->getEmail();
@@ -89,7 +89,7 @@ class DefaultController extends Controller
         }
 
         return new JsonResponse($formatted);
-    }
+    }*/
 
 
 

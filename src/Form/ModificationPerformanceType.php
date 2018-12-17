@@ -1,7 +1,6 @@
 <?php
 // src/Form/PerformanceType.php
 namespace App\Form;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormEvents;
@@ -20,7 +19,6 @@ use App\Entity\Localisationcompetition;
 use App\Entity\Resultat;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Validator\Constraints as Assert;
-
 class ModificationPerformanceType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -32,15 +30,17 @@ class ModificationPerformanceType extends AbstractType
             ->add('perDatefin', DateTimeType::class, array(
                 'widget' => 'choice',
             ))
-            ->add('perLieu', TextType::class, array('label' => 'Lieu'))
+            ->add('perLieu', TextType::class, array(
+                'required' => false,
+            ))
             ->add('typeCompetition', EntityType::class, array(
                 'class' =>Typecompetition::class,
                 'choice_label' => 'typcomNom',
                 // used to render a select box, check boxes or radios
                 'multiple' => false,
                 'expanded' => false,
-                'label' => 'Type de compétition',
                 'mapped' => false,
+                'placeholder' => '--choisir--',
             ))
             ->add('echelleCompetition', EntityType::class, array(
                 'class' =>Echellecompetition::class,
@@ -48,8 +48,8 @@ class ModificationPerformanceType extends AbstractType
                 // used to render a select box, check boxes or radios
                 'multiple' => false,
                 'expanded' => false,
-                'label' => 'Echelle de compétition',
                 'mapped' => false,
+                'placeholder' => '--choisir--',
             ))
             ->add('localisationCompetition', EntityType::class, array(
                 'class' =>Localisationcompetition::class,
@@ -57,17 +57,17 @@ class ModificationPerformanceType extends AbstractType
                 // used to render a select box, check boxes or radios
                 'multiple' => false,
                 'expanded' => false,
-                'label' => 'Localisation de compétition',
                 'mapped' => false,
+                'placeholder' => '--choisir--',
+                'required' => false,
             ))
             ->add('epreuve', ChoiceType::class, array(
-                'label' => 'Epreuve',
                 'mapped' => false,
                 'choices' => $options['filteredEpreuve'],
                 'choice_label' => 'eprNom',
+                'placeholder' => '--choisir--',
             ))
             ->add('autreEpreuve', TextType::class, array(
-                'label' => 'Mon épreuve n\'est pas dans la liste, je l\'ajoute',
                 'mapped' => false,
                 'required' => false,
             ))
@@ -76,9 +76,9 @@ class ModificationPerformanceType extends AbstractType
                 'mapped' => false,
                 'choices' => $options['filteredCategorie'],
                 'choice_label' => 'catNom',
+                'placeholder' => '--choisir--',
             ))
             ->add('autreCategorie', TextType::class, array(
-                'label' => 'Ma catégorie n\'est pas dans la liste, je l\'ajoute',
                 'mapped' => false,
                 'required' => false,
             ))
@@ -87,7 +87,6 @@ class ModificationPerformanceType extends AbstractType
                     'Saison' => true,
                     'Intermédiaire' => false,
                 ),
-                'label' => 'Objectif de la compétition',
                 'multiple' => false,
                 'expanded' => true,
                 'required' => true,
@@ -98,20 +97,28 @@ class ModificationPerformanceType extends AbstractType
                 // used to render a select box, check boxes or radios
                 'multiple' => false,
                 'expanded' => false,
-                'label' => 'Résultat de la compétition',
                 'mapped' => false,
+                'placeholder' => '--choisir--',
             ))
-            ->add('perRessenti', TextareaType::class, array('label' => 'Ressenti'))
-			->add('image', FileType::class, array(
-				'mapped' => false,
-				'label' => 'Image(JPG)',
-				//'multiple' => true,
-				));
-			
-        //$builder->get('epreuve')->addEventListener(FormEvents::SUBMIT, [$this, 'requiredEpreuve']);
-        //$builder->get('categorie')->addEventListener(FormEvents::SUBMIT, [$this, 'requiredCategorie']);
+            ->add('perRessenti', TextType::class, array('label' => 'Ressenti'))
+            ->add('image0', FileType::class, array(
+                'mapped' => false,
+                'required' => false,
+            ))
+            ->add('image1', FileType::class, array(
+                'mapped' => false,
+                'required' => false,
+            ))
+            ->add('image2', FileType::class, array(
+                'mapped' => false,
+                'required' => false,
+            ));
+
+        $builder->get('epreuve')->addEventListener(FormEvents::SUBMIT, [$this, 'requiredEpreuve']);
+        $builder->get('categorie')->addEventListener(FormEvents::SUBMIT, [$this, 'requiredCategorie']);
     }
-    /*public function requiredEpreuve(FormEvent $event) {
+
+    public function requiredEpreuve(FormEvent $event) {
         $epreuve = $event->getData();
         $form = $event->getForm()->getParent();
         if (empty($epreuve)) {
@@ -138,8 +145,7 @@ class ModificationPerformanceType extends AbstractType
                     'constraints' => new Assert\NotBlank(array('message' => 'Veuillez indiquer votre catégorie')),
                 ));
         }
-    }*/
-
+    }
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
@@ -148,5 +154,4 @@ class ModificationPerformanceType extends AbstractType
             'filteredEpreuve' => null,
         ));
     }
-
 }

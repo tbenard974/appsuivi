@@ -11,9 +11,17 @@ use App\Entity\Absence;
 use App\Entity\Statusabsence;
 use App\Entity\Motifabsence;
 use App\Entity\Utilisateur;
+use \DateTime;
 
 class DefaultController extends Controller
 {
+    public function cmp($a, $b) {
+        if ($a->getAbsDatedebut() == $b->getAbsDatedebut()) {
+            return 0;
+        }
+        return ($a->getAbsDatedebut() < $b->getAbsDatedebut()) ? -1 : 1;
+    }
+
     /**
      * @Route("/", name="index")
      */
@@ -37,7 +45,15 @@ class DefaultController extends Controller
         
 		//$allAbsence = $this->get('manage.evenement')->visualiserAll($this);
         $allAbsence = $this->getDoctrine()->getRepository(Absence::class)->findByAbsFkutilisateur($utilisateur);
-            
+        /*$date_now = new DateTime("now");
+        $array = array();
+            foreach ($allAbsence as $user1) {
+                $user1->getAbsDatedebut();
+                foreach ($allAbsence as $user2) {
+                    $user2->getAbsDatedebut();      
+                }    
+            } */
+        uasort($allAbsence, 'self::cmp');     
         return $this->render('index.html.twig', array(
             'allAbsence' => $allAbsence,
             'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
@@ -48,7 +64,7 @@ class DefaultController extends Controller
      * @Route("/mobile", name="indexMobile")
      * @Method({"GET"})
      */
-    public function indexMobile(Request $request)
+    /*public function indexMobile(Request $request)
     {   
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $user_email = $this->getUser()->getEmail();
@@ -73,7 +89,7 @@ class DefaultController extends Controller
         }
 
         return new JsonResponse($formatted);
-    }
+    }*/
 
 
 

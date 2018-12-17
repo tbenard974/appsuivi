@@ -1,0 +1,100 @@
+{% extends 'menu.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+ {{ parent() }}
+    {% if app.user != null %}
+        <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+            <div class="row">
+                <ol class="breadcrumb">
+                    <li><a href="/"><svg class="glyph stroked home"><use xlink:href="#stroked-home"></use></svg></a></li>
+                </ol>
+             </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">Toutes les performances</h1>
+                </div>
+            </div><!--/.row-->
+             
+
+
+            {% if allPerf == null %}
+                <p> Aucun évènement de prévu </p>
+            {% endif %}
+            {% if allPerf != null %}
+                <div class="row">
+                    <div>
+                        <div class="panel panel-default">
+
+                            <a href="/visualisation/performance/cds/sport" class="btn btn-primary">Filtrer par sport</a>
+                            <a href="/visualisation/performance/cds/date" class="btn btn-primary">Filtrer par date</a>
+                            <a href="/visualisation/performance/cds/sportdate" class="btn btn-primary">Filtrer par sport et date</a>
+                            <a href="/telechargement/cds/performances" class="btn btn-primary">Télécharger les performances</a>
+                            <div class="panel-heading">Performances des Sportifs</div>
+                            <div class="table-responsive">
+                                <table class="table" data-toggle="table"   data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="toolbar1" data-pagination="true" data-sort-name="name" data-sort-order="desc">
+                                    <thead>
+                                        <tr>
+                                            <th>Nom</th>
+                                            <th>Prénom</th>
+                                            <th>Type compétition</th>
+                                            <th>Echelle compétition</th>
+                                            <th>Localisation compétition</th>
+                                            <th>Sport</th>
+                                            <th>Epreuve</th>
+                                            <th>Catégorie</th>
+                                            <th>Importance</th>
+                                            <th>Date début</th>
+                                            <th>Date fin</th>
+                                            <th>Lieu</th>
+                                            <th>Résultat</th>
+                                            <th>Ressenti</th>
+                                         </tr>
+                                        {% for performance in allPerf %}
+                                            <tr>
+                                                {% if performance.perDatedebut|date('Y-m-d') > datedebut|date('Y-m-d') %}
+                                                    {% if performance.perDatedebut|date('Y-m-d') < datefin|date('Y-m-d') %}
+                                                        <td><a href="/profil/{{ performance.perFkutilisateur.utiId }}">{{ performance.perFkutilisateur.utiNom }}</a></td>
+                                                        <td><a href="/profil/{{ performance.perFkutilisateur.utiId }}">{{ performance.perFkutilisateur.utiPrenom }}</a></td>
+                                                        <td>{{ performance.perFktypecompetition.typcomNom }}</td>
+                                                        <td>{{ performance.perFkechellecompetition.echcomNom }}</td>
+                                                        <td>{{ performance.perFklocalisationcompetition.loccomNom }}</td>
+                                                        <td>{{ performance.perFkjointuresport.joispoFksport.spoNom }}</td>
+                                                        <td>{{ performance.perFkjointuresport.joispoFkepreuve.eprNom }}</td>
+                                                        <td>{{ performance.perFkjointuresport.joispoFkcategorie.catNom }}</td>
+                                                        <td>{% if performance.perImportance == 1 %}
+                                                                {{ "Forte" }}
+                                                            {% else %}
+                                                                {{ "Basse" }}
+                                                            {% endif %}
+                                                        </td>
+                                                        <td>{{ performance.perDatedebut|date("d/m/Y") }}</td>
+                                                        <td>{{ performance.perDatefin|date("d/m/Y") }}</td>
+                                                        <td>{{ performance.perLieu }}</td>
+                                                        <td>
+                                                        {% if performance.perFkresultat == null %}
+                                                            {{ "Non renseigné" }}
+                                                        {% else %}
+                                                            {{ performance.perFkresultat.resNom }}
+                                                        {% endif %}</td>
+                                                        <td>{{ performance.perRessenti }}</td>
+                                                    {% endif %}
+                                                {% endif %}
+                                        </tr>
+                                    {% endfor %}
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div><!--/.row-->
+            {% endif  %}
+        </div>
+    {% endif %} 
+
+{% endblock %}
+

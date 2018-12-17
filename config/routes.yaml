@@ -21,6 +21,10 @@ register:
 ajouterEvenement:
     path: /evenement/ajouter
     controller: App\Controller\EvenementController::ajouterWeb
+
+downloadEvenement:
+    path: /download/evenement
+    controller: App\Controller\EvenementController::downloadEvenement
     
 
 logout:

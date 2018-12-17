@@ -1,0 +1,71 @@
+{% extends 'menu.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {#<style>
+    div.gallery {
+    margin: 5px;
+    border: 1px solid #ccc;
+    float: left;
+    width: 180px;
+    }
+
+    div.gallery:hover {
+    border: 1px solid #777;
+    }
+
+    div.gallery img {
+    width: 100%;
+    height: auto;
+    }
+
+    div.desc {
+    padding: 15px;
+    text-align: center;
+    }
+    </style>#}
+{% endblock %}
+
+{% block body %}
+{{ parent() }}
+<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+    <div class="row">
+        <ol class="breadcrumb">
+            <li><a href="/"><svg class="glyph stroked home"><use xlink:href="#stroked-home"></use></svg></a></li>
+            <li class="active">Visualisation Profil Sportif</li>
+        </ol>
+    </div>
+
+    {% if app.user != null %}
+
+
+    <div class="row">
+
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h3 class="panel-title"> Prenom : {{ utilisateur.utiPrenom }} <br> Nom :  {{ utilisateur.utiNom }} </h3>
+            </div>
+            <div class="panel-body">
+                {% if allFiles != null %}
+                    <div class="row">
+                        {% for photos in allFiles %}
+                            {% if photos.ficFktypefichier.typficNom == 'Photo' %}
+                                {# <div class="gallery">
+                                    <a target="_blank" href="/download/image/{{ photos.ficChemin }}">
+                                        <img src="{{ asset('uploads/photos/{{ photos.ficChemin }}') }}" alt="{{ photos.ficDatecreation|date('d-m-Y') }}" width="200" height="133.33">
+                                    </a>
+                                </div> #} 
+                                <li>{{ photos.ficDatecreation|date('d-m-Y') }} - <button  onclick="location.href='/download/image/{{ photos.ficChemin }}';">Télécharger</button></li>
+                                
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+    </div>
+
+    {% endif %}
+</div>
+{% endblock %}

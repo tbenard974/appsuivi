@@ -2,47 +2,111 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="efbaecb0-f272-4b3d-bb93-84eab7912f02" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/templates/js/bootstrap-datetimepicker.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/appsuivi.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/appsuivi.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dbPils.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/uploads/photos/06072d7a99a4e9eb997bc3c01da34e6b.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/uploads/photos/0889e23aee64d04f08a3dfc8bd38571e.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/uploads/photos/08c35b1b7605aca66f53f623e8e9bdc7.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/uploads/photos/08e96bbb54f370fb194d06b503ee15b3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/uploads/photos/0c6afcf1960ec9ad06dc8de715f1c41b.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/uploads/photos/0d2136a2f5bbe4ee8ca4c60fe3a4400a.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/uploads/photos/121055246b53319e4726b1ccd4f9722c.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/uploads/photos/1381242710011843754dec4c55f451c5.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/uploads/photos/1484c61b2a43baa3f721efbcbb0dd6c9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/uploads/photos/2045ba14b4ea8f0e1dc3f65b2ab191fc.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/uploads/photos/234ab4e985cfddc8fad9486c920c570f.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/uploads/photos/31b4a096f265865c1c756b7e1a8352ca.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/uploads/photos/32d40452fb69bfe556bf20b4ae737eb1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/uploads/photos/3a73f2c684d1bb48b6bf508de76ef298.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/uploads/photos/3a873f9275347ffc4cc4fba505c57e54.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/uploads/photos/3f85aac0040de07c75ad5308a3f578fe.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/uploads/photos/42c182defac8ba656f78a6c436b6451f.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/uploads/photos/4332e64dfcf14fd7cfdd0ccf50b96c7a.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/uploads/photos/436944c699fed5869469ebb9e0243065.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/uploads/photos/4a5216bce951156928c286f0d1dfc1a3.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/uploads/photos/4b58ccd0d27dcd07a358320b70772b1a.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/uploads/photos/4f3fc801999543dfedf1d86bd601285c.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/uploads/photos/513aefc0f2a46903430d034766bd9387.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/uploads/photos/60847e468c224712d90cb70d1f677e1b.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/uploads/photos/6c5a9e0acd2870b003d04568699806cd.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/uploads/photos/7b37b2becfd67649594f45caed328d86.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/uploads/photos/8094ec97fc785eda15cd787253dea532.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/uploads/photos/82d21b59fd0ca36202a166826979ee40.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/uploads/photos/843a5ae6a212a943209261bb06eada2f.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/uploads/photos/8fb277536e97cc8529482fa0b952288a.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/uploads/photos/92ed665e7c517c04109e3116a8128865.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/uploads/photos/9b22c609af99702423941c17d29929d3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/uploads/photos/9cfde9a1d77a776e6af928fa83ed6e59.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/uploads/photos/a5c2add14de61c0b6473338faf3b152f.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/uploads/photos/b1508e5cbcc76d5918be632f5a47f155.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/uploads/photos/b42bd27b15aa5ad91e6b214a66d4e6e1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/uploads/photos/b9e08f757f97948caaa11afb4599e7fc.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/uploads/photos/bd90b7d70f2643194824a9199fd6b982.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/uploads/photos/c0c54bf11656f2effec499059fe317de.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/uploads/photos/cbcb2e9607f2e03bdb8011d3be8c8984.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/uploads/photos/cc84e25ef48ff66b49e4ac539ac63e1e.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/uploads/photos/ce4503521225f888b4ee679070d24f13.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/uploads/photos/d0be98ec5d93881220a7482c079b32d1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/uploads/photos/e1aab6a77d80f8052a5874c29f67e898.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/uploads/photos/e634d04d51102d341b88d73c5a58e3f2.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/uploads/photos/e8dd0088eb05d9f4aa59231767984565.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/uploads/photos/ea2023ac0c98acd4b9a070805e3f33ae.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/uploads/photos/eaf4e66a88d17f372337223ac9e9e3a7.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/uploads/photos/fc64800368cc1a3890766845edcfb629.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Form/FiltredateType.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Form/FiltresportType.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Form/FiltresportdateType.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Repository/LocalisationcompetitionRepository.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/css/bootstrap-theme.min.css.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/evenement/download.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/fonts/glyphicons-halflings-regular.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/profil/profilusercdsPhotos.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/test.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/visualisation_cds/date.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/visualisation_cds/filtredate.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/visualisation_cds/filtresport.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/visualisation_cds/filtresportdate.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/visualisation_cds/visualiserPerformanceCdsPhotos.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/bootstrap-table.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/bootstrap-table.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/bootstrap-theme.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/bootstrap-theme.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/bootstrap-theme.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/bootstrap-theme.css.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/bootstrap-theme.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/bootstrap-theme.min.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/bootstrap.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/bootstrap.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/bootstrap.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/bootstrap.css.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/bootstrap.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/bootstrap.min.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/datepicker.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/datepicker.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/datepicker3.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/datepicker3.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/bootstrap-datepicker.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/bootstrap-datepicker.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/bootstrap-table.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/bootstrap-table.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/bootstrap.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/bootstrap.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/bootstrap.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/bootstrap.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/chart-data.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/chart-data.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/chart.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/chart.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/easypiechart-data.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/easypiechart-data.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/easypiechart.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/easypiechart.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/html5shiv.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/html5shiv.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/jquery-1.11.1.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/jquery-1.11.1.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/lumino.glyphs.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/lumino.glyphs.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/respond.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/respond.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/routes.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/routes.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/DefaultController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/DefaultController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/EvenementController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/EvenementController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/PerformanceController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/PerformanceController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/ProfilController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ProfilController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/VisualisationCdsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/VisualisationCdsController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Absence.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Absence.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Competition.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Datatemp.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Fichier.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Fichier.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Localisationcompetition.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Localisationcompetition.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Niveaucompetition.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Nomcompetition.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Performance.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Performance.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Role.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Utilisateur.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Utilisateur.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Form/EvenementType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/EvenementType.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/administration/categorie.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/administration/categorie.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/administration/echellecompetition.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/administration/echellecompetition.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/administration/epreuve.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/administration/epreuve.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/administration/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/administration/index.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/administration/niveauliste.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/administration/niveauliste.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/administration/sport.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/administration/sport.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/administration/typecompetition.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/administration/typecompetition.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Form/ModificationCompetitionType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/ModificationCompetitionType.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Form/ModificationPerformanceType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/ModificationPerformanceType.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Form/PerformanceType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/PerformanceType.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/UserRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/UserRepository.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/css/bootstrap-theme.css" beforeDir="false" afterPath="$PROJECT_DIR$/templates/css/bootstrap-theme.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/css/bootstrap-theme.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/templates/css/bootstrap-theme.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/css/bootstrap-theme.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/templates/css/bootstrap-theme.min.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/css/bootstrap.css" beforeDir="false" afterPath="$PROJECT_DIR$/templates/css/bootstrap.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/templates/css/styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/evenement/afficher.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/evenement/afficher.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/evenement/ajouter.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/evenement/ajouter.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/css/bootstrap.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/templates/css/bootstrap.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/css/bootstrap.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/templates/css/bootstrap.min.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/css/bootstrap.min.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/templates/css/bootstrap.min.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/fonts/glyphicons-halflings-regular.eot" beforeDir="false" afterPath="$PROJECT_DIR$/templates/fonts/glyphicons-halflings-regular.eot" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/fonts/glyphicons-halflings-regular.svg" beforeDir="false" afterPath="$PROJECT_DIR$/templates/fonts/glyphicons-halflings-regular.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/fonts/glyphicons-halflings-regular.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/templates/fonts/glyphicons-halflings-regular.ttf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/fonts/glyphicons-halflings-regular.woff" beforeDir="false" afterPath="$PROJECT_DIR$/templates/fonts/glyphicons-halflings-regular.woff" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/js/bootstrap-datepicker.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/performance/choix.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/performance/choix.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/performance/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/performance/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/profil/profilusercds.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/profil/profilusercds.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/visu_perf/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/visu_perf/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/visualisation_cds/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/visualisation_cds/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vendor/ocramius/package-versions/src/PackageVersions/Versions.php" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/ocramius/package-versions/src/PackageVersions/Versions.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -84,7 +148,8 @@
           <entry key="project.open.time.69" value="1" />
           <entry key="project.open.time.70" value="1" />
           <entry key="project.open.time.81" value="1" />
-          <entry key="project.opened" value="12" />
+          <entry key="project.open.time.85" value="1" />
+          <entry key="project.opened" value="13" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
@@ -107,7 +172,7 @@
         <counts>
           <entry key="css" value="11" />
           <entry key="js" value="5" />
-          <entry key="php" value="58" />
+          <entry key="php" value="59" />
           <entry key="twig" value="125" />
           <entry key="yaml" value="1" />
         </counts>
@@ -116,7 +181,7 @@
         <counts>
           <entry key="CSS" value="11" />
           <entry key="JavaScript" value="5" />
-          <entry key="PHP" value="58" />
+          <entry key="PHP" value="59" />
           <entry key="Twig" value="125" />
           <entry key="YAML" value="1" />
         </counts>
@@ -129,7 +194,7 @@
         <entry file="file://$PROJECT_DIR$/templates/base.html.twig">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1455">
-              <caret line="97" column="15" selection-start-line="97" selection-start-column="15" selection-end-line="97" selection-end-column="15" />
+              <caret line="101" column="15" selection-start-line="101" selection-start-column="15" selection-end-line="101" selection-end-column="15" />
             </state>
           </provider>
         </entry>
@@ -143,13 +208,37 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Form/EvenementType.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="249">
+            <state relative-caret-position="195">
               <caret line="32" column="41" selection-start-line="32" selection-start-column="41" selection-end-line="32" selection-end-column="41" />
               <folding>
                 <element signature="e#56#116#0#PHP" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Form/ModificationPerformanceType.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="535">
+              <caret line="156" column="1" selection-start-line="156" selection-start-column="1" selection-end-line="156" selection-end-column="1" />
+              <folding>
+                <element signature="e#58#95#0#PHP" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Form/PerformanceType.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="535">
+              <caret line="160" column="1" selection-start-line="160" selection-start-column="1" selection-end-line="160" selection-end-column="1" />
+              <folding>
+                <element signature="e#58#95#0#PHP" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -168,7 +257,7 @@
         <entry file="file://$PROJECT_DIR$/templates/index.html.twig">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1035">
-              <caret line="69" column="18" selection-start-line="69" selection-start-column="18" selection-end-line="69" selection-end-column="18" />
+              <caret line="72" column="18" selection-start-line="72" selection-start-column="18" selection-end-line="72" selection-end-column="18" />
             </state>
           </provider>
         </entry>
@@ -226,8 +315,6 @@
         <option value="$PROJECT_DIR$/src/Form/AjoutsportType.php" />
         <option value="$PROJECT_DIR$/src/Form/AjouttypeType.php" />
         <option value="$PROJECT_DIR$/src/Form/ModificationStageType.php" />
-        <option value="$PROJECT_DIR$/src/Form/PerformanceType.php" />
-        <option value="$PROJECT_DIR$/src/Form/ModificationPerformanceType.php" />
         <option value="$PROJECT_DIR$/templates/css/bootstrap.css" />
         <option value="$PROJECT_DIR$/templates/css/styles.css" />
         <option value="$PROJECT_DIR$/templates/visu_perf/index.html.twig" />
@@ -244,6 +331,8 @@
         <option value="$PROJECT_DIR$/templates/evenement/ajouter.html.twig" />
         <option value="$PROJECT_DIR$/templates/base.html.twig" />
         <option value="$PROJECT_DIR$/src/Form/EvenementType.php" />
+        <option value="$PROJECT_DIR$/src/Form/ModificationPerformanceType.php" />
+        <option value="$PROJECT_DIR$/src/Form/PerformanceType.php" />
       </list>
     </option>
   </component>
@@ -383,7 +472,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -422,6 +510,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -474,17 +563,18 @@
       <workItem from="1544607537405" duration="1720000" />
       <workItem from="1544609412421" duration="1749000" />
       <workItem from="1544611324287" duration="645000" />
+      <workItem from="1545087218421" duration="333000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="89236000" />
+    <option name="totallyTimeSpent" value="89569000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="67" y="25" width="1853" height="1055" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21029331" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21250692" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -663,20 +753,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Form/PerformanceType.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-465">
-          <caret line="71" column="38" selection-start-line="71" selection-start-column="38" selection-end-line="71" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Form/ModificationPerformanceType.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="455">
-          <caret line="103" column="45" selection-start-line="103" selection-start-column="45" selection-end-line="103" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/css/bootstrap-grid.css">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -816,7 +892,7 @@
     <entry file="file://$PROJECT_DIR$/templates/base.html.twig">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1455">
-          <caret line="97" column="15" selection-start-line="97" selection-start-column="15" selection-end-line="97" selection-end-column="15" />
+          <caret line="101" column="15" selection-start-line="101" selection-start-column="15" selection-end-line="101" selection-end-column="15" />
         </state>
       </provider>
     </entry>
@@ -837,16 +913,36 @@
     <entry file="file://$PROJECT_DIR$/templates/index.html.twig">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1035">
-          <caret line="69" column="18" selection-start-line="69" selection-start-column="18" selection-end-line="69" selection-end-column="18" />
+          <caret line="72" column="18" selection-start-line="72" selection-start-column="18" selection-end-line="72" selection-end-column="18" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Form/EvenementType.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="249">
+        <state relative-caret-position="195">
           <caret line="32" column="41" selection-start-line="32" selection-start-column="41" selection-end-line="32" selection-end-column="41" />
           <folding>
             <element signature="e#56#116#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Form/ModificationPerformanceType.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="535">
+          <caret line="156" column="1" selection-start-line="156" selection-start-column="1" selection-end-line="156" selection-end-column="1" />
+          <folding>
+            <element signature="e#58#95#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Form/PerformanceType.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="535">
+          <caret line="160" column="1" selection-start-line="160" selection-start-column="1" selection-end-line="160" selection-end-column="1" />
+          <folding>
+            <element signature="e#58#95#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>

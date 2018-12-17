@@ -5,6 +5,7 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Utilisateur;
+use App\Entity\Fichier;
 use App\Form\ProfilType;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -18,11 +19,33 @@ class ProfilController extends AbstractController
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         //$user_email = $this->getUser()->getEmail();
+        $this->denyAccessUnlessGranted('ROLE_Admin');
         $utilisateur = $this->getDoctrine()->getRepository(\App\Entity\Utilisateur::class)->findOneByUtiId($idUtilisateur);
         
 
         return $this->render('profil/profilusercds.html.twig', [
             'utilisateur' => $utilisateur,
+        ]);
+    }
+
+    /**
+     * @Route("/profil/photos/{idUtilisateur}", name="profilusercdsPhotos")
+     */
+    
+    public function profilusercdsPhotos($idUtilisateur)
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        //$user_email = $this->getUser()->getEmail();
+        $this->denyAccessUnlessGranted('ROLE_Admin');
+        $utilisateur = $this->getDoctrine()->getRepository(\App\Entity\Utilisateur::class)->findOneByUtiId($idUtilisateur);
+
+        $allFiles = $this->getDoctrine()->getRepository(Fichier::class)->findByFicFkutilisateur($utilisateur);
+        
+        uasort($allFiles, 'self::cmpFicDatedebut'); 
+
+        return $this->render('profil/profilusercdsPhotos.html.twig', [
+            'utilisateur' => $utilisateur,
+            'allFiles' => $allFiles,
         ]);
     }
 
@@ -105,5 +128,12 @@ class ProfilController extends AbstractController
         return $this->render('profil/modif.html.twig', [
             'form' => $form->createView(),
         ]);
+    }
+
+    public function cmpFicDatedebut($a, $b) {
+        if ($a->getFicDatecreation() == $b->getFicDatecreation()) {
+            return 0;
+        }
+        return ($a->getFicDatecreation() > $b->getFicDatecreation()) ? -1 : 1;
     }
 }

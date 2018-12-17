@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Performance;
 use App\Entity\Sport;
 use App\Entity\Jointuresport;
+use App\Entity\Fichier;
 use App\Form\FiltresportType;
 use App\Form\FiltresportdateType;
 use App\Form\FiltredateType;
@@ -33,6 +34,22 @@ class VisualisationCdsController extends AbstractController
     }  
     
     
+
+    /**
+     * @Route("/visualisation/performance/photos/{idPerformance}", name="visualiserPerformanceCdsPhotos")
+     */
+
+    public function visualiserPerformanceCdsPhotos(Request $request, $idPerformance)
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $this->denyAccessUnlessGranted('ROLE_Admin');
+        $allFiles = $this->getDoctrine()->getRepository(Fichier::class)->findByFicFkperformance($idPerformance); //->findByPerFkutilisateur($utilisateur);
+
+            return $this->render('/visualisation_cds/visualiserPerformanceCdsPhotos.html.twig', array(
+                'allFiles' => $allFiles,
+                'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
+        ));
+    }   
 
     /**
      * @Route("/visualisation/performance/cds/sport", name="visualiserPerformanceCdsSport")

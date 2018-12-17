@@ -66,89 +66,89 @@ class ModificationCompetitionType extends AbstractType
 				'required' => false,
 			))
             ->add('typeCompetition', EntityType::class, array(
-                    'class' =>Typecompetition::class,
-                    'choice_label' => 'typcomNom',
-                    // used to render a select box, check boxes or radios
-                    'multiple' => false,
-                    'expanded' => false,
-                    'label' => 'Type de compétition',
-                    'mapped' => false,
-                    'constraints' => new Assert\NotBlank(array('message' => 'Veuillez remplir les champs liés à votre compétition')),
-                ))
-				->add('echelleCompetition', EntityType::class, array(
-                    'class' =>Echellecompetition::class,
-                    'choice_label' => 'echcomNom',
-                    // used to render a select box, check boxes or radios
-                    'multiple' => false,
-                    'expanded' => false,
-                    'label' => 'Echelle de la compétition',
-                    'mapped' => false,
-                ))
-				->add('localisationCompetition', EntityType::class, array(
-                    'class' =>Localisationcompetition::class,
-                    'choice_label' => 'loccomNom',
-                    // used to render a select box, check boxes or radios
-                    'multiple' => false,
-                    'expanded' => false,
-                    'label' => 'Localisation de la compétition',
-                    'mapped' => false,
-                ))
-                /* ->add('epreuve', EntityType::class, array(
-                    'class' =>Epreuve::class,
-                    
-					'choice_label' => 'eprNom',
-                    // used to render a select box, check boxes or radios
-                    'multiple' => false,
-                    'expanded' => false,
-                    'label' => 'Epreuve',
-                    'mapped' => false,
-                )) */
-				->add('epreuve', ChoiceType::class, array(
-					'label' => 'Epreuve',
-					'mapped' => false,
-					'choices' => $options['filteredEpreuve'],
-					'choice_label' => 'eprNom',
-                ))
-				->add('autreEpreuve', TextType::class, array(
-					'label' => 'Mon épreuve n\'est pas dans la liste, je l\'ajoute',
-					'mapped' => false,
-					'required' => false,
-				))
-                /* ->add('categorie', EntityType::class, array(
-                    'class' =>Categorie::class,
-                    'choice_label' => 'catNom',
-                    // used to render a select box, check boxes or radios
-                    'multiple' => false,
-                    'expanded' => false,
-                    'label' => 'Categorie',
-                    'mapped' => false,
-                )) */
-				->add('categorie', ChoiceType::class, array(
-					'label' => 'Categorie',
-					'mapped' => false,
-					'choices' => $options['filteredCategorie'],
-					'choice_label' => 'catNom',
-                ))
-				->add('autreCategorie', TextType::class, array(
-					'label' => 'Ma catégorie n\'est pas dans la liste, je l\'ajoute',
-					'mapped' => false,
-					'required' => false,
-				))
-				->add('importance', ChoiceType::class, array(
-					'choices'  => array(
-						'Importante' => true,
-						'Normale' => false,
-					),
-					'preferred_choices' => array(false),
-					'label' => 'Importance de la compétition',
-                    'mapped' => false,
-				));
+                'class' =>Typecompetition::class,
+                'choice_label' => 'typcomNom',
+                // used to render a select box, check boxes or radios
+                'multiple' => false,
+                'expanded' => false,
+                'label' => 'Type de compétition',
+                'mapped' => false,
+                'constraints' => new Assert\NotBlank(array('message' => 'Veuillez remplir les champs liés à votre compétition')),
+            ))
+            ->add('echelleCompetition', EntityType::class, array(
+                'class' =>Echellecompetition::class,
+                'choice_label' => 'echcomNom',
+                // used to render a select box, check boxes or radios
+                'multiple' => false,
+                'expanded' => false,
+                'label' => 'Echelle de la compétition',
+                'mapped' => false,
+            ))
+            ->add('localisationCompetition', EntityType::class, array(
+                'class' =>Localisationcompetition::class,
+                'choice_label' => 'loccomNom',
+                // used to render a select box, check boxes or radios
+                'multiple' => false,
+                'expanded' => false,
+                'label' => 'Localisation de la compétition',
+                'mapped' => false,
+            ));
+            /* ->add('epreuve', EntityType::class, array(
+                'class' =>Epreuve::class,
+                
+                'choice_label' => 'eprNom',
+                // used to render a select box, check boxes or radios
+                'multiple' => false,
+                'expanded' => false,
+                'label' => 'Epreuve',
+                'mapped' => false,
+            )) 
+            ->add('epreuve', ChoiceType::class, array(
+                'label' => 'Epreuve',
+                'mapped' => false,
+                'choices' => $options['filteredEpreuve'],
+                'choice_label' => 'eprNom',
+            ))
+            ->add('autreEpreuve', TextType::class, array(
+                'label' => 'Mon épreuve n\'est pas dans la liste, je l\'ajoute',
+                'mapped' => false,
+                'required' => false,
+            ))
+            /* ->add('categorie', EntityType::class, array(
+                'class' =>Categorie::class,
+                'choice_label' => 'catNom',
+                // used to render a select box, check boxes or radios
+                'multiple' => false,
+                'expanded' => false,
+                'label' => 'Categorie',
+                'mapped' => false,
+            ))
+            ->add('categorie', ChoiceType::class, array(
+                'label' => 'Categorie',
+                'mapped' => false,
+                'choices' => $options['filteredCategorie'],
+                'choice_label' => 'catNom',
+            ))
+            ->add('autreCategorie', TextType::class, array(
+                'label' => 'Ma catégorie n\'est pas dans la liste, je l\'ajoute',
+                'mapped' => false,
+                'required' => false,
+            ))
+            ->add('importance', ChoiceType::class, array(
+                'choices'  => array(
+                    'Importante' => true,
+                    'Normale' => false,
+                ),
+                'preferred_choices' => array(false),
+                'label' => 'Importance de la compétition',
+                'mapped' => false,
+            ));*/
 				
 			//$builder->get('epreuve')->addEventListener(FormEvents::SUBMIT, [$this, 'requiredEpreuve']);
 			//$builder->get('categorie')->addEventListener(FormEvents::SUBMIT, [$this, 'requiredCategorie']);
     }
 	
-	public function requiredEpreuve(FormEvent $event) {
+	/*public function requiredEpreuve(FormEvent $event) {
         $epreuve = $event->getData();
         $form = $event->getForm()->getParent();
 
@@ -177,7 +177,7 @@ class ModificationCompetitionType extends AbstractType
                 'constraints' => new Assert\NotBlank(array('message' => 'Veuillez indiquer votre catégorie')),
             ));
         }
-    }
+    }*/
 
     public function configureOptions(OptionsResolver $resolver)
     {

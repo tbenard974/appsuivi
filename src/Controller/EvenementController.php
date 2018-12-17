@@ -19,6 +19,8 @@ use App\Form\EvenementType;
 use App\Form\ModificationCompetitionType;
 use App\Form\ModificationStageType;
 use App\Entity\Typefichier;
+use Symfony\Component\HttpFoundation\StreamedResponse;
+use \DateTime;
 
 class EvenementController extends Controller
 {
@@ -67,16 +69,16 @@ class EvenementController extends Controller
             if($motifAbsence->getMotabsNom()=='Compétition'){
                 $performance = $absence->getAbsFkperformance();
                 $form = $this->createForm(ModificationCompetitionType::class, $absence, array('filteredEpreuve' => $filteredEpreuve, 'filteredCategorie' => $filteredCategorie));
-                $form->get('typeCompetition')->setData($performance->getPerFktypecompetition());
-                $form->get('echelleCompetition')->setData($performance->getPerFkechellecompetition());
-                $form->get('localisationCompetition')->setData($performance->getPerFklocalisationcompetition());
+                $form->get('typeCompetition')->setData($absence->getAbsFktypecompetition());
+                $form->get('echelleCompetition')->setData($absence->getAbsFkechellecompetition());
+                $form->get('localisationCompetition')->setData($absence->getAbsFklocalisationcompetition());
                 if ($filteredEpreuve != null) {
-                    $form->get('epreuve')->setData($performance->getPerFkjointuresport()->getJoispoFkepreuve());
+                    //$form->get('epreuve')->setData($performance->getPerFkjointuresport()->getJoispoFkepreuve());
                 }
                 if ($filteredCategorie != null) {
-                    $form->get('categorie')->setData($performance->getPerFkjointuresport()->getJoispoFkcategorie());
+                    //$form->get('categorie')->setData($performance->getPerFkjointuresport()->getJoispoFkcategorie());
                 }
-                $form->get('importance')->setData($performance->getPerImportance());
+                //$form->get('importance')->setData($performance->getPerImportance());
             }
             else {
                 $form = $this->createForm(ModificationStageType::class, $absence, array('filteredEpreuve' => $filteredEpreuve, 'filteredCategorie' => $filteredCategorie));
@@ -93,29 +95,29 @@ class EvenementController extends Controller
                 $typeCompetition = $form->get('typeCompetition')->getData();
                 $echelleCompetition = $form->get('echelleCompetition')->getData();
                 $localisationCompetition = $form->get('localisationCompetition')->getData();
-                $importance = $form->get('importance')->getData();
+                //$importance = $form->get('importance')->getData();
 
                 if ($idEvenement == 'nouveau') {
-                    $performance = new Performance();
-                    $performance->setPerFkutilisateur($utilisateur);
+                    //$performance = new Performance();
+                    //$performance->setPerFkutilisateur($utilisateur);
                 }
                 else {
-                    $performance = $absence->getAbsFkperformance();
+                    //$performance = $absence->getAbsFkperformance();
                 }
-                $performance->setPerFktypecompetition($typeCompetition);
-                $performance->setPerFkechellecompetition($echelleCompetition);
-                $performance->setPerFklocalisationcompetition($localisationCompetition);
-                $performance->setPerDatedebut($absence->getAbsDatedebut());
-                $performance->setPerDatefin($absence->getAbsDatefin());
-                $performance->setPerLieu($absence->getAbsLieu());
-                $performance->setPerImportance($importance);
-                $performance->setUpdateFields($utilisateur->getUtiEmail());
+                $absence->setAbsFktypecompetition($typeCompetition);
+                $absence->setAbsFkechellecompetition($echelleCompetition);
+                $absence->setAbsFklocalisationcompetition($localisationCompetition);
+                //$performance->setPerDatedebut($absence->getAbsDatedebut());
+                //$performance->setPerDatefin($absence->getAbsDatefin());
+                //$performance->setPerLieu($absence->getAbsLieu());
+                //$performance->setPerImportance($importance);
+                //$performance->setUpdateFields($utilisateur->getUtiEmail());
 
                 $sport = $utilisateur->getUtiFksport();
-                $epreuve = $form->get('epreuve')->getData();
-                $categorie = $form->get('categorie')->getData();
+                //$epreuve = $form->get('epreuve')->getData();
+                //$categorie = $form->get('categorie')->getData();
 				
-				if ($form->get('autreEpreuve')->getData() != null){
+				/*if ($form->get('autreEpreuve')->getData() != null){
                 $nomEpreuve = $form->get('autreEpreuve')->getData();
                 $nomEpreuve = strtolower($nomEpreuve);
                 $nomEpreuve = preg_replace('/[éèëê]+/', 'e', $nomEpreuve);
@@ -176,12 +178,12 @@ class EvenementController extends Controller
                     $jointureCategorie->setUpdateFields($utilisateur->getUtiEmail());
                     $entityManager->persist($jointureCategorie);
                 }
-                $performance->setPerFkjointuresport($jointureSport);
+                $performance->setPerFkjointuresport($jointureSport);*/
 
-                $entityManager->persist($performance);
+                //$entityManager->persist($performance);
 
                 $absence->setAbsNom(date_format($absence->getAbsDatedebut(),'d-m-Y').' - '.'Compét - '.$typeCompetition->getTypcomNom().' '.$localisationCompetition->getLoccomNom());
-                $absence->setAbsFkperformance($performance);
+                //$absence->setAbsFkperformance($performance);
             }
             else {
                 $absence->setAbsNom(date_format($absence->getAbsDatedebut(),'d-m-Y').' - '.$absence->getAbsFkmotifabsence()->getMotabsNom().' - '.$absence->getAbsLieu());
@@ -221,6 +223,47 @@ class EvenementController extends Controller
         return $this->render('/evenement/afficher.html.twig', [
             'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
         ]);
+    }
+
+    /**
+     * @Route("/download/evenement", name="downloadEvenement")
+     */
+    public function downloadEvenement(Request $request)
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $user_email = $this->getUser()->getEmail();
+        $utilisateur = $this->getDoctrine()->getRepository(Utilisateur::class)->findOneByUtiEmail($user_email);
+        $allAbsence = $this->getDoctrine()->getRepository(Absence::class)->findByAbsFkutilisateur($utilisateur);
+        $response = new StreamedResponse();
+        $response->setCallback(function() use ($allAbsence) {
+            $handle = fopen('php://output', 'w+');
+    
+            fputcsv($handle, ['Subject', 'Start date','Start Time','Location','End date','End Time'], ';');
+            $date_now = new DateTime("now");
+            foreach ($allAbsence as $user) {
+                // Faire le test que la date de début est bien après la date d'aujourd'hui
+                if($date_now > $user->getAbsDatedebut()){
+                }
+                else{
+                fputcsv(
+                    $handle,
+                    
+                    [$user->getAbsNom(),$user->getAbsDatedebut()->format('d-m-Y'),$user->getAbsDatedebut()->format('G:ia'),$user->getAbsLieu(),$user->getAbsDatefin()->format('d-m-Y'),$user->getAbsDatefin()->format('G:ia')],
+                    ';'
+                 );
+                }
+            }
+    
+            fclose($handle);
+        });
+    
+        $response->setStatusCode(200);
+        $response->headers->set('Content-Type', 'text/csv; charset=utf-8');
+        $response->headers->set('Content-Disposition','attachment; filename="planning.csv"');
+    
+        return $response;
+        //return $this->render('/evenement/download.html.twig', [
+        //]);
     }
 
     /**

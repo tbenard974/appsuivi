@@ -23,12 +23,13 @@
 
 
             {% if allPerf == null %}
-                <p> Aucune performance </p>
+                <p> Aucun évènement de prévu </p>
             {% endif %}
             {% if allPerf != null %}
                 <div class="row">
                     <div>
                         <div class="panel panel-default">
+
                             <a href="/visualisation/performance/cds/sport" class="btn btn-primary">Filtrer par sport</a>
                             <a href="/visualisation/performance/cds/date" class="btn btn-primary">Filtrer par date</a>
                             <div class="panel-heading">Performances des Sportifs</div>
@@ -52,35 +53,37 @@
                                             <th>Ressenti</th>
                                          </tr>
                                         {% for performance in allPerf %}
-                                            {% if performance.perFkjointuresport != null %}
-                                                <tr>
-                                                    <td><a href="/profil/{{ performance.perFkutilisateur.utiId }}">{{ performance.perFkutilisateur.utiNom }}</a></td>
-                                                    <td><a href="/profil/{{ performance.perFkutilisateur.utiId }}">{{ performance.perFkutilisateur.utiPrenom }}</a></td>
-                                                    <td>{{ performance.perFktypecompetition.typcomNom }}</td>
-                                                    <td>{{ performance.perFkechellecompetition.echcomNom }}</td>
-                                                    <td>{{ performance.perFklocalisationcompetition.loccomNom }}</td>
-                                                    <td>{{ performance.perFkjointuresport.joispoFksport.spoNom }}</td>
-                                                    <td>{{ performance.perFkjointuresport.joispoFkepreuve.eprNom }}</td>
-                                                    <td>{{ performance.perFkjointuresport.joispoFkcategorie.catNom }}</td>
-                                                    <td>{% if performance.perImportance == 1 %}
-                                                            {{ "Forte" }}
+                                            <tr>
+                                                {% if performance.perDatedebut|date('Y-m-d') > datedebut|date('Y-m-d') %}
+                                                    {% if performance.perDatedebut|date('Y-m-d') < datefin|date('Y-m-d') %}
+                                                        <td><a href="/profil/{{ performance.perFkutilisateur.utiId }}">{{ performance.perFkutilisateur.utiNom }}</a></td>
+                                                        <td><a href="/profil/{{ performance.perFkutilisateur.utiId }}">{{ performance.perFkutilisateur.utiPrenom }}</a></td>
+                                                        <td>{{ performance.perFktypecompetition.typcomNom }}</td>
+                                                        <td>{{ performance.perFkechellecompetition.echcomNom }}</td>
+                                                        <td>{{ performance.perFklocalisationcompetition.loccomNom }}</td>
+                                                        <td>{{ performance.perFkjointuresport.joispoFksport.spoNom }}</td>
+                                                        <td>{{ performance.perFkjointuresport.joispoFkepreuve.eprNom }}</td>
+                                                        <td>{{ performance.perFkjointuresport.joispoFkcategorie.catNom }}</td>
+                                                        <td>{% if performance.perImportance == 1 %}
+                                                                {{ "Forte" }}
+                                                            {% else %}
+                                                                {{ "Basse" }}
+                                                            {% endif %}
+                                                        </td>
+                                                        <td>{{ performance.perDatedebut|date("d/m/Y") }}</td>
+                                                        <td>{{ performance.perDatefin|date("d/m/Y") }}</td>
+                                                        <td>{{ performance.perLieu }}</td>
+                                                        <td>
+                                                        {% if performance.perFkresultat == null %}
+                                                            {{ "Non renseigné" }}
                                                         {% else %}
-                                                            {{ "Basse" }}
-                                                        {% endif %}
-                                                    </td>
-                                                    <td>{{ performance.perDatedebut|date("d/m/Y") }}</td>
-                                                    <td>{{ performance.perDatefin|date("d/m/Y") }}</td>
-                                                    <td>{{ performance.perLieu }}</td>
-                                                    <td>
-                                                    {% if performance.perFkresultat == null %}
-                                                        {{ "Non renseigné" }}
-                                                    {% else %}
-                                                        {{ performance.perFkresultat.resNom }}
-                                                    {% endif %}</td>
-                                                    <td>{{ performance.perRessenti }}</td>
-                                                </tr>
-                                            {% endif %}
-                                        {% endfor %}
+                                                            {{ performance.perFkresultat.resNom }}
+                                                        {% endif %}</td>
+                                                        <td>{{ performance.perRessenti }}</td>
+                                                    {% endif %}
+                                                {% endif %}
+                                        </tr>
+                                    {% endfor %}
                                     </thead>
                                 </table>
                             </div>

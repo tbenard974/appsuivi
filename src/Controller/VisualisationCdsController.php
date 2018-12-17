@@ -10,6 +10,7 @@ use App\Entity\Performance;
 use App\Entity\Sport;
 use App\Entity\Jointuresport;
 use App\Form\FiltresportType;
+use App\Form\FiltresportdateType;
 use App\Form\FiltredateType;
 
 class VisualisationCdsController extends AbstractController
@@ -23,11 +24,15 @@ class VisualisationCdsController extends AbstractController
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $this->denyAccessUnlessGranted('ROLE_Admin');
         $allPerformance = $this->getDoctrine()->getRepository(Performance::class)->findAll(); //->findByPerFkutilisateur($utilisateur);
+
+        /*
             return $this->render('/visualisation_cds/index.html.twig', array(
                 'allPerf' => $allPerformance,
                 'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
-        ));
-    }   
+        ));*/
+    }  
+    
+    
 
     /**
      * @Route("/visualisation/performance/cds/sport", name="visualiserPerformanceCdsSport")
@@ -73,6 +78,57 @@ class VisualisationCdsController extends AbstractController
         return $this->render('/visualisation_cds/filtredate.html.twig', [
             'form' => $form->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/visualisation/performance/cds/sportdate", name="visualiserPerformanceCdsSportDate")
+     */
+
+    public function visualiserPerformanceCdsSportDate(Request $request)
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $this->denyAccessUnlessGranted('ROLE_Admin');
+        $sport = array();
+        $form = $this->createForm(FiltresportdateType::class, $sport);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $DateDebut = $form->get('Datedebut')->getData();
+            $DateDebut =$DateDebut->format('Y-m-d H:i:s');
+            $DateFin = $form->get('Datefin')->getData();
+            $DateFin = $DateFin->format('Y-m-d H:i:s');
+            $sport2 = $form->get('spoId')->getData();
+            if($sport2 =="Aucun"){
+                $sport2 = 0;
+            }
+            else{
+                $sport2 = $form->get('spoId')->getData()->getSpoId();
+            }
+            return $this->redirectToRoute('visualiserPerformanceCdsSportDateDatedebutDatefin',array('idSport' => $sport2,'datedebut' => $DateDebut, 'datefin' => $DateFin));
+        }
+
+        return $this->render('/visualisation_cds/filtresportdate.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/visualisation/performance/cds/sportdate/{idSport}/{datedebut}/{datefin}", name="visualiserPerformanceCdsSportDateDatedebutDatefin")
+     */
+
+    public function visualiserPerformanceCdsSportDateDatedebutDatefin(Request $request, $idSport, $datedebut, $datefin)
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $this->denyAccessUnlessGranted('ROLE_Admin');
+        $allJointure = $this->getDoctrine()->getRepository(Jointuresport::class)->findByJoispoFksport($idSport); //->findByPerFkutilisateur($utilisateur);
+        $allPerformance = $this->getDoctrine()->getRepository(Performance::class)->findByPerFkjointuresport($allJointure);
+
+            return $this->render('/visualisation_cds/date.html.twig', array(
+                'allPerf' => $allPerformance,
+                'datedebut' => $datedebut,
+                'datefin'=> $datefin,
+                'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
+        ));
     }
 
     /**

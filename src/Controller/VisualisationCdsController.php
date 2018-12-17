@@ -13,9 +13,11 @@ use App\Entity\Fichier;
 use App\Form\FiltresportType;
 use App\Form\FiltresportdateType;
 use App\Form\FiltredateType;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class VisualisationCdsController extends AbstractController
 {   
+ 
     /**
      * @Route("/visualisation/performance/cds", name="visualiserPerformanceCds")
      */
@@ -139,7 +141,6 @@ class VisualisationCdsController extends AbstractController
         $this->denyAccessUnlessGranted('ROLE_Admin');
         $allJointure = $this->getDoctrine()->getRepository(Jointuresport::class)->findByJoispoFksport($idSport); //->findByPerFkutilisateur($utilisateur);
         $allPerformance = $this->getDoctrine()->getRepository(Performance::class)->findByPerFkjointuresport($allJointure);
-
             return $this->render('/visualisation_cds/date.html.twig', array(
                 'allPerf' => $allPerformance,
                 'datedebut' => $datedebut,
@@ -197,7 +198,82 @@ class VisualisationCdsController extends AbstractController
                 'allUtilisateur' => $allUtilisateur,
                 //'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
         ));
-    }   
+    } 
+    
+    
+
+
+
+    /**
+     * @Route("/telechargement/cds/performances", name="telechargementsPerformance")
+     */
+
+    public function telechargementPerformance(Request $request)
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $this->denyAccessUnlessGranted('ROLE_Admin');
+        $allPerformance = $this->getDoctrine()->getRepository(Performance::class)->findAll(); //->findByPerFkutilisateur($utilisateur);
+        $response = new StreamedResponse();
+        $response->setCallback(function() use ($allPerformance) {
+            $handle = fopen('php://output', 'w+');
+            fputcsv($handle, [
+                                'Type compétition',
+                                'Echelle compétition',
+                                'Localisation compétition',
+                                'Epreuve',
+                                'Catégorie',
+                                'Importance',
+                                'Date début',
+                                'Date fin',
+                                'Lieu',
+                                'Résultat',
+                                'Ressenti'
+                            ], ';');
+            foreach ($allPerformance as $user) {
+
+                if ( $user->getPerFkresultat() == null ){ 
+                    $resultat='Non renseigné';
+                }
+                else{ 
+                    $resultat=$user->getPerFkresultat()->getResNom();
+                }
+                $importance='';
+                
+                if( $user->getPerImportance() == 1){
+                    $importance='Forte';
+                }
+                else{ 
+                    $importance='Basse'; 
+                }
+                fputcsv(
+                    $handle,
+                    
+                    [
+                        $user->getPerFktypecompetition()->getTypcomNom(),
+                        $user->getPerFkechellecompetition()->getEchcomNom(),
+                        $user->getPerFklocalisationcompetition()->getLoccomNom(),
+                        $user->getPerFkjointuresport()->getJoispoFkepreuve()->getEprNom(),
+                        $user->getPerFkjointuresport()->getJoispoFkcategorie()->getCatNom(),
+                        $importance,
+                        $user->getPerDatedebut()->format('d-m-Y'),
+                        $user->getPerDatefin()->format('d-m-Y'),
+                        $user->getPerLieu(),
+                        $resultat,
+                        $user->getPerRessenti()
+                    ],
+                    ';'
+                 );
+            }
+    
+            fclose($handle);
+        });
+    
+        $response->setStatusCode(200);
+        $response->headers->set('Content-Type', 'text/csv; charset=utf-8');
+        $response->headers->set('Content-Disposition','attachment; filename="performances.csv"');
+    
+        return $response;     
+    }
 }
 
     

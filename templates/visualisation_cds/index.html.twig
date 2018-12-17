@@ -32,6 +32,8 @@
                             <a href="/visualisation/performance/cds/sport" class="btn btn-primary">Filtrer par sport</a>
                             <a href="/visualisation/performance/cds/date" class="btn btn-primary">Filtrer par date</a>
                             <a href="/visualisation/performance/cds/sportdate" class="btn btn-primary">Filtrer par sport et date</a>
+                           <a href="/telechargement/cds/performances" class="btn btn-primary">Télécharger les performances</a>
+
                             <div class="panel-heading">Performances des Sportifs</div>
                             <div class="table-responsive">
                                 <table class="table" data-toggle="table"   data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="toolbar1" data-pagination="true" data-sort-name="name" data-sort-order="desc">
@@ -78,6 +80,7 @@
                                                         {{ performance.perFkresultat.resNom }}
                                                     {% endif %}</td>
                                                     <td>{{ performance.perRessenti }}</td>
+
                                                     <td><p data-placement="top" data-toggle="tooltip" title="Voir"><button  onclick="location.href='/visualisation/performance/photos/{{ performance.perId }}';" class="btn btn-warning btn-xs" data-title="Edit" data-toggle="modal" data-target="View" ><span class="glyphicon glyphicon-search"></span></button></p></td>
                                                 </tr>
                                             {% endif %}

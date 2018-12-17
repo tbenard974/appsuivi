@@ -32,7 +32,7 @@ class Utilisateur
     /**
      * @var boolean
      *
-     * @ORM\Column(name="uti_premiereconnexion", type="boolean", nullable=false)
+     * @ORM\Column(name="uti_premiereconnexion", type="boolean", nullable=true)
      */
     private $utiPremiereconnexion;
 

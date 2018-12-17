@@ -1,0 +1,40 @@
+{% extends 'menu.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+
+    {{ parent() }}
+    {% if app.user != null %}
+        <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+            <div class="row">
+                <ol class="breadcrumb">
+                    <li><a href="/"><svg class="glyph stroked home"><use xlink:href="#stroked-home"></use></svg></a></li>
+                    <li class="active">Photos partagées</li>
+                </ol>
+            </div >
+            <div class="row">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">Photos partagées</div>
+                    <div class="panel-body">
+                        <div class="form_group">
+                            {% if allFiles != null %}
+                                {% for photos in allFiles %}
+                                    <li>Photo - <button  onclick="location.href='/download/image/{{ photos.ficChemin }}';">Télécharger</button></li>
+                                {% endfor %}
+                            {% else %}
+                                <p>Aucune photo</p>
+                            {% endif %}
+                    </div>
+                </div>
+            </div>
+    {% endif %}
+
+
+
+{% endblock %}
+
+

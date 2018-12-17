@@ -54,7 +54,7 @@
                                             <th>Sport</th>
                                             <th>Epreuve</th>
                                             <th>Catégorie</th>
-                                            <th>Importance</th>
+                                            <th>Objectif</th>
                                             <th>Date début</th>
                                             <th>Date fin</th>
                                             <th>Lieu</th>
@@ -72,9 +72,9 @@
                                                     <td>{{ performance.perFkjointuresport.joispoFkepreuve.eprNom }}</td>
                                                     <td>{{ performance.perFkjointuresport.joispoFkcategorie.catNom }}</td>
                                                     <td>{% if performance.perImportance == 1 %}
-                                                            {{ "Forte" }}
+                                                            {{ "Saison" }}
                                                         {% else %}
-                                                            {{ "Basse" }}
+                                                            {{ "Intermédiaire" }}
                                                         {% endif %}
                                                     </td>
                                                     <td>{{ performance.perDatedebut|date("d/m/Y") }}</td>

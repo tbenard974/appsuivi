@@ -27,14 +27,16 @@ class PerformanceType extends AbstractType
     {
         $builder
             ->add('perDatedebut', DateTimeType::class, array(
-                'widget' => 'choice',
-                'data' => new \DateTime("now"),
-                'years' => range(date('Y'), date('Y')+5),
+                'widget' => 'single_text',
+                'format' => 'dd/MM/yyyy hh:mm',
+                'html5' => false,
+                'attr' => ['class' => 'js-datetimepicker'],
             ))
             ->add('perDatefin', DateTimeType::class, array(
-                'widget' => 'choice',
-                'data' => new \DateTime("now"),
-                'years' => range(date('Y'), date('Y')+5),
+                'widget' => 'single_text',
+                'format' => 'dd/MM/yyyy hh:mm',
+                'html5' => false,
+                'attr' => ['class' => 'js-datetimepicker'],
             ))
             ->add('perLieu', TextType::class, array(
                 'required' => false,

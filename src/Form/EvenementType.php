@@ -30,23 +30,26 @@ class EvenementType extends AbstractType
         $this->options = $options;
         $builder
             ->add('absDatedebut', DateTimeType::class, array(
-                'widget' => 'choice',
-                'data' => new \DateTime("now"),
-                'years' => range(date('Y'), date('Y')+5),
+                'widget' => 'single_text',
+                'format' => 'dd/MM/yyyy hh:mm',
+                'html5' => false,
+                'attr' => ['class' => 'js-datetimepicker'],
             ))
             ->add('absDatefin', DateTimeType::class, array(
-                'widget' => 'choice',
-                'data' => new \DateTime("now"),
-                'years' => range(date('Y'), date('Y')+5),
+                'widget' => 'single_text',
+                'format' => 'dd/MM/yyyy hh:mm',
+                'html5' => false,
+                'attr' => ['class' => 'js-datetimepicker'],
             ))
-            ->add('absLieu', TextType::class, array('label' => 'Lieu'))
+            ->add('absLieu', TextType::class, array(
+                'required' => false
+            ))
             ->add('absFkmotifabsence', EntityType::class, array(
                 'class' => Motifabsence::class,
                 'choice_label' => 'motabsNom',
                 // used to render a select box, check boxes or radios
                 'multiple' => false,
                 'expanded' => false,
-                'label' => 'Type d\'évènement',
             ))
             ->add('absRappel',ChoiceType::class, array(
                 'choices'  => array(
@@ -61,10 +64,8 @@ class EvenementType extends AbstractType
                     '2 jours avant ' => '2j',
                     '1 semaine avant ' => '1s',
                 ),
-                'label' => 'Souhaitez-vous un rappel ?',
             ))
             ->add('absCommentaire', TextareaType::class, array(
-                'label' => 'Notes',
                 'required' => false,
             ));
 		
@@ -107,59 +108,6 @@ class EvenementType extends AbstractType
                     'label' => 'Localisation de la compétition',
                     'mapped' => false,
                 ))
-                /* ->add('epreuve', EntityType::class, array(
-                    'class' =>Epreuve::class,
-
-					'choice_label' => 'eprNom',
-                    // used to render a select box, check boxes or radios
-                    'multiple' => false,
-                    'expanded' => false,
-                    'label' => 'Epreuve',
-                    'mapped' => false,
-                )) 
-                ->add('epreuve', ChoiceType::class, array(
-                    'label' => 'Epreuve',
-                    'mapped' => false,
-                    'choices' => $this->options['filteredEpreuve'],
-                    'choice_label' => 'eprNom',
-                ))
-                ->add('autreEpreuve', TextType::class, array(
-                    'label' => 'Mon épreuve n\'est pas dans la liste, je l\'ajoute',
-                    'mapped' => false,
-                    'required' => false,
-                ))
-                /* ->add('categorie', EntityType::class, array(
-                    'class' =>Categorie::class,
-                    'choice_label' => 'catNom',
-                    // used to render a select box, check boxes or radios
-                    'multiple' => false,
-                    'expanded' => false,
-                    'label' => 'Categorie',
-                    'mapped' => false,
-                ))
-                ->add('categorie', ChoiceType::class, array(
-                    'label' => 'Categorie',
-                    'mapped' => false,
-                    'choices' => $this->options['filteredCategorie'],
-                    'choice_label' => 'catNom',
-                ))
-                ->add('autreCategorie', TextType::class, array(
-                    'label' => 'Ma catégorie n\'est pas dans la liste, je l\'ajoute',
-                    'mapped' => false,
-                    'required' => false,
-                ))
-                ->add('importance', ChoiceType::class, array(
-                    'choices'  => array(
-                        'Saison' => true,
-                        'Intermédiaire' => false,
-                    ),
-                    'preferred_choices' => array(false),
-                    'label' => 'Objectif de la compétition',
-                    'multiple' => false,
-                    'expanded' => true,
-                    'required' => true,
-                    'mapped' => false,
-                ))*/
             ;
         }
 

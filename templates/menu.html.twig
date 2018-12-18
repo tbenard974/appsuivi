@@ -13,21 +13,27 @@
 
     {% if app.user != null %}
         <div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
+            <br>
+            <br>
+            <br>
+            <br>
             <form role="search">
                 <div class="form-group">
                     <input type="text" class="form-control" placeholder="Search">
                 </div>
             </form>
+            <br>
             <ul class="nav menu">
                 {% if is_granted('ROLE_Users') %}
-                    <li id="accueil"><a href="/" style="color:#5f6062;"><svg class="glyph stroked dashboard-dial"><use xlink:href="#stroked-dashboard-dial"></use></svg> Accueil</a></li>
+                    <li id="accueil"><a href="/" style="color:#5f6062;"><svg class="glyph stroked home"><use xlink:href="#stroked-home"/></svg>Accueil</a></li>
                     <li ><a href="/visualisation/evenement" style="color:#5f6062;"><svg class="glyph stroked calendar"><use xlink:href="#stroked-calendar"></use></svg> Mon Planning</a>
                     <li ><a href="/visualisation/performance" style="color:#5f6062;"><svg class="glyph stroked notepad"><use xlink:href="#stroked-notepad"></use></svg> Mes performances</a></li>
                 {% endif %}
                 {% if is_granted('ROLE_Admin') %}
                     <li ><a href="/visualisation/performance/cds" style="color:#5f6062;"><svg class="glyph stroked notepad"><use xlink:href="#stroked-notepad"></use></svg> Toutes les performances</a></li>
-                    <li ><a href="/administration" style="color:#5f6062;"><svg class="glyph stroked notepad"><use xlink:href="#stroked-notepad"></use></svg> Administration </a></li>
                     <li ><a href="/visualisation/profil/cds" style="color:#5f6062;"><svg class="glyph stroked notepad"><use xlink:href="#stroked-notepad"></use></svg> Voir les profils étudiants </a></li>
+                    <li ><a href="/administration" style="color:#5f6062;"><svg class="glyph stroked gear"><use xlink:href="#stroked-gear"/></svg>Administration </a></li>
+
                 {% endif %}
                 <li role="presentation" class="divider"></li>
             </ul>

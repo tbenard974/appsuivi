@@ -29,17 +29,11 @@ class EvenementType extends AbstractType
     {
         $this->options = $options;
         $builder
-            ->add('absDatedebut', DateTimeType::class, [
-                'widget' => 'single_text',
-
-                // prevents rendering it as type="date", to avoid HTML5 date pickers
-                'html5' => false,
-
-                // adds a class that can be selected in JavaScript
-                'attr' => ['class' => 'datetimepicker1'],
-
-
-            ])
+            ->add('absDatedebut', DateTimeType::class, array(
+                'widget' => 'choice',
+                'data' => new \DateTime("now"),
+                'years' => range(date('Y'), date('Y')+5),
+            ))
             ->add('absDatefin', DateTimeType::class, array(
                 'widget' => 'choice',
                 'data' => new \DateTime("now"),

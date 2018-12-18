@@ -8,9 +8,12 @@
  {{ parent() }}
     {% if app.user != null %}
         <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+            <br>
             <div class="row">
                 <ol class="breadcrumb">
                     <li><a href="/"><svg class="glyph stroked home"><use xlink:href="#stroked-home"></use></svg></a></li>
+                    <li><a href="/visualisation/performance/cds">Visualisation Performances</a></li>
+
                 </ol>
              </div>
 
@@ -29,10 +32,11 @@
                 <div class="row">
                     <div>
                         <div class="panel panel-default">
-                            <a href="/visualisation/performance/cds/sport" class="btn btn-primary">Filtrer par sport</a>
-                            <a href="/visualisation/performance/cds/date" class="btn btn-primary">Filtrer par date</a>
-                            <a href="/visualisation/performance/cds/sportdate" class="btn btn-primary">Filtrer par sport et date</a>
-                           <a href="/telechargement/cds/performances" class="btn btn-primary">Télécharger les performances</a>
+                            <a href="/visualisation/performance/cds/sport"> <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-filter"></span>Filtrer par sport</button></a>
+                            <a href="/visualisation/performance/cds/date"> <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-filter"></span>Filtrer par date</button></a>
+                            <a href="/visualisation/performance/cds/sportdate"> <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-filter"></span>Filtrer par sport et date</button></a>
+                            <a href="/telechargement/cds/performances"> <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-download-alt"></span>Télécharger les performances</button></a>
+
 
                             <div class="panel-heading">Performances des Sportifs</div>
                             <div class="table-responsive">

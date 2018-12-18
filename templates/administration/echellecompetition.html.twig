@@ -9,14 +9,17 @@
     {% if app.user != null %}
 
         <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
-
+            <br>
             <div class="row">
                 <ol class="breadcrumb">
                     <li><a href="/"><svg class="glyph stroked home"><use xlink:href="#stroked-home"></use></svg></a></li>
+                    <li><a href="/administration">Administration</a></li>
+                    <li><a href="/administration/echellecompetition">Gestion de l'échelle des compétitions</a></li>
                 </ol>
             </div>
 
-
+            <div class="row">
+                <div>
         <div class="panel panel-default">
             <div class="panel-heading">Gestion de l'échelle des compétitions</div>
                 <div class="row">
@@ -49,6 +52,7 @@
                     </table>
                 </div>
             </div>
+                </div></div>
         </div>
     {% endif %}
 {% endblock %}

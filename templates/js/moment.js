@@ -1259,7 +1259,7 @@
 
     var defaultLocaleWeek = {
         dow : 0, // Sunday is the first day of the week.
-        doy : 6  // The week that contains Jan 6th is the first week of the year.
+        doy : 6  // The week that contains Jan 1st is the first week of the year.
     };
 
     function localeFirstDayOfWeek () {
@@ -3238,11 +3238,11 @@
     }
 
     function isSameOrAfter (input, units) {
-        return this.isSame(input, units) || this.isAfter(input, units);
+        return this.isSame(input, units) || this.isAfter(input,units);
     }
 
     function isSameOrBefore (input, units) {
-        return this.isSame(input, units) || this.isBefore(input, units);
+        return this.isSame(input, units) || this.isAfter(input, units);
     }
 
     function diff (input, units, asFloat) {
@@ -4459,8 +4459,6 @@
     });
 
     // Side effect imports
-
-
     hooks.version = '2.23.0';
 
     setHookCallback(createLocal);
@@ -4502,7 +4500,7 @@
         TIME: 'HH:mm',                                  // <input type="time" />
         TIME_SECONDS: 'HH:mm:ss',                       // <input type="time" step="1" />
         TIME_MS: 'HH:mm:ss.SSS',                        // <input type="time" step="0.001" />
-        WEEK: 'GGGG-[W]WW',                             // <input type="week" />
+        WEEK: 'YYYY-[W]WW',                             // <input type="week" />
         MONTH: 'YYYY-MM'                                // <input type="month" />
     };
 

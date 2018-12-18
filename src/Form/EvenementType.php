@@ -1,6 +1,7 @@
 <?php
 // src/Form/EvenementType.php
 namespace App\Form;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\AbstractType;
@@ -33,7 +34,6 @@ class EvenementType extends AbstractType
                 'format' => 'dd/MM/yyyy hh:mm',
                 'html5' => false,
                 'attr' => ['class' => 'js-datetimepicker'],
-
             ))
             ->add('absDatefin', DateTimeType::class, array(
                 'widget' => 'single_text',
@@ -65,7 +65,7 @@ class EvenementType extends AbstractType
                     '1 semaine avant ' => '1s',
                 ),
             ))
-            ->add('absCommentaire', TextType::class, array(
+            ->add('absCommentaire', TextareaType::class, array(
                 'required' => false,
             ));
 		

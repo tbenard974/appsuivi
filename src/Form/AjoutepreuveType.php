@@ -2,6 +2,7 @@
 // src/Form/AjoutepreuveType.php
 namespace App\Form;
 
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormEvents;
@@ -21,7 +22,7 @@ class AjoutepreuveType extends AbstractType
     {
         $builder
             ->add('eprNom', TextType::class, array('label' => 'Nom'))
-            ->add('eprDescription', TextType::class, array(
+            ->add('eprDescription', TextareaType::class, array(
                 'label' => 'Description',
                 'required' => false))
             ->add('spoId', EntityType::class, array(

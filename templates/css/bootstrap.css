@@ -80,11 +80,25 @@ sup {
 sup {
   top: -.5em;
 }
+<<<<<<< HEAD
+
+a {
+  color: #ff0028;
+  text-decoration: none;
+  background-color: transparent;
+  -webkit-text-decoration-skip: objects;
+}
+
+a:hover {
+  color: #ff0028;
+  text-decoration: underline;
+=======
 sub {
   bottom: -.25em;
 }
 img {
   border: 0;
+>>>>>>> 29ac0cfdab19371284d429e3626972ae237da1c8
 }
 svg:not(:root) {
   overflow: hidden;

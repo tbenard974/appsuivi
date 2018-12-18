@@ -19,7 +19,6 @@ use App\Entity\Localisationcompetition;
 use App\Entity\Resultat;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Validator\Constraints as Assert;
-
 class ModificationPerformanceType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -108,23 +107,23 @@ class ModificationPerformanceType extends AbstractType
                 'placeholder' => '--choisir--',
             ))
             ->add('perRessenti', TextType::class, array('label' => 'Ressenti'))
-			->add('image0', FileType::class, array(
-				'mapped' => false,
+            ->add('image0', FileType::class, array(
+                'mapped' => false,
                 'required' => false,
             ))
             ->add('image1', FileType::class, array(
-				'mapped' => false,
+                'mapped' => false,
                 'required' => false,
             ))
             ->add('image2', FileType::class, array(
                 'mapped' => false,
                 'required' => false,
             ));
-			
+
         $builder->get('epreuve')->addEventListener(FormEvents::SUBMIT, [$this, 'requiredEpreuve']);
         $builder->get('categorie')->addEventListener(FormEvents::SUBMIT, [$this, 'requiredCategorie']);
     }
-    
+
     public function requiredEpreuve(FormEvent $event) {
         $epreuve = $event->getData();
         $form = $event->getForm()->getParent();
@@ -153,7 +152,6 @@ class ModificationPerformanceType extends AbstractType
                 ));
         }
     }
-
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
@@ -162,5 +160,4 @@ class ModificationPerformanceType extends AbstractType
             'filteredEpreuve' => null,
         ));
     }
-
 }

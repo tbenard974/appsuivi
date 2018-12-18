@@ -18,12 +18,16 @@
     {{ parent() }}
     {% if app.user != null %}
     <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+        <br>
+
         <div class="row">
             <ol class="breadcrumb">
                 <li><a href="/"><svg class="glyph stroked home"><use xlink:href="#stroked-home"></use></svg></a></li>
-                <li class="active">Ajouter un evenement</li>
+                <li><a href="/visualisation/evenement">Mon Planning</a></li>
+                <li><a href="/evenement/nouveau">Ajouter un evenement</a></li>
             </ol>
         </div >
+        <br>
             <div class="panel panel-default">
                 <div class="panel-heading">Ajouter un nouveau evenement</div>
                     <div class="panel-body">

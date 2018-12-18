@@ -13,10 +13,11 @@
     {% if app.user != null %}
 
         <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+        <br>
             <div class="row">
                 <ol class="breadcrumb">
                     <li><a href="/"><svg class="glyph stroked home"><use xlink:href="#stroked-home"></use></svg></a></li>
-                    <li class="active">Mon planning</li>
+                    <li><a href="/visualisation/evenement">Mon Planning</a></li>
                 </ol>
             </div><!--/.row-->
 
@@ -27,27 +28,10 @@
             </div><!--/.row-->
 
         <div class="row">
-            <nav class="navbar navbar-left navbar-toggler" role="navigation" style="background-color: #5DBCD2">
-                <div class="container-fluid">
-                    <div class="navbar-header">
-                        <ul class="user-menu">
-                            <li><a href="/evenement/nouveau"><svg class="glyph stroked plus sign"><use xlink:href="#stroked-plus-sign"></use></svg> Ajouter un nouveau evenement</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
+            <a href="/evenement/nouveau"> <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span>Ajouter un nouveau evenement</button></a>
+            <a href="/download/evenement"> <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-download-alt"></span>Télécharger les évènements</button></a>
         </div>
 
-                <div class="col-md-4">
 
-                    <div class="panel panel-red">
-                        <div class="panel-heading dark-overlay"><svg class="glyph stroked calendar"><use xlink:href="#stroked-calendar"></use></svg>Calendar</div>
-                        <div class="panel-body">
-                            <div id="calendar"></div>
-                        </div>
-                    </div>
-
-
-        </div>	<!--/.main-->
     {% endif %}
 {% endblock %}

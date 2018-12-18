@@ -498,6 +498,14 @@ a.bg-danger:hover {
 	background: #444;
 	color: #fff;
 }
+.navbar-brand {
+	padding: 0px;
+}
+.navbar-brand>img {
+	height: 200%;
+	padding: 20px;
+	width: auto;
+}
 
 .navbar input:focus {
 	color: #fff;

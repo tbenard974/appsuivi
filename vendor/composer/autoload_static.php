@@ -4,11 +4,11 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit11e6473077d5700b07d8341a5a647c14
+class ComposerStaticInitf4bd4c19939dbf80a8fc832d49a10b9e
 {
     public static $files = array (
-        '92c8763cd6170fce6fcfe7e26b4e8c10' => __DIR__ . '/..' . '/symfony/phpunit-bridge/bootstrap.php',
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
+        '92c8763cd6170fce6fcfe7e26b4e8c10' => __DIR__ . '/..' . '/symfony/phpunit-bridge/bootstrap.php',
         '25072dd6e2470089de65ae7bf11d3109' => __DIR__ . '/..' . '/symfony/polyfill-php72/bootstrap.php',
         '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
         '6a47392539ca2329373e0d33e1dba053' => __DIR__ . '/..' . '/symfony/polyfill-intl-icu/bootstrap.php',
@@ -135,8 +135,8 @@ class ComposerStaticInit11e6473077d5700b07d8341a5a647c14
         'phpDocumentor\\Reflection\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
-            1 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
-            2 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
+            1 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
+            2 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
         ),
         'Zend\\EventManager\\' => 
         array (
@@ -432,10 +432,10 @@ class ComposerStaticInit11e6473077d5700b07d8341a5a647c14
         ),
         'Doctrine\\Common\\' => 
         array (
-            0 => __DIR__ . '/..' . '/doctrine/common/lib/Doctrine/Common',
+            0 => __DIR__ . '/..' . '/doctrine/reflection/lib/Doctrine/Common',
             1 => __DIR__ . '/..' . '/doctrine/event-manager/lib/Doctrine/Common',
             2 => __DIR__ . '/..' . '/doctrine/persistence/lib/Doctrine/Common',
-            3 => __DIR__ . '/..' . '/doctrine/reflection/lib/Doctrine/Common',
+            3 => __DIR__ . '/..' . '/doctrine/common/lib/Doctrine/Common',
         ),
         'Doctrine\\Bundle\\MigrationsBundle\\' => 
         array (
@@ -502,10 +502,10 @@ class ComposerStaticInit11e6473077d5700b07d8341a5a647c14
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit11e6473077d5700b07d8341a5a647c14::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit11e6473077d5700b07d8341a5a647c14::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit11e6473077d5700b07d8341a5a647c14::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit11e6473077d5700b07d8341a5a647c14::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitf4bd4c19939dbf80a8fc832d49a10b9e::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitf4bd4c19939dbf80a8fc832d49a10b9e::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInitf4bd4c19939dbf80a8fc832d49a10b9e::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInitf4bd4c19939dbf80a8fc832d49a10b9e::$classMap;
 
         }, null, ClassLoader::class);
     }

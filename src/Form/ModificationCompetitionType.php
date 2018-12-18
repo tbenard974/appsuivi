@@ -28,14 +28,16 @@ class ModificationCompetitionType extends AbstractType
     {
         $builder
             ->add('absDatedebut', DateTimeType::class, array(
-                'widget' => 'choice',
-                'data' => new \DateTime("now"),
-				'years' => range(date('Y'), date('Y')+5),
+                'widget' => 'single_text',
+                'format' => 'dd/MM/yyyy hh:mm',
+                'html5' => false,
+                'attr' => ['class' => 'js-datetimepicker'],
             ))
             ->add('absDatefin', DateTimeType::class, array(
-                'widget' => 'choice',
-                'data' => new \DateTime("now"),
-				'years' => range(date('Y'), date('Y')+5),
+                'widget' => 'single_text',
+                'format' => 'dd/MM/yyyy hh:mm',
+                'html5' => false,
+                'attr' => ['class' => 'js-datetimepicker'],
             ))
             ->add('absLieu', TextType::class, array('label' => 'Lieu'))
             ->add('absFkmotifabsence', EntityType::class, array(

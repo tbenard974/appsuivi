@@ -25,4 +25,8 @@
         {{ form_end(form) }}
     {% endif %}
     </div>
+
+    {% block javascripts %}
+        {{ parent() }}
+    {% endblock %}
 {% endblock %}

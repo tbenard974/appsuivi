@@ -23,15 +23,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Gestion du niveau de liste ministerielle</div>
                     <div class="row">
-                        <nav class="navbar navbar-left navbar-toggler" role="navigation" style="background-color: #ec3324">
-                            <div class="container-fluid">
-                                <div class="navbar-header">
-                                    <ul class="user-menu">
-                                        <li><a href="/ajout/niveauliste"><svg class="glyph stroked plus sign"><use xlink:href="#stroked-plus-sign"></use></svg> Ajouter un niveau de liste ministerrielle </a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </nav>
+                        <li><a href="/ajout/niveauliste"> <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Ajouter un niveau de liste ministerrielle</button></a></li>
                     </div>
 
                     <div class="table-responsive">
@@ -53,4 +45,7 @@
             </div>
         </div>
     {% endif %}
+    {% block javascripts %}
+        {{ parent() }}
+    {% endblock %}
 {% endblock %}

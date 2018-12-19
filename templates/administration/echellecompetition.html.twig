@@ -23,14 +23,7 @@
         <div class="panel panel-default">
             <div class="panel-heading">Gestion de l'échelle des compétitions</div>
                 <div class="row">
-                    <nav class="navbar navbar-left nav-wrapper" role="navigation" style="background-color: #ec3324">
-                        <div class="container-fluid">
-                            <div class="collapse navbar-collapse">
-                                <ul class="user-menu">
-                                    <li><a href="/ajout/echellecompetition"><svg class="glyph stroked plus sign"><use xlink:href="#stroked-plus-sign"></use></svg> Ajouter une  Echelle de compétition </a></li>
-                                </ul>
-                            </div>
-                    </nav>
+                    <li><a href="/ajout/echellecompetition"> <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Ajouter une  Echelle de compétition</button></a></li>
                 </div>
 
                 <div class="table-responsive">
@@ -55,5 +48,8 @@
                 </div></div>
         </div>
     {% endif %}
+    {% block javascripts %}
+        {{ parent() }}
+    {% endblock %}
 {% endblock %}
         

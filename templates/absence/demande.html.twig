@@ -10,5 +10,8 @@
     {{ form_widget(form) }}
     <input type="submit" class="btn" value="Enregistrer" />
     {{ form_end(form) }}
-        
+    
+    {% block javascripts %}
+        {{ parent() }}
+    {% endblock %}
 {% endblock %}

@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{% block title %}Suivi SHN{% endblock %}</title>
+<title>{% block title %}Remonte ta perf{% endblock %}</title>
 
 {% block stylesheets %}
 	{# <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet"> #}
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	{#<link href="{{ asset('css/datepicker.css') }}" rel="stylesheet">#}
+	{# <link href="{{ asset('css/datepicker.css') }}" rel="stylesheet"> #}
 	<link href="{{ asset('css/styles.css') }}" rel="stylesheet">
 	{# <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet"> #}
 	
@@ -74,44 +74,17 @@
 
     {% endblock %}
     {% block javascripts %}
-	<script src="{{ asset('js/jquery-1.11.1.min.js') }}"></script>
-	<script src="{{ asset('js/bootstrap.min.js') }}"></script>
-	{# <script src="{{ asset('js/chart.min.js') }}"></script>
-	<script src="{{ asset('js/chart-data.js') }}"></script>
-	<script src="{{ asset('js/easypiechart.js') }}"></script>
-	<script src="{{ asset('js/easypiechart-data.js') }}"></script>
-	<script src="{{ asset('js/bootstrap-datepicker.js') }}"></script> #}
-	{# <script src="{{ asset('js/moment.js') }}"></script> #}
-	{# <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script> #}
-	{# <script>
-		$('#calendar').datepicker({
-		});
-
-		!function ($) {
-		    $(document).on("click","ul.nav li.parent > a > span.icon", function(){          
-		        $(this).find('em:first').toggleClass("glyphicon-minus");      
-		    }); 
-		    $(".sidebar span.icon").find('em:first').addClass("glyphicon-plus");
-		}(window.jQuery);
-
-		$(window).on('resize', function () {
-		  if ($(window).width() > 768) $('#sidebar-collapse').collapse('show')
-		})
-		$(window).on('resize', function () {
-		  if ($(window).width() <= 767) $('#sidebar-collapse').collapse('hide')
-		})
-
-	</script>
-		<script>
-            jQuery(document).ready(function() {
-                $('.js-datetime').datepicker({format: 'yyyy-mm-dd'});
-            });
-		</script>
-		<script>
-            $(function () {
-                $('#datetimepicker1').datetimepicker();
-            });
-		</script>#}
+		<script src="{{ asset('js/jquery-1.11.1.min.js') }}"></script>
+		<script src="{{ asset('js/bootstrap.min.js') }}"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+    	<script type="text/javascript">
+			$(function () {
+				$('.js-datetimepicker').datetimepicker({
+					format:'DD/MM/YYYY hh:mm',
+				})
+			});
+    	</script>
     {% endblock %}
 
 </body>

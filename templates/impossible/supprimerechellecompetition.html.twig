@@ -23,5 +23,8 @@
             <a href="/administration"> Revenir à la page précédente </a>
         </div>
     {% endif %}
+    {% block javascripts %}
+        {{ parent() }}
+    {% endblock %}
 {% endblock %}
     

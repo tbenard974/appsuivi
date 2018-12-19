@@ -23,15 +23,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Gestion des Catégories</div>
                 <div class="row">
-                    <nav class="navbar navbar-left navbar-toggler" role="navigation" style="background-color: #ec3324">
-                        <div class="container-fluid">
-                            <div class="navbar-header">
-                                <ul class="user-menu">
-                                    <li><a href="/ajout/categorie"><svg class="glyph stroked plus sign"><use xlink:href="#stroked-plus-sign"></use></svg> Ajouter une categorie </a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </nav>
+                    <li><a href="/ajout/categorie"> <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Ajouter une categorie</button></a></li>
                 </div>
 
                 <div class="table-responsive">
@@ -58,4 +50,7 @@
             </div>
         </div>
     {% endif %}
+    {% block javascripts %}
+        {{ parent() }}
+    {% endblock %}
 {% endblock %}    

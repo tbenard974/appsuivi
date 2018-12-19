@@ -23,15 +23,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Gestion des Epreuves</div>
                 <div class="row">
-                    <nav class="navbar navbar-left navbar-toggler" role="navigation" style="background-color: #ec3324">
-                        <div class="container-fluid">
-                            <div class="navbar-header">
-                                <ul class="user-menu">
-                                    <li><a href="/ajout/epreuve"><svg class="glyph stroked plus sign"><use xlink:href="#stroked-plus-sign"></use></svg> Ajouter une épreuve </a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </nav>
+                    <li><a href="/ajout/epreuve"> <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Ajouter une  épreuve</button></a></li>
                 </div>
                 <div class="table-responsive">
                     <table class="table" data-toggle="table"   data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="toolbar1" data-pagination="true" data-sort-name="name" data-sort-order="desc">
@@ -57,4 +49,7 @@
             </div>
         </div>
     {% endif %}
+    {% block javascripts %}
+        {{ parent() }}
+    {% endblock %}
 {% endblock %}

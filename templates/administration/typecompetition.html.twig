@@ -24,14 +24,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Gestion des Types de compétitions</div>
                     <div class="row">
-                        <nav class="navbar navbar-left nav-wrapper" role="navigation" style="background-color:#ec3324">
-                            <div class="container-fluid">
-                                <div class="collapse navbar-collapse">
-                                    <ul class="user-menu">
-                                        <li><a href="/ajout/typecompetition"><svg class="glyph stroked plus sign" ><use xlink:href="#stroked-plus-sign"></use></svg> Ajouter un nouveau type de Compétition </a></li>
-                                    </ul>
-                                </div>
-                        </nav>
+                        <li><a href="/ajout/typecompetition"> <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Ajouter un nouveau type de compétition</button></a></li>
                     </div>
 
                     <div class="table-responsive">
@@ -54,4 +47,7 @@
             </div>
         </div>
     {% endif %}
+    {% block javascripts %}
+        {{ parent() }}
+    {% endblock %}
 {% endblock %}

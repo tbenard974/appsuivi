@@ -18,7 +18,8 @@ use App\Entity\Jointuresport;
 use App\Entity\Epreuve;
 use App\Entity\Categorie;
 use App\Entity\Typefichier;
-
+use App\Entity\Echellecompetition;
+use App\Entity\Localisationcompetition;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use App\Service\FileUploader;
 

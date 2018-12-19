@@ -14,6 +14,7 @@ use App\Form\FiltresportType;
 use App\Form\FiltresportdateType;
 use App\Form\FiltredateType;
 use Symfony\Component\HttpFoundation\StreamedResponse;
+use Psr\Log\LoggerInterface;
 
 class VisualisationCdsController extends AbstractController
 {   
@@ -103,7 +104,7 @@ class VisualisationCdsController extends AbstractController
      * @Route("/visualisation/performance/cds/sportdate", name="visualiserPerformanceCdsSportDate")
      */
 
-    public function visualiserPerformanceCdsSportDate(Request $request)
+    public function visualiserPerformanceCdsSportDate(Request $request, LoggerInterface $logger)
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $this->denyAccessUnlessGranted('ROLE_Admin');
@@ -117,12 +118,20 @@ class VisualisationCdsController extends AbstractController
             $DateFin = $form->get('Datefin')->getData();
             $DateFin = $DateFin->format('Y-m-d H:i:s');
             $sport2 = $form->get('spoId')->getData();
-            if($sport2 =="Aucun"){
+            if($sport2 == null){
                 $sport2 = 0;
             }
             else{
                 $sport2 = $form->get('spoId')->getData()->getSpoId();
             }
+            /*if ( is_int($form->get('spoId')->getData()) ){
+                $logger->info($form->get('spoId')->getData()->getSpoId());
+                $sport2 = $form->get('spoId')->getData()->getSpoId();
+            }
+            else 
+            {
+                $sport2 = 0;
+            }*/
             return $this->redirectToRoute('visualiserPerformanceCdsSportDateDatedebutDatefin',array('idSport' => $sport2,'datedebut' => $DateDebut, 'datefin' => $DateFin));
         }
 
@@ -135,17 +144,25 @@ class VisualisationCdsController extends AbstractController
      * @Route("/visualisation/performance/cds/sportdate/{idSport}/{datedebut}/{datefin}", name="visualiserPerformanceCdsSportDateDatedebutDatefin")
      */
 
-    public function visualiserPerformanceCdsSportDateDatedebutDatefin(Request $request, $idSport, $datedebut, $datefin)
+    public function visualiserPerformanceCdsSportDateDatedebutDatefin(Request $request, $idSport, $datedebut, $datefin, LoggerInterface $logger)
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $this->denyAccessUnlessGranted('ROLE_Admin');
-        $allJointure = $this->getDoctrine()->getRepository(Jointuresport::class)->findByJoispoFksport($idSport); //->findByPerFkutilisateur($utilisateur);
-        $allPerformance = $this->getDoctrine()->getRepository(Performance::class)->findByPerFkjointuresport($allJointure);
-            return $this->render('/visualisation_cds/date.html.twig', array(
-                'allPerf' => $allPerformance,
-                'datedebut' => $datedebut,
-                'datefin'=> $datefin,
-                'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
+        if ($idSport == 0)
+        {
+            $logger->info('salut maggle');
+            $allPerformance = $this->getDoctrine()->getRepository(Performance::class)->findAll();
+        }
+        else 
+        {
+            $allJointure = $this->getDoctrine()->getRepository(Jointuresport::class)->findByJoispoFksport($idSport); //->findByPerFkutilisateur($utilisateur);
+            $allPerformance = $this->getDoctrine()->getRepository(Performance::class)->findByPerFkjointuresport($allJointure);
+        }
+        return $this->render('/visualisation_cds/date.html.twig', array(
+            'allPerf' => $allPerformance,
+            'datedebut' => $datedebut,
+            'datefin'=> $datefin,
+            'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
         ));
     }
 

@@ -14,13 +14,13 @@
             <div class="row">
                 <ol class="breadcrumb">
                     <li><a href="/"><svg class="glyph stroked home"><use xlink:href="#stroked-home"></use></svg></a></li>
-                    <li class="active">Ajout performances</li>
+                    <li class="active">Remonter une performance</li>
                 </ol>
             </div >
             <div class="row">
 
                 <div class="panel panel-default">
-                    <div class="panel-heading">Ajouter une nouvelle performance</div>
+                    <div class="panel-heading">Remonter une performance</div>
                     <div class="panel-body">
                         {{ form_start(form) }}
                         <div class="form_group">
@@ -116,13 +116,13 @@
                                 {{ form_widget(form.image2) }}
                             </div>
                         </div>
-                        <input type="submit" class="btn" value="Enregistrer" />
+                        <input type="submit" class="btn btn-primary" value="Enregistrer" />
                         {{ form_end(form) }}
 						<br/>
 						{% if allFiles != null %}
-                            <p> Photos envoyées </p>
+                            <p> Photos envoyées :</p>
                             {% for photos in allFiles %}
-							    <li>Photo - <button  onclick="location.href='/download/image/{{ photos.ficChemin }}';">Télécharger</button></li>
+                                <p data-placement="top" data-toggle="tooltip" title="Télécharger"><button  onclick="location.href='/download/image/{{ photos.ficChemin }}';" class="btn btn-info btn-xs" data-title="Download" data-toggle="modal" data-target="Download" >Photo - <span class="glyphicon glyphicon-download"></span></button></p> {#<li>Photo - <input type="button" class="btn btn-primary" onclick="location.href='/download/image/{{ photos.ficChemin }}';" value="Télécharger" /></li>#}
                             {% endfor %}
 							
 						{% endif %}

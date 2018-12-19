@@ -97,96 +97,30 @@ class EvenementController extends Controller
                 $localisationCompetition = $form->get('localisationCompetition')->getData();
                 //$importance = $form->get('importance')->getData();
 
-                if ($idEvenement == 'nouveau') {
+                /*if ($idEvenement == 'nouveau') {
                     //$performance = new Performance();
                     //$performance->setPerFkutilisateur($utilisateur);
                 }
                 else {
                     //$performance = $absence->getAbsFkperformance();
-                }
+                }*/
                 $absence->setAbsFktypecompetition($typeCompetition);
                 $absence->setAbsFkechellecompetition($echelleCompetition);
                 $absence->setAbsFklocalisationcompetition($localisationCompetition);
-                //$performance->setPerDatedebut($absence->getAbsDatedebut());
-                //$performance->setPerDatefin($absence->getAbsDatefin());
-                //$performance->setPerLieu($absence->getAbsLieu());
-                //$performance->setPerImportance($importance);
-                //$performance->setUpdateFields($utilisateur->getUtiEmail());
 
                 $sport = $utilisateur->getUtiFksport();
-                //$epreuve = $form->get('epreuve')->getData();
-                //$categorie = $form->get('categorie')->getData();
-				
-				/*if ($form->get('autreEpreuve')->getData() != null){
-                $nomEpreuve = $form->get('autreEpreuve')->getData();
-                $nomEpreuve = strtolower($nomEpreuve);
-                $nomEpreuve = preg_replace('/[éèëê]+/', 'e', $nomEpreuve);
-				//$nomEpreuve = preg_replace('[\/\\*$=_<>:;!{}[\]]+', ' ', $nomEpreuve);
-				//$nomEpreuve = preg_replace('!\s+!', ' ', $nomEpreuve);
-				$nomEpreuve = strtoupper($nomEpreuve);
-				$findEpreuve = $this->getDoctrine()->getRepository(Epreuve::class)->findOneByEprNom($nomEpreuve);
-				if ( $findEpreuve == null){
-					$epreuve = new Epreuve();
-					$epreuve->setEprNom($nomEpreuve);
-					$epreuve->setUpdateFields($utilisateur->getUtiEmail());
-					$entityManager->persist($epreuve);
-				}
-				else {
-					$epreuve = $findEpreuve;
-				}
-            }
-			
-			if ($form->get('autreCategorie')->getData() != null){
-                $nomCategorie = $form->get('autreCategorie')->getData();
-                $nomCategorie = strtolower($nomCategorie);
-                $nomCategorie = preg_replace('/[éèëê]+/', 'e', $nomCategorie);
-				$nomCategorie = strtoupper($nomCategorie);
-				$findCategorie = $this->getDoctrine()->getRepository(Categorie::class)->findOneByCatNom($nomCategorie);
-				if ($findCategorie == null){
-					$categorie = new Categorie();
-					$categorie->setCatNom($nomCategorie);
-					$categorie->setUpdateFields($utilisateur->getUtiEmail());
-					$entityManager->persist($categorie);
-				}
-				else {
-					$categorie = $findCategorie;
-				}
-            }
 
-                $jointureSport = $this->getDoctrine()->getRepository(Jointuresport::class)->findOneBy(array('joispoFksport'=> $sport, 'joispoFkepreuve'=> $epreuve, 'joispoFkcategorie'=> $categorie));
-                $jointureEpreuve = $this->getDoctrine()->getRepository(Jointuresport::class)->findOneBy(array('joispoFksport'=> $sport, 'joispoFkepreuve'=> $epreuve));
-                $jointureCategorie = $this->getDoctrine()->getRepository(Jointuresport::class)->findOneBy(array('joispoFksport'=> $sport, 'joispoFkcategorie'=> $categorie));
-                if ($jointureSport == null) {
-                    $jointureSport = new Jointuresport();
-                    $jointureSport->setJoispoFksport($sport);
-                    $jointureSport->setJoispoFkepreuve($epreuve);
-                    $jointureSport->setJoispoFkcategorie($categorie);
-                    $jointureSport->setUpdateFields($utilisateur->getUtiEmail());
-                    $entityManager->persist($jointureSport);
+                if ($localisationCompetition->getLoccomNom() == 'Autre')
+                {
+                    $absence->setAbsNom(date_format($absence->getAbsDatedebut(),'d-m-Y').' - '.'Compét - '.$typeCompetition->getTypcomNom().' '.$echelleCompetition->getEchcomNom());
                 }
-                if ($jointureEpreuve == null) {
-                    $jointureEpreuve = new Jointuresport();
-                    $jointureEpreuve->setJoispoFksport($sport);
-                    $jointureEpreuve->setJoispoFkepreuve($epreuve);
-                    $jointureEpreuve->setUpdateFields($utilisateur->getUtiEmail());
-                    $entityManager->persist($jointureEpreuve);
+                else
+                {
+                    $absence->setAbsNom(date_format($absence->getAbsDatedebut(),'d-m-Y').' - '.'Compét - '.$typeCompetition->getTypcomNom().' '.$localisationCompetition->getLoccomNom());
                 }
-                if ($jointureCategorie == null) {
-                    $jointureCategorie = new Jointuresport();
-                    $jointureCategorie->setJoispoFksport($sport);
-                    $jointureCategorie->setJoispoFkcategorie($categorie);
-                    $jointureCategorie->setUpdateFields($utilisateur->getUtiEmail());
-                    $entityManager->persist($jointureCategorie);
-                }
-                $performance->setPerFkjointuresport($jointureSport);*/
-
-                //$entityManager->persist($performance);
-
-                $absence->setAbsNom(date_format($absence->getAbsDatedebut(),'d-m-Y').' - '.'Compét - '.$typeCompetition->getTypcomNom().' '.$localisationCompetition->getLoccomNom());
-                //$absence->setAbsFkperformance($performance);
             }
             else {
-                $absence->setAbsNom(date_format($absence->getAbsDatedebut(),'d-m-Y').' - '.$absence->getAbsFkmotifabsence()->getMotabsNom().' - '.$absence->getAbsLieu());
+                $absence->setAbsNom(date_format($absence->getAbsDatedebut(),'d-m-Y').' - '.$absence->getAbsFkmotifabsence()->getMotabsNom().' '.$absence->getAbsLieu());
             }
             $absence->setAbsFkutilisateur($utilisateur);
             $absence->setUpdateFields($utilisateur->getUtiEmail());
@@ -200,20 +134,6 @@ class EvenementController extends Controller
             'form' => $form->createView(),
         ));
     }
-
-    /*public function visualiserAll(Request $request)
-    {
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
-        $user_email = $this->getUser()->getEmail();
-        $utilisateur = $this->getDoctrine()->getRepository(Utilisateur::class)->findOneByUtiEmail($user_email);
-        //select abs_id from absence where abs_fk_idutilisateur=(select uti_id from utilisateur where uti_email='dev@dev.fr');
-        $allAbsence = $this->getDoctrine()->getRepository(Utilisateur::class)->findByAbsFkutilisateur($utilisateur);
-
-        return $this->render('index.html.twig', array(
-            'allAbsence' => $allAbsence,
-            'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
-        ));
-    }*/
 
     /**
      * @Route("/visualisation/evenement", name="visualisationEvenement")

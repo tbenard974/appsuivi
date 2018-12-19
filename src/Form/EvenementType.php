@@ -86,9 +86,10 @@ class EvenementType extends AbstractType
                     // used to render a select box, check boxes or radios
                     'multiple' => false,
                     'expanded' => false,
-                    'label' => 'Type de compétition',
+                    'label' => 'Type de la compétition',
                     'mapped' => false,
                     'constraints' => new Assert\NotBlank(array('message' => 'Veuillez remplir les champs liés à votre compétition')),
+                    'placeholder' => '--choisir--',
                 ))
                 ->add('echelleCompetition', EntityType::class, array(
                     'class' =>Echellecompetition::class,
@@ -96,8 +97,9 @@ class EvenementType extends AbstractType
                     // used to render a select box, check boxes or radios
                     'multiple' => false,
                     'expanded' => false,
-                    'label' => 'Echelle de la compétition',
+                    'label' => 'Échelle de la compétition',
                     'mapped' => false,
+                    'placeholder' => '--choisir--',
                 ))
                 ->add('localisationCompetition', EntityType::class, array(
                     'class' =>Localisationcompetition::class,
@@ -107,6 +109,7 @@ class EvenementType extends AbstractType
                     'expanded' => false,
                     'label' => 'Localisation de la compétition',
                     'mapped' => false,
+                    'placeholder' => '--choisir--',
                 ))
             ;
         }

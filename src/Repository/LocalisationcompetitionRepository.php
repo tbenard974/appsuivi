@@ -13,8 +13,9 @@ class LocalisationcompetitionRepository extends EntityRepository
     {
         $echelleType = $echelleCompetition->getEchcomType();
         return $this->createQueryBuilder('l')
-                    ->where("l.loccomType = ?1")
+                    ->where("l.loccomType = ?1 OR l.loccomType = ?2")
                     ->setParameter(1, $echelleType)
+                    ->setParameter(2, 'Aucun')
                     ->getQuery()
                     ->getResult();
     }

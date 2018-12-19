@@ -23,10 +23,10 @@
         <br>
 
         <div class="row">
-            <a href="/evenement/nouveau"> <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span>Ajouter un nouveau evenement</button></a>
+            <a href="/evenement/nouveau"> <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span>Ajouter un évènement</button></a>
+            <a href="/download/evenement"> <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-download-alt"></span>Exporter les évènements</button></a>
             <a href="/visualisation/performance" > <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-list-alt"></span> Visualiser vos performances</button></a>
-            <a href="/performance/selection"> <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span>Créer une performance</button></a>
-            <a href="/download/evenement"> <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-download-alt"></span>Télécharger les évènements</button></a>
+            <a href="/performance/selection"> <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span>Remonter une performance</button></a>
         </div>
 
              {% if allAbsence == null %}
@@ -38,14 +38,14 @@
                 <div class="row">
                     <div>
                      <div class="panel panel-default">
-                        <div class="panel-heading">Mes évenements</div>
+                        <div class="panel-heading">Mes évènements</div>
                         <div class="table-responsive">
                             <table class="table" data-toggle="table"   data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="toolbar1" data-pagination="true" data-sort-name="name" data-sort-order="desc">
                                 <thead>
                                 <tr>
                                     <th data-field="name" data-checkbox="true">Nom</th>
-                                    <th data-field="data-date-format" data-sortable="true">Date début</th>
-                                    <th data-field="data-date-format"  data-sortable="true">Date fin</th>
+                                    <th data-field="data-date-format" data-sortable="true">Date de début</th>
+                                    <th data-field="data-date-format"  data-sortable="true">Date de fin</th>
                                     <th data-field="name"  data-sortable="true"></th>
                                 </tr>
                                 {% for absence in allAbsence  %}

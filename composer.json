@@ -13,7 +13,7 @@
         "symfony/expression-language": "*",
         "symfony/flex": "^1.1",
         "symfony/form": "*",
-        "symfony/framework-bundle": "*",
+        "symfony/framework-bundle": "v4.1.6",
         "symfony/monolog-bundle": "^3.1",
         "symfony/orm-pack": "^1.0",
         "symfony/process": "*",
@@ -24,14 +24,16 @@
         "symfony/validator": "*",
         "symfony/web-link": "*",
         "symfony/yaml": "*",
-        "symfony/assetic-bundle": "^2.7.1",
         "leafo/scssphp": "~0.6",
         "patchwork/jsqueeze": "~1.0"
     },
     "require-dev": {
+        "symfony/browser-kit": "v4.1.6",
+        "symfony/css-selector": "v4.1.6",
         "symfony/debug-pack": "*",
         "symfony/dotenv": "*",
         "symfony/maker-bundle": "^1.9",
+        "symfony/phpunit-bridge": "v4.1.6",
         "symfony/profiler-pack": "*",
         "symfony/test-pack": "*",
         "symfony/web-server-bundle": "*"

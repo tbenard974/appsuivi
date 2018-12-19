@@ -24,12 +24,14 @@ class FiltresportdateType extends AbstractType
             ->add('spoId', EntityType::class, array(
                 'class' =>Sport::class,
                 'choice_label' => 'spoNom',
-                'data' => 'test',
                 // used to render a select box, check boxes or radios
                 'multiple' => false,
                 'expanded' => false,
                 'label' => 'Sport',
                 'mapped' => false,
+                'placeholder' => 'Aucun',
+                'empty_data' => null,
+                'required' => false,
             ))
             ->add('Datedebut', DateType::class, array(
                 'widget' => 'choice',

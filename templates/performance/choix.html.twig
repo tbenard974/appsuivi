@@ -14,13 +14,13 @@
                 <ol class="breadcrumb">
                     <li><a href="/"><svg class="glyph stroked home"><use xlink:href="#stroked-home"></use></svg></a></li>
                     <li><a href="/visualisation/performance">Mes Performances</a></li>
-                    <li><a href="/performance/selection">Ajout performances</a></li>
+                    <li><a href="/performance/selection">Remonter une performance</a></li>
                 </ol>
             </div >
             <div class="row">
 
                 <div class="panel panel-default">
-                    <div class="panel-heading">Saisir une nouvelle performance</div>
+                    <div class="panel-heading">Remonter une nouvelle performance</div>
                     <div class="panel-body">
                         {{ form_start(form) }}
                         <div class="form_group">
@@ -28,12 +28,10 @@
                                 {{ form_widget(form) }}
                             </div>
                         </div>
-                        <input type="submit" class="btn" value="Sélectionner" />
+                        <input type="submit" class="btn btn-primary" value="Sélectionner" />
                         <br>
                         <br>
-                        <br>
-                        <br>
-                        <input type="button" class="btn" onclick="location.href='/performance/creer/nouveau';" value="Saisir une performance manuellement" />
+                        <input type="button" class="btn btn-primary" onclick="location.href='/performance/creer/nouveau';" value="Remonter une performance manuellement" />
                         {{ form_end(form) }}
                     </div>
                 </div>

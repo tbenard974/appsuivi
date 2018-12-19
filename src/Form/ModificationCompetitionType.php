@@ -39,7 +39,9 @@ class ModificationCompetitionType extends AbstractType
                 'html5' => false,
                 'attr' => ['class' => 'js-datetimepicker'],
             ))
-            ->add('absLieu', TextType::class, array('label' => 'Lieu'))
+            ->add('absLieu', TextType::class, array(
+                'required' => false
+            ))
             ->add('absFkmotifabsence', EntityType::class, array(
                 'class' => Motifabsence::class,
                 'choice_label' => 'motabsNom',

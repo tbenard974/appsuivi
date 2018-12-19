@@ -26,13 +26,13 @@ class ModificationPerformanceType extends AbstractType
         $builder
             ->add('perDatedebut', DateTimeType::class, array(
                 'widget' => 'single_text',
-                'format' => 'dd/MM/yyyy',
+                'format' => 'dd/MM/yyyy hh:mm',
                 'html5' => false,
                 'attr' => ['class' => 'js-datetimepicker'],
             ))
             ->add('perDatefin', DateTimeType::class, array(
                 'widget' => 'single_text',
-                'format' => 'dd/MM/yyyy',
+                'format' => 'dd/MM/yyyy hh:mm',
                 'html5' => false,
                 'attr' => ['class' => 'js-datetimepicker'],
             ))

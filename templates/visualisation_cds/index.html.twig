@@ -12,16 +12,16 @@
             <div class="row">
                 <ol class="breadcrumb">
                     <li><a href="/"><svg class="glyph stroked home"><use xlink:href="#stroked-home"></use></svg></a></li>
-                    <li><a href="/visualisation/performance/cds">Visualisation Performances</a></li>
+                    <li><a href="/visualisation/performance/cds">Toutes les performances</a></li>
 
                 </ol>
              </div>
 
-            <div class="row">
+            {#<div class="row">
                 <div class="col-lg-12">
                     <h1 class="page-header">Toutes les performances</h1>
                 </div>
-            </div><!--/.row-->
+            </div><!--/.row-->#}
              
 
 
@@ -32,28 +32,28 @@
                 <div class="row">
                     <div>
                         <div class="panel panel-default">
+                            <br/>
                             <a href="/visualisation/performance/cds/sport"> <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-filter"></span>Filtrer par sport</button></a>
                             <a href="/visualisation/performance/cds/date"> <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-filter"></span>Filtrer par date</button></a>
                             <a href="/visualisation/performance/cds/sportdate"> <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-filter"></span>Filtrer par sport et date</button></a>
                             <a href="/telechargement/cds/performances"> <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-download-alt"></span>Télécharger les performances</button></a>
 
 
-                            <div class="panel-heading">Performances des Sportifs</div>
+                            <div class="panel-heading">Performances des sportifs</div>
                             <div class="table-responsive">
                                 <table class="table" data-toggle="table"   data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="toolbar1" data-pagination="true" data-sort-name="name" data-sort-order="desc">
                                     <thead>
                                         <tr>
                                             <th>Nom</th>
                                             <th>Prénom</th>
-                                            <th>Type compétition</th>
-                                            <th>Localisation compétition</th>
                                             <th>Sport</th>
+                                            <th>Compétition</th>
+                                            <th>Localisation</th>
                                             <th>Epreuve</th>
                                             <th>Catégorie</th>
                                             <th>Objectif</th>
                                             <th>Date début</th>
                                             <th>Date fin</th>
-                                            <th>Lieu</th>
                                             <th>Résultat</th>
                                             <th>Ressenti</th>
                                             <th>Photos</th>
@@ -63,9 +63,9 @@
                                                 <tr>
                                                     <td><a href="/profil/{{ performance.perFkutilisateur.utiId }}">{{ performance.perFkutilisateur.utiNom }}</a></td>
                                                     <td><a href="/profil/{{ performance.perFkutilisateur.utiId }}">{{ performance.perFkutilisateur.utiPrenom }}</a></td>
+                                                    <td>{{ performance.perFkjointuresport.joispoFksport.spoNom }}</td>
                                                     <td>{{ performance.perFktypecompetition.typcomNom }}</td>
                                                     <td>{{ performance.perFklocalisationcompetition.loccomNom }}</td>
-                                                    <td>{{ performance.perFkjointuresport.joispoFksport.spoNom }}</td>
                                                     <td>{{ performance.perFkjointuresport.joispoFkepreuve.eprNom }}</td>
                                                     <td>{{ performance.perFkjointuresport.joispoFkcategorie.catNom }}</td>
                                                     <td>{% if performance.perImportance == 1 %}
@@ -76,7 +76,6 @@
                                                     </td>
                                                     <td>{{ performance.perDatedebut|date("d/m/Y") }}</td>
                                                     <td>{{ performance.perDatefin|date("d/m/Y") }}</td>
-                                                    <td>{{ performance.perLieu }}</td>
                                                     <td>
                                                     {% if performance.perFkresultat == null %}
                                                         {{ "Non renseigné" }}

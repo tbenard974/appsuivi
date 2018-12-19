@@ -83,7 +83,7 @@ class PerformanceController extends AbstractController
 		$user_email = $this->getUser()->getEmail();
         $utilisateur = $this->getDoctrine()->getRepository(Utilisateur::class)->findOneByUtiEmail($user_email); #devra être l'utilisateur courant lorsque mécanisme d'authentification
 		
-		//$absence = new Absence();
+		$absence = new Absence();
 		$allAbsence = $this->getDoctrine()->getRepository(Absence::class)->findByAbsFkutilisateur($utilisateur);
 		$filteredAbsence = array();
 		foreach($allAbsence as $absence)
@@ -98,7 +98,7 @@ class PerformanceController extends AbstractController
 		$form->handleRequest($request);
 		
 		if ($form->isSubmitted() && $form->isValid()) {
-			return $this->redirectToRoute('actionPerformance',array('typeAction' => 'creer', 'idObjet' => $absence->getAbsId()));
+			return $this->redirectToRoute('actionPerformance',array('typeAction' => 'creer', 'idObjet' => $form->get('nom')->getData()->getAbsId()));
 		}
 		
 		return $this->render('performance/choix.html.twig', array(
@@ -144,6 +144,8 @@ class PerformanceController extends AbstractController
             else{
                 $absence = $this->getDoctrine()->getRepository(Absence::class)->findOneByAbsId($idObjet);
                 $performance = new Performance();
+                $performance->setPerDatedebut($absence->getAbsDatedebut());
+                $performance->setPerDatefin($absence->getAbsDatefin());
                 $form = $this->createForm(ModificationPerformanceType::class, $performance, array('filteredEpreuve' => $filteredEpreuve, 'filteredCategorie' => $filteredCategorie));
                 $form->get('perLieu')->setData($absence->getAbsLieu());
                 $form->get('typeCompetition')->setData($absence->getAbsFktypecompetition());
@@ -169,31 +171,6 @@ class PerformanceController extends AbstractController
             }
             $form->get('resultat')->setData($performance->getPerFkresultat());
             $form->get('perImportance')->setData($performance->getPerImportance());
-            /*$phpListePhotos = explode(",", $performance->getPerListephoto());
-            foreach ($phpListePhotos as $pieces)
-            {
-                if (array_search($pieces, $phpListePhotos) == 0)
-                {
-                    $tempListe = explode("{", $phpListePhotos[0]);
-                    $logger->info('0 --> '.$tempListe[0]);
-                    $logger->info('1 --> '.$tempListe[1]);
-                    $phpListePhotos[0] = $tempListe[1];
-                    
-                }
-                if (array_search($pieces, $phpListePhotos) == (count($phpListePhotos)-1))
-                {
-                    $tempListe = explode("}", $phpListePhotos[count($phpListePhotos)-1]);
-                    $phpListePhotos[count($phpListePhotos)-1] = $tempListe[0];
-                }
-            }
-            $allFiles = array();
-            foreach ($phpListePhotos as $pieces)
-            {
-                if ($pieces > 0)
-                {
-                    $allFiles[] = $this->getDoctrine()->getRepository(\App\Entity\Fichier::class)->findOneByFicId($pieces);
-                }
-            }*/
             $allFiles = $this->getDoctrine()->getRepository(\App\Entity\Fichier::class)->findByFicFkperformance($performance->getPerId());
         }
         elseif ($typeAction == 'dupliquer')

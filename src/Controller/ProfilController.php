@@ -6,7 +6,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Utilisateur;
 use App\Entity\Fichier;
-use App\Form\ProfilType;
+use App\Form\ProfildepartementType;
+use App\Form\ProfilsportType;
 use Symfony\Component\HttpFoundation\Request;
 
 class ProfilController extends AbstractController
@@ -100,13 +101,13 @@ class ProfilController extends AbstractController
     }
 
     /**
-     * @Route("/profil/modif/{idUtilisateur}", name="modifProfil")
+     * @Route("/profil/modif/sport/{idUtilisateur}", name="modifSportProfil")
      */
-    public function modif(Request $request, $idUtilisateur)
+    public function modifSportProfil(Request $request, $idUtilisateur)
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $utilisateur = $this->getDoctrine()->getRepository(\App\Entity\Utilisateur::class)->findOneByUtiId($idUtilisateur);
-        $form = $this->createForm(ProfilType::class, $utilisateur);
+        $form = $this->createForm(ProfilsportType::class, $utilisateur);
         $form->get('utiSport')->setData($utilisateur->getUtiFkSport());
         
         $form->handleRequest($request);
@@ -125,7 +126,38 @@ class ProfilController extends AbstractController
 
 
 
-        return $this->render('profil/modif.html.twig', [
+        return $this->render('profil/modifsport.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/profil/modif/departement/{idUtilisateur}", name="modifDepartementProfil")
+     */
+    public function modifDepartementProfil(Request $request, $idUtilisateur)
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $utilisateur = $this->getDoctrine()->getRepository(\App\Entity\Utilisateur::class)->findOneByUtiId($idUtilisateur);
+        $form = $this->createForm(ProfildepartementType::class, $utilisateur);
+        $form->get('utiDepartement')->setData($utilisateur->getUtiFkDepartement());
+        
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $utilisateur = $form->getData();
+            $entityManager = $this->getDoctrine()->getManager();
+
+            $utiDepartement = $form->get('utiDepartement')->getData();
+            $utilisateur->setUtiFkdepartement($utiDepartement);
+        
+            $entityManager->persist($utilisateur);
+            $entityManager->flush();
+            return $this->redirectToRoute('profil');
+        }
+
+
+
+        return $this->render('profil/modifdepartement.html.twig', [
             'form' => $form->createView(),
         ]);
     }

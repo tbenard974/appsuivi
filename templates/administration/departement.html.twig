@@ -1,0 +1,53 @@
+{% extends 'menu.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+ {{ parent() }}
+    {% if app.user != null %}
+
+        <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+            <br>
+            <div class="row">
+                <ol class="breadcrumb">
+                    <li><a href="/"><svg class="glyph stroked home"><use xlink:href="#stroked-home"></use></svg></a></li>
+                    <li><a href="/administration">Administration</a></li>
+                    <li><a href="/administration/departement">Gestion des Départements</a></li>
+                </ol>
+            </div>
+
+
+        <div class="row">
+            <div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">Gestion des Départements</div>
+                    <div class="row">
+                        <li><a href="/ajout/departement"> <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Ajouter un département</button></a></li>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table" data-toggle="table" >
+                            <thead>
+                            <tr>
+                                <th>Département</th>
+                               <th class="pull-right">Supprimer</th>
+                            <tr>
+                                {% for departement in allDepartement %}
+                            <tr>
+                                <td>{{ departement.depNom }} </td>
+                                <td><p data-placement="top" data-toggle="tooltip" title="Delete"><button  onclick="location.href='/supprimer/departement/{{ departement.depId }}';" class="btn btn-danger btn-xs pull-right" data-title="Delete" data-toggle="modal" data-target="delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
+                            </tr>
+                                {% endfor %}
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    {% block javascripts %}
+        {{ parent() }}
+    {% endblock %}
+{% endblock %}

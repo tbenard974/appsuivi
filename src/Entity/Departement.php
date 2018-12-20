@@ -141,5 +141,19 @@ class Departement
         return $this;
     }
 
+    public function setUpdateFields($username)
+    {
+        $this->setDepDatechangement(new \DateTime(date('Y-m-d H:i:s')));
+        $this->setDepAuteurchangement($username);
+
+        if($this->getDepDatecreation() == null)
+        {
+            $this->setDepDatecreation(new \DateTime(date('Y-m-d H:i:s')));
+        }
+        if($this->getDepAuteurcreation() == null)
+        {
+            $this->setDepAuteurcreation($username);
+        }
+    }
 
 }

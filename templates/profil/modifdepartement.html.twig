@@ -1,0 +1,42 @@
+{% extends 'menu.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+    {% if app.user != null %}
+        <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+            <br>
+                <div class="row">
+                    <ol class="breadcrumb">
+                        <li><a href="/"><svg class="glyph stroked home"><use xlink:href="#stroked-home"></use></svg></a></li>
+                        <li><a href="/profil">Mon Profil</a></li>
+                        <li><a href="/profil">Modifier le département</a></li>
+                    </ol>
+                </div>
+
+            <div class="row">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">Modifier Mon Département</div>
+                        <div class="panel-body">
+                            {{ form_start(form) }}
+                            <div class="form_group">
+                                <div >
+                                    {{ form_widget(form) }}
+                                </div>
+                            </div>
+                            <input type="submit" class="btn btn-primary" value="Enregistrer" />
+                            {{ form_end(form) }}
+                        </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    {% block javascripts %}
+        {{ parent() }}
+    {% endblock %}
+
+{% endblock %}

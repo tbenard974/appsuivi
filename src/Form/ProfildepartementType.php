@@ -1,8 +1,8 @@
 <?php
-// src/Form/ProfilType.php
+// src/Form/ProfildepartementType.php
 namespace App\Form;
+use App\Entity\Departement;
 use App\Entity\Sport;
-
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormEvents;
@@ -14,18 +14,18 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use App\Entity\Utilisateur;
 
 
-class ProfilType extends AbstractType
+class ProfildepartementType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('utiSport', EntityType::class, array(
-                'class' =>Sport::class,
-                'choice_label' => 'spoNom',
+            ->add('utiDepartement', EntityType::class, array(
+                'class' =>Departement::class,
+                'choice_label' => 'depNom',
                 // used to render a select box, check boxes or radios
                 'multiple' => false,
                 'expanded' => false,
-                'label' => 'Sport',
+                'label' => 'Departement',
                 'mapped' => false,
             ));
     }     

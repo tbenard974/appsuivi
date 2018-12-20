@@ -61,6 +61,12 @@
                             </div>
                             <br>
                             <div>
+                                {{ form_label(form.autreLocalisation, "La localisation n\'est pas dans la liste ? Ajoute-la ici") }}
+                                {{ form_errors(form.autreLocalisation) }}
+                                {{ form_widget(form.autreLocalisation) }}
+                            </div>
+                            <br>
+                            <div>
                                 {{ form_label(form.perLieu, "Précision sur le lieu") }}
                                 {{ form_errors(form.perLieu) }}
                                 {{ form_widget(form.perLieu) }}

@@ -69,6 +69,10 @@ class PerformanceType extends AbstractType
                 'placeholder' => '--choisir--',
                 'required' => false,
             ))
+            ->add('autreLocalisation', TextType::class, array(
+                'mapped' => false,
+                'required' => false,
+            ))
             ->add('epreuve', ChoiceType::class, array(
                 'mapped' => false,
                 'choices' => $options['filteredEpreuve'],

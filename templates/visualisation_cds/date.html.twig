@@ -41,51 +41,48 @@
                                         <tr>
                                             <th>Nom</th>
                                             <th>Prénom</th>
-                                            <th>Type compétition</th>
-                                            <th>Echelle compétition</th>
-                                            <th>Localisation compétition</th>
                                             <th>Sport</th>
+                                            <th>Compétition</th>
+                                            <th>Localisation</th>
                                             <th>Epreuve</th>
                                             <th>Catégorie</th>
-                                            <th>Importance</th>
+                                            <th>Objectif</th>
                                             <th>Date début</th>
                                             <th>Date fin</th>
-                                            <th>Lieu</th>
                                             <th>Résultat</th>
                                             <th>Ressenti</th>
+                                            <th>Photos</th>
                                          </tr>
                                         {% for performance in allPerf %}
-                                            <tr>
-                                                {% if performance.perDatedebut|date('Y-m-d') > datedebut|date('Y-m-d') %}
-                                                    {% if performance.perDatedebut|date('Y-m-d') < datefin|date('Y-m-d') %}
-                                                        <td><a href="/profil/{{ performance.perFkutilisateur.utiId }}">{{ performance.perFkutilisateur.utiNom }}</a></td>
-                                                        <td><a href="/profil/{{ performance.perFkutilisateur.utiId }}">{{ performance.perFkutilisateur.utiPrenom }}</a></td>
-                                                        <td>{{ performance.perFktypecompetition.typcomNom }}</td>
-                                                        <td>{{ performance.perFkechellecompetition.echcomNom }}</td>
-                                                        <td>{{ performance.perFklocalisationcompetition.loccomNom }}</td>
-                                                        <td>{{ performance.perFkjointuresport.joispoFksport.spoNom }}</td>
-                                                        <td>{{ performance.perFkjointuresport.joispoFkepreuve.eprNom }}</td>
-                                                        <td>{{ performance.perFkjointuresport.joispoFkcategorie.catNom }}</td>
-                                                        <td>{% if performance.perImportance == 1 %}
-                                                                {{ "Forte" }}
-                                                            {% else %}
-                                                                {{ "Basse" }}
-                                                            {% endif %}
-                                                        </td>
-                                                        <td>{{ performance.perDatedebut|date("d/m/Y") }}</td>
-                                                        <td>{{ performance.perDatefin|date("d/m/Y") }}</td>
-                                                        <td>{{ performance.perLieu }}</td>
-                                                        <td>
-                                                        {% if performance.perFkresultat == null %}
-                                                            {{ "Non renseigné" }}
+                                            {% if performance.perFkjointuresport != null %}
+                                                <tr>
+                                                    <td><a href="/profil/{{ performance.perFkutilisateur.utiId }}">{{ performance.perFkutilisateur.utiNom }}</a></td>
+                                                    <td><a href="/profil/{{ performance.perFkutilisateur.utiId }}">{{ performance.perFkutilisateur.utiPrenom }}</a></td>
+                                                    <td>{{ performance.perFkjointuresport.joispoFksport.spoNom }}</td>
+                                                    <td>{{ performance.perFktypecompetition.typcomNom }}</td>
+                                                    <td>{{ performance.perFklocalisationcompetition.loccomNom }}</td>
+                                                    <td>{{ performance.perFkjointuresport.joispoFkepreuve.eprNom }}</td>
+                                                    <td>{{ performance.perFkjointuresport.joispoFkcategorie.catNom }}</td>
+                                                    <td>{% if performance.perImportance == 1 %}
+                                                            {{ "Saison" }}
                                                         {% else %}
-                                                            {{ performance.perFkresultat.resNom }}
-                                                        {% endif %}</td>
-                                                        <td>{{ performance.perRessenti }}</td>
-                                                    {% endif %}
-                                                {% endif %}
-                                        </tr>
-                                    {% endfor %}
+                                                            {{ "Intermédiaire" }}
+                                                        {% endif %}
+                                                    </td>
+                                                    <td>{{ performance.perDatedebut|date("d/m/Y") }}</td>
+                                                    <td>{{ performance.perDatefin|date("d/m/Y") }}</td>
+                                                    <td>
+                                                    {% if performance.perFkresultat == null %}
+                                                        {{ "Non renseigné" }}
+                                                    {% else %}
+                                                        {{ performance.perFkresultat.resNom }}
+                                                    {% endif %}</td>
+                                                    <td>{{ performance.perRessenti }}</td>
+
+                                                    <td><p data-placement="top" data-toggle="tooltip" title="Voir"><button  onclick="location.href='/visualisation/performance/photos/{{ performance.perId }}';" class="btn btn-warning btn-xs" data-title="Edit" data-toggle="modal" data-target="View" ><span class="glyphicon glyphicon-search"></span></button></p></td>
+                                                </tr>
+                                            {% endif %}
+                                        {% endfor %}
                                     </thead>
                                 </table>
                             </div>

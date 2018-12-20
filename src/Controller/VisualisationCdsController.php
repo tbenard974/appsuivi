@@ -49,6 +49,7 @@ class VisualisationCdsController extends AbstractController
         $allFiles = $this->getDoctrine()->getRepository(Fichier::class)->findByFicFkperformance($idPerformance); //->findByPerFkutilisateur($utilisateur);
 
             return $this->render('/visualisation_cds/visualiserPerformanceCdsPhotos.html.twig', array(
+                'idPerformance' => $idPerformance,
                 'allFiles' => $allFiles,
                 'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
         ));

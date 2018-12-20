@@ -8,33 +8,36 @@
  {{ parent() }}
     {% if app.user != null %}
         <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+            <br>
             <div class="row">
                 <ol class="breadcrumb">
                     <li><a href="/"><svg class="glyph stroked home"><use xlink:href="#stroked-home"></use></svg></a></li>
+                    <li><a href="/visualisation/performance/cds">Toutes les performances</a></li>
+
                 </ol>
              </div>
 
-            <div class="row">
+            {#<div class="row">
                 <div class="col-lg-12">
                     <h1 class="page-header">Toutes les performances</h1>
                 </div>
-            </div><!--/.row-->
+            </div><!--/.row-->#}
              
 
 
             {% if allPerf == null %}
-                <p> Aucun évènement de prévu </p>
+                <p> Aucune performance </p>
             {% endif %}
             {% if allPerf != null %}
                 <div class="row">
                     <div>
                         <div class="panel panel-default">
+                            <br/>
+                            <a href="/visualisation/performance/cds/sportdate"> <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-filter"></span>Filtrer par sport et date</button></a>
+                            <a href="/telechargement/cds/performances"> <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-download-alt"></span>Télécharger les performances</button></a>
 
-                            <a href="/visualisation/performance/cds/sport" class="btn btn-primary">Filtrer par sport</a>
-                            <a href="/visualisation/performance/cds/date" class="btn btn-primary">Filtrer par date</a>
-                            <a href="/visualisation/performance/cds/sportdate" class="btn btn-primary">Filtrer par sport et date</a>
-                            <a href="/telechargement/cds/performances" class="btn btn-primary">Télécharger les performances</a>
-                            <div class="panel-heading">Performances des Sportifs</div>
+
+                            <div class="panel-heading">Performances des sportifs</div>
                             <div class="table-responsive">
                                 <table class="table" data-toggle="table"   data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="toolbar1" data-pagination="true" data-sort-name="name" data-sort-order="desc">
                                     <thead>
@@ -92,8 +95,9 @@
             {% endif  %}
         </div>
     {% endif %} 
-{% block javascripts %}
-    {{ parent() }}
-{% endblock %}
+    {% block javascripts %}
+        {{ parent() }}
+    {% endblock %}
+
 {% endblock %}
 

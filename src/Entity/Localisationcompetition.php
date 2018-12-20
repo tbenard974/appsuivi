@@ -141,5 +141,20 @@ class Localisationcompetition
         return $this;
     }
 
+    public function setUpdateFields($username)
+    {
+        $this->setLoccomDatechangement(new \DateTime(date('Y-m-d H:i:s')));
+        $this->setLoccomAuteurchangement($username);
+
+        if($this->getLoccomDatecreation() == null)
+        {
+            $this->setLoccomDatecreation(new \DateTime(date('Y-m-d H:i:s')));
+        }
+        if($this->getLoccomAuteurcreation() == null)
+        {
+            $this->setLoccomAuteurcreation($username);
+        }
+    }
+
 
 }

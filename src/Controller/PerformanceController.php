@@ -228,6 +228,27 @@ class PerformanceController extends AbstractController
 			$sport = $utilisateur->getUtiFksport();
             $epreuve = $form->get('epreuve')->getData();
             $categorie = $form->get('categorie')->getData();
+
+            if ($form->get('autreLocalisation')->getData() != null){
+                $nomLocalisation = $form->get('autreLocalisation')->getData();
+                $nomLocalisation = strtolower($nomLocalisation);
+                $nomLocalisation = preg_replace('/[éèëê]+/', 'e', $nomLocalisation);
+				//$nomEpreuve = preg_replace('/[a]+/', 'z', $nomEpreuve);
+				//$nomEpreuve = preg_replace('!\s+!', ' ', $nomEpreuve);
+				$nomLocalisation = strtoupper($nomLocalisation);
+				$findLocalisation = $this->getDoctrine()->getRepository(Localisationcompetition::class)->findOneByLoccomNom($nomLocalisation);
+				if ( $findLocalisation == null){
+					$localisation = new Localisationcompetition();
+					$localisation->setLoccomNom($nomLocalisation);
+                    $localisation->setUpdateFields($utilisateur->getUtiEmail());
+                    $localisation->setLoccomType($echelleCompetition->getEchcomType());
+                    $entityManager->persist($localisation);
+                    $performance->setPerFklocalisationcompetition($localisation);
+				}
+				else {
+					$localisation = $findLocalisation;
+				}
+            }
 			
             if ($form->get('autreEpreuve')->getData() != null){
                 $nomEpreuve = $form->get('autreEpreuve')->getData();

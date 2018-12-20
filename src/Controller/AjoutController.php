@@ -5,6 +5,7 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Typecompetition;
+use App\Entity\Departement;
 use App\Entity\Echellecompetition;
 use App\Entity\Utilisateur;
 use App\Entity\Epreuve;
@@ -14,6 +15,7 @@ use App\Entity\Sport;
 use App\Entity\Niveaulisteministerielle;
 use App\Form\AjouttypeType;
 use App\Form\AjoutcategorieType;
+use App\Form\AjoutdepartementType;
 use App\Form\AjoutechelleType;
 use App\Form\AjoutepreuveType;
 use App\Form\AjoutsportType;
@@ -49,13 +51,78 @@ class AjoutController extends AbstractController
 
             $entityManager->persist($typecompet);
             $entityManager->flush();
-            return $this->redirectToRoute('administration');
+            return $this->redirectToRoute('administrationtypecompetition');
         }
 
         return $this->render('ajout/ajout.html.twig', [
             'form' => $form->createView(),
         ]);
     }
+
+    /**
+     * @Route("/ajout/departement", name="ajoutDepartement")
+     */
+
+    public function ajoutDepartement(Request $request)
+    {
+        $user_email = $this->getUser()->getEmail();
+        $utilisateur = $this->getDoctrine()->getRepository(Utilisateur::class)->findOneByUtiEmail($user_email);
+        $departement = new Departement();
+        $form = $this->createForm(AjoutdepartementType::class, $departement);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $departement = $form->getData();
+            $entityManager = $this->getDoctrine()->getManager();
+            
+            $nomDepartement = $form->get('depNom')->getData();
+            
+            $departement->setDepNom($nomDepartement);
+            $departement->setUpdateFields($utilisateur->getUtiNom());
+
+            $entityManager->persist($departement);
+            $entityManager->flush();
+            return $this->redirectToRoute('administrationdepartement');
+        }
+
+        return $this->render('ajout/ajout.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/supprimer/departement/{idDepartement}", name="supprimerDepartement")
+     */
+    public function supprimerDepartement(Request $request, $idDepartement)
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        
+        $departement = $this->getDoctrine()->getRepository(\App\Entity\Departement::class)->findOneByDepId($idDepartement);
+        $existe = $this->getDoctrine()->getRepository(\App\Entity\Utilisateur::class)->findByUtiFkdepartement($departement);
+        
+        if ($existe == null){
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($departement);
+            $entityManager->flush();
+            return $this->redirectToRoute('administrationdepartement');
+        }
+        else{
+            return $this->redirectToRoute('impossiblesupprimerdepartement');
+        }
+    }
+
+    /**
+     * @Route("impossible/supprimer/departement", name="impossiblesupprimerdepartement")
+     */
+    public function impossiblesupprimerdepartement()
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+        return $this->render('impossible/supprimerdepartement.html.twig');
+
+    }
+        
 
      /**
      * @Route("/supprimer/typecompetition/{idType}", name="supprimerTypecompet")
@@ -72,7 +139,7 @@ class AjoutController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($typecompet);
             $entityManager->flush();
-            return $this->redirectToRoute('administration');
+            return $this->redirectToRoute('administrationtypecompetition');
         }
         else{
             return $this->redirectToRoute('impossiblesupprimertypecompetition');
@@ -121,7 +188,7 @@ class AjoutController extends AbstractController
 
             $entityManager->persist($echellecompet);
             $entityManager->flush();
-            return $this->redirectToRoute('administration');
+            return $this->redirectToRoute('administrationechellecompetition');
         }
 
         return $this->render('ajout/ajout.html.twig', [
@@ -143,7 +210,7 @@ class AjoutController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($echellecompet);
             $entityManager->flush();
-        return $this->redirectToRoute('administration');
+        return $this->redirectToRoute('administrationechellecompetition');
         }
         else{
             return $this->redirectToRoute('impossiblesupprimerechellecompetition');
@@ -195,7 +262,7 @@ class AjoutController extends AbstractController
             $entityManager->persist($epreuve);
             $entityManager->persist($sport);
             $entityManager->flush();
-            return $this->redirectToRoute('administration');
+            return $this->redirectToRoute('administrationepreuve');
         }
 
         return $this->render('ajout/ajout.html.twig', [
@@ -216,7 +283,7 @@ class AjoutController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->remove($jointure);
         $entityManager->flush();
-        return $this->redirectToRoute('administration');
+        return $this->redirectToRoute('administrationepreuve');
     }
 
     /**
@@ -252,7 +319,7 @@ class AjoutController extends AbstractController
             $entityManager->persist($categorie);
             $entityManager->persist($sport);
             $entityManager->flush();
-            return $this->redirectToRoute('administration');
+            return $this->redirectToRoute('administrationcategorie');
         }
 
         return $this->render('ajout/ajout.html.twig', [
@@ -274,7 +341,7 @@ class AjoutController extends AbstractController
         //$entityManager->remove($categorie);
         $entityManager->remove($jointure);
         $entityManager->flush();
-        return $this->redirectToRoute('administration');
+        return $this->redirectToRoute('administrationcategorie');
     }
 
     /**
@@ -304,7 +371,7 @@ class AjoutController extends AbstractController
 
             $entityManager->persist($sport);
             $entityManager->flush();
-            return $this->redirectToRoute('administration');
+            return $this->redirectToRoute('administrationsport');
         }
 
         return $this->render('ajout/ajout.html.twig', [
@@ -323,7 +390,7 @@ class AjoutController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->remove($sport);
         $entityManager->flush();
-        return $this->redirectToRoute('administration');
+        return $this->redirectToRoute('administrationsport');
     }
 
     /**
@@ -353,7 +420,7 @@ class AjoutController extends AbstractController
 
             $entityManager->persist($niveauliste);
             $entityManager->flush();
-            return $this->redirectToRoute('administration');
+            return $this->redirectToRoute('administrationniveauliste');
         }
 
         return $this->render('ajout/ajout.html.twig', [
@@ -372,6 +439,6 @@ class AjoutController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->remove($niveauliste);
         $entityManager->flush();
-        return $this->redirectToRoute('administration');
+        return $this->redirectToRoute('administrationniveauliste');
     }
 }

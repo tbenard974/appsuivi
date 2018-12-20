@@ -7,6 +7,7 @@ use App\Entity\Echellecompetition;
 use App\Entity\Epreuve;
 use App\Entity\Niveaulisteministerielle;
 use App\Entity\Sport;
+use App\Entity\Departement;
 use App\Entity\Jointuresport;
 use App\Entity\Typecompetition;
 class AdministrationController extends AbstractController
@@ -19,6 +20,17 @@ class AdministrationController extends AbstractController
         $allTypecompetition = $this->getDoctrine()->getRepository(Typecompetition::class)->findBy(array(), array('typcomNom' => 'ASC'));
         return $this->render('administration/typecompetition.html.twig', [
             'allTypecompetition' => $allTypecompetition,
+        ]);
+    }
+
+    /**
+     * @Route("/administration/departement", name="administrationdepartement")
+     */
+    public function administrationdepartement()
+    {
+        $allDepartement = $this->getDoctrine()->getRepository(Departement::class)->findBy(array(), array('depNom' => 'ASC'));
+        return $this->render('administration/departement.html.twig', [
+            'allDepartement' => $allDepartement,
         ]);
     }
 
